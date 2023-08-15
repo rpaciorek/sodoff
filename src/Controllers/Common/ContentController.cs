@@ -231,11 +231,24 @@ public class ContentController : Controller {
     }
 
     [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetAvatar")] // used by World Of Jumpstart
+    public IActionResult GetAvatar([FromForm] string apiToken) {
+        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
+        if (viking is null || viking.AvatarSerialized is null) {
+            // TODO: result for invalid session
+            return Ok();
+        }
+        return Ok(viking.AvatarSerialized);
+    }
+
+    [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetAvatar")] // used by World Of Jumpstart
     [Route("V2/ContentWebService.asmx/SetAvatar")]
     [VikingSession]
     public IActionResult SetAvatar(Viking viking, [FromForm] string contentXML, [FromForm] string apiKey) {
-        if (apiKey != "e20150cc-ff70-435c-90fd-341dc9161cc3") { // allow write old avatar from Magic & Mythies
+        if (apiKey != "e20150cc-ff70-435c-90fd-341dc9161cc3" && apiKey != "1552008f-4a95-46f5-80e2-58574da65875") { // allow write old avatar from Magic & Mythies, World Of Jumpstart
             AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(contentXML);
             foreach (AvatarDataPart part in avatarData.Part) {
                 if (part.PartType == "Version") {
@@ -448,6 +461,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetSelectedRaisedPet")]
+    [Route("ContentWebService.asmx/GetCurrentPetByUserID")] // used by World Of Jumpstart
+    [Route("ContentWebService.asmx/GetActiveRaisedPet")] // used by World Of Jumpstart
     [VikingSession(UseLock=false)]
     public RaisedPetData[]? GetSelectedRaisedPet(Viking viking, [FromForm] string userId, [FromForm] bool isActive) {
         Dragon? dragon = viking.SelectedDragon;
@@ -886,6 +901,22 @@ public class ContentController : Controller {
 
         // NOTE: The game sets OverrideStateCriteria only if a speedup is used
         return Ok(roomService.NextItemState(item, request.OverrideStateCriteria));
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetDisplayNames")] // used by World Of Jumpstart
+    public IActionResult GetDisplayNames() {
+        // TODO: This is a placeholder
+        return Ok("<?xml version=\"1.0\" encoding=\"utf-8\"?> <DisplayNames xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"> <DisplayName> <ID>1</ID> <Name>Aaliyah</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>2</ID> <Name>Abby</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>3</ID> <Name>Adrian</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>261</ID> <Name>Alan</Name> <Ordinal>1</Ordinal> </DisplayName> </DisplayNames>");
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetScene")] // used by World Of Jumpstart
+    public IActionResult GetScene() {
+        // TODO: This is a placeholder
+        return Ok("<?xml version=\"1.0\" encoding=\"utf-8\"?><SceneData xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:nil=\"true\" />");
     }
 
     [HttpPost]
