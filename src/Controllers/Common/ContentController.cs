@@ -412,6 +412,37 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetRaisedPet")] // used by World Of Jumpstart
+    public IActionResult SetRaisedPetv1([FromForm] string apiToken, [FromForm] string raisedPetData) {
+        Console.WriteLine(string.Format("\n{0}", Request.Path));
+        foreach (var x in Request.Form)
+            Console.WriteLine(string.Format("{0}", x));
+        
+        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
+        if (viking is null) {
+            // TODO: result for invalid session
+            return Ok(false);
+        }
+
+        RaisedPetData petData = XmlUtil.DeserializeXml<RaisedPetData>(raisedPetData);
+
+        // Find the dragon
+        Dragon? dragon = viking.Dragons.FirstOrDefault(e => e.Id == petData.RaisedPetID);
+        if (dragon is null) {
+            return Ok(new SetRaisedPetResponse {
+                RaisedPetSetResult = RaisedPetSetResult.Invalid
+            });
+        }
+
+        dragon.RaisedPetData = XmlUtil.SerializeXml(UpdateDragon(dragon, petData));
+        ctx.Update(dragon);
+        ctx.SaveChanges();
+
+        return Ok(true);
+    }
+    
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/SetRaisedPet")] // used by Magic & Mythies
     [VikingSession]
     public IActionResult SetRaisedPetv2(Viking viking, [FromForm] string raisedPetData) {
