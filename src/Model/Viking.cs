@@ -25,4 +25,6 @@ public class Viking {
     public virtual ICollection<PairData> PairData { get; set; } = null!;
     public virtual Inventory Inventory { get; set; } = null!;
     public virtual Dragon? SelectedDragon { get; set; }
+
+    public string? ProductData { get; set; }
 }
