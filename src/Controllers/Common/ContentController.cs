@@ -325,7 +325,7 @@ public class ContentController : Controller {
         raisedPetData.IsSelected = false; // The api returns false, not sure why
         raisedPetData.CreateDate = new DateTime(DateTime.Now.Ticks);
         raisedPetData.UpdateDate = new DateTime(DateTime.Now.Ticks);
-        raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "Baby" };
+        raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "POWERUP" };
         int imageSlot = (viking.Images.Select(i => i.ImageSlot).DefaultIfEmpty(-1).Max() + 1);
         raisedPetData.ImagePosition = imageSlot;
         // NOTE: Placing an egg into a hatchery slot calls CreatePet, but doesn't SetImage.
@@ -697,9 +697,23 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserMissionState")] // used by Magic & Mythies
-    public IActionResult GetUserMissionStatev1([FromForm] string userId, [FromForm] string filter) {
+    public IActionResult GetUserMissionStatev1([FromForm] string userId, [FromForm] string filter, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+        if (viking is null)
+            return Ok("error");
+
+        UserMissionStateResult result = new UserMissionStateResult { Missions = new List<Mission>()  };
+        foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus == MissionStatus.Active)) {
+            Mission updatedMission = missionService.GetMissionWithProgress(mission.MissionId, viking.Id, apiKey);
+            if (mission.UserAccepted != null)
+                updatedMission.Accepted = (bool)mission.UserAccepted;
+            result.Missions.Add(updatedMission);
+        }
+
+        result.UserID = Guid.Parse(viking.Id);
+
         // TODO: This is a placeholder
-        return Ok(new UserMissionStateResult { Missions = new List<Mission>()  });
+        return Ok(result);
     }
 
     [HttpPost]
@@ -732,6 +746,27 @@ public class ContentController : Controller {
         return Ok(result);
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetTaskState")] // used by World Of Jumpstart
+    public IActionResult SetTaskStatev1([FromForm] string apiToken, [FromForm] string userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
+        Session? session = ctx.Sessions.FirstOrDefault(s => s.ApiToken == apiToken);
+        if (session is null || session.VikingId != userId)
+            return Ok(new SetTaskStateResult { Success = false, Status = SetTaskStateStatus.Unknown });
+
+        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, userId, completed, xmlPayload, apiKey);
+
+        SetTaskStateResult taskResult = new SetTaskStateResult {
+            Success = true,
+            Status = SetTaskStateStatus.TaskCanBeDone,
+        };
+
+        if (results.Count > 0)
+            taskResult.MissionsCompleted = results.ToArray();
+
+        return Ok(taskResult);
+    }
+    
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/SetTaskState")]
