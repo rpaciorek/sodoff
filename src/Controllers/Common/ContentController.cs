@@ -305,6 +305,52 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/CreateRaisedPet")] // used by World Of Jumpstart
+    public RaisedPetData? CreateRaisedPet([FromForm] string apiToken, int petTypeID) {
+        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
+        if (viking is null) {
+            // TODO: result for invalid session
+            return null;
+        }
+
+        // Update the RaisedPetData with the info
+        String dragonId = Guid.NewGuid().ToString();
+        
+        var raisedPetData = new RaisedPetData();
+        raisedPetData.IsPetCreated = true;
+        raisedPetData.PetTypeID = petTypeID;
+        raisedPetData.RaisedPetID = 0; // Initially make zero, so the db auto-fills
+        raisedPetData.EntityID = Guid.Parse(dragonId);
+        raisedPetData.Name = string.Concat("Dragon-", dragonId.AsSpan(0, 8)); // Start off with a random name
+        raisedPetData.IsSelected = false; // The api returns false, not sure why
+        raisedPetData.CreateDate = new DateTime(DateTime.Now.Ticks);
+        raisedPetData.UpdateDate = new DateTime(DateTime.Now.Ticks);
+        raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "Baby" };
+        int imageSlot = (viking.Images.Select(i => i.ImageSlot).DefaultIfEmpty(-1).Max() + 1);
+        raisedPetData.ImagePosition = imageSlot;
+        // NOTE: Placing an egg into a hatchery slot calls CreatePet, but doesn't SetImage.
+        // NOTE: We need to force create an image slot because hatching multiple eggs at once would create dragons with the same slot
+        Image image = new Image {
+            ImageType = "EggColor", // NOTE: The game doesn't seem to use anything other than EggColor.
+            ImageSlot = imageSlot,
+            Viking = viking,
+        };
+        // Save the dragon in the db
+        Dragon dragon = new Dragon {
+            EntityId = Guid.NewGuid().ToString(),
+            Viking = viking,
+            RaisedPetData = XmlUtil.SerializeXml(raisedPetData),
+        };
+
+        ctx.Dragons.Add(dragon);
+        ctx.Images.Add(image);
+        ctx.SaveChanges();
+        
+        return GetRaisedPetDataFromDragon(dragon);
+    }
+    
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/CreatePet")]
     [VikingSession]
     public IActionResult CreatePet(Viking viking, [FromForm] string request) {
@@ -486,9 +532,32 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.asmx/GetSelectedRaisedPet")]
     [Route("ContentWebService.asmx/GetCurrentPetByUserID")] // used by World Of Jumpstart
+    public PetData? GetCurrentPetByUserID([FromForm] string apiToken, [FromForm] string userId, [FromForm] bool isActive) {
+        Console.WriteLine(string.Format("\n{0}", Request.Path));
+        foreach (var x in Request.Form)
+            Console.WriteLine(string.Format("{0}", x));
+        
+        // TODO WoJS placeholder
+        
+        return null;
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetActiveRaisedPet")] // used by World Of Jumpstart
+    public RaisedPetData[] GetActiveRaisedPet(Viking viking, [FromForm] string userId, [FromForm] bool isActive) {
+        Dragon? dragon = viking.SelectedDragon;
+        if (dragon is null) {
+            return new RaisedPetData[0];
+        }
+
+        return new RaisedPetData[] {GetRaisedPetDataFromDragon(dragon)};
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetSelectedRaisedPet")]
     [VikingSession(UseLock=false)]
     public RaisedPetData[]? GetSelectedRaisedPet(Viking viking, [FromForm] string userId, [FromForm] bool isActive) {
         Dragon? dragon = viking.SelectedDragon;
