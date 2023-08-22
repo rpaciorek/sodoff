@@ -29,6 +29,24 @@ public class ContentController : Controller {
     }
 
     [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetRaisedPetGrowthStates")] // used by World Of Jumpstart 1.1
+    public RaisedPetGrowthState[] GetRaisedPetGrowthStates()
+    {
+        return new RaisedPetGrowthState[] {
+            new RaisedPetGrowthState {GrowthStateID = 0, Name = "none"},
+            new RaisedPetGrowthState {GrowthStateID = 1, Name = "powerup"},
+            new RaisedPetGrowthState {GrowthStateID = 2, Name = "find"},
+            new RaisedPetGrowthState {GrowthStateID = 3, Name = "eggInHand"},
+            new RaisedPetGrowthState {GrowthStateID = 4, Name = "hatching"},
+            new RaisedPetGrowthState {GrowthStateID = 5, Name = "baby"},
+            new RaisedPetGrowthState {GrowthStateID = 6, Name = "child"},
+            new RaisedPetGrowthState {GrowthStateID = 7, Name = "teen"},
+            new RaisedPetGrowthState {GrowthStateID = 8, Name = "adult"},
+        };
+    }
+    
+    [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetProduct")] // used by World Of Jumpstart
     public string? GetProduct([FromForm] string apiToken)
@@ -344,6 +362,10 @@ public class ContentController : Controller {
 
         ctx.Dragons.Add(dragon);
         ctx.Images.Add(image);
+        
+        viking.SelectedDragon = dragon;
+        ctx.Update(viking);
+        
         ctx.SaveChanges();
         
         return GetRaisedPetDataFromDragon(dragon);
@@ -601,6 +623,18 @@ public class ContentController : Controller {
         };
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetInactiveRaisedPet")] // used by World Of Jumpstart
+    public RaisedPetData[] GetInactiveRaisedPet([FromForm] string apiToken) {
+        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
+        if (viking is null) {
+            return null;
+        }
+
+        return new RaisedPetData[0]; // FIXME should return real inactive pets list
+    }
+    
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetImage")]
@@ -1069,7 +1103,7 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetDisplayNames")] // used by World Of Jumpstart
     public IActionResult GetDisplayNames() {
         // TODO: This is a placeholder
-        return Ok("<?xml version=\"1.0\" encoding=\"utf-8\"?> <DisplayNames xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"> <DisplayName> <ID>1</ID> <Name>Aaliyah</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>2</ID> <Name>Abby</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>3</ID> <Name>Adrian</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>261</ID> <Name>Alan</Name> <Ordinal>1</Ordinal> </DisplayName> </DisplayNames>");
+        return Ok("<?xml version=\"1.0\" encoding=\"utf-8\"?> <DisplayNames xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"> <DisplayName> <ID>1</ID> <Name>Aaliyah</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>2</ID> <Name>Abby</Name> <Ordinal>2</Ordinal> </DisplayName> <DisplayName> <ID>3</ID> <Name>Adrian</Name> <Ordinal>3</Ordinal> </DisplayName>        <DisplayName> <ID>11</ID> <Name>Karen</Name> <Ordinal>2</Ordinal> </DisplayName> <DisplayName> <ID>12</ID> <Name>Luna</Name> <Ordinal>2</Ordinal> </DisplayName> <DisplayName> <ID>13</ID> <Name>Tori</Name> <Ordinal>2</Ordinal> </DisplayName></DisplayNames>");
     }
 
     [HttpPost]
