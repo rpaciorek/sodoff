@@ -292,7 +292,7 @@ public class ContentController : Controller {
     [Route("V2/ContentWebService.asmx/SetAvatar")]
     [VikingSession]
     public IActionResult SetAvatar(Viking viking, [FromForm] string contentXML, [FromForm] string apiKey) {
-        if (apiKey != "e20150cc-ff70-435c-90fd-341dc9161cc3" && apiKey != "1552008f-4a95-46f5-80e2-58574da65875") { // allow write old avatar from Magic & Mythies, World Of Jumpstart
+        if (apiKey != "e20150cc-ff70-435c-90fd-341dc9161cc3" && apiKey != "1552008f-4a95-46f5-80e2-58574da65875" && apiKey != "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // allow write old avatar from Magic & Mythies, World Of Jumpstart, Math Blaster
             AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(contentXML);
             foreach (AvatarDataPart part in avatarData.Part) {
                 if (part.PartType == "Version") {
@@ -1101,6 +1101,7 @@ public class ContentController : Controller {
     [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetDisplayNames")] // used by World Of Jumpstart
+    [Route("ContentWebService.asmx/GetDisplayNamesByCategoryID")] // used by Math Blaster
     public IActionResult GetDisplayNames() {
         // TODO: This is a placeholder
         return Ok("<?xml version=\"1.0\" encoding=\"utf-8\"?> <DisplayNames xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"> <DisplayName> <ID>1</ID> <Name>Aaliyah</Name> <Ordinal>1</Ordinal> </DisplayName> <DisplayName> <ID>2</ID> <Name>Abby</Name> <Ordinal>2</Ordinal> </DisplayName> <DisplayName> <ID>3</ID> <Name>Adrian</Name> <Ordinal>3</Ordinal> </DisplayName>        <DisplayName> <ID>11</ID> <Name>Karen</Name> <Ordinal>2</Ordinal> </DisplayName> <DisplayName> <ID>12</ID> <Name>Luna</Name> <Ordinal>2</Ordinal> </DisplayName> <DisplayName> <ID>13</ID> <Name>Tori</Name> <Ordinal>2</Ordinal> </DisplayName></DisplayNames>");
@@ -1481,6 +1482,31 @@ public class ContentController : Controller {
             RewardedItemStatsMap = rewardedItem,
             CommonInventoryResponse = rewardedBlueprint,
         });
+    }
+
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetPeriodicGameDataByGame")] // used by Math Blaster
+    public IActionResult GetPeriodicGameDataByGame() {
+        // TODO: This is a placeholder
+        return Ok(new GameDataSummary());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("MissionWebService.asmx/GetTreasureChest")] // used by Math Blaster
+    public IActionResult GetTreasureChest() {
+        // TODO: This is a placeholder
+        return Ok(new TreasureChestData());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("MissionWebService.asmx/GetWorldId")] // used by Math Blaster
+    public IActionResult GetWorldId() {
+        // TODO: This is a placeholder
+        return Ok(0);
     }
 
     private static RaisedPetData GetRaisedPetDataFromDragon (Dragon dragon, int? selectedDragonId = null) {

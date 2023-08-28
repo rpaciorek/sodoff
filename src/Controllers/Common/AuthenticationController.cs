@@ -109,6 +109,7 @@ public class AuthenticationController : Controller {
                 FacebookUserID = 0,
                 MultiplayerEnabled = false,
                 Age = 24,
+                IsApproved = true,
                 OpenChatEnabled = true
             });
         }
@@ -122,6 +123,7 @@ public class AuthenticationController : Controller {
                 Username = viking.Name,
                 MultiplayerEnabled = false,
                 Age = 24,
+                IsApproved = true,
                 OpenChatEnabled = true
             });
         }
