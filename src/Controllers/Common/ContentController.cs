@@ -49,27 +49,19 @@ public class ContentController : Controller {
     [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetProduct")] // used by World Of Jumpstart
-    public string? GetProduct([FromForm] string apiToken)
-    {
-        Viking? user = ctx.Sessions.FirstOrDefault(x => x.ApiToken == apiToken)?.Viking;
-        if (user is null)
-            return string.Empty;
-
-        return user.ProductData;
+    [VikingSession(UseLock=false)]
+    public string? GetProduct(Viking viking) {
+        return viking.ProductData;
     }
 
     [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/SetProduct")] // used by World Of Jumpstart
-    public string? SetProduct([FromForm] string apiToken, [FromForm] string contentXml)
-    {
-        Viking? child = ctx.Sessions.FirstOrDefault(x => x.ApiToken == apiToken)?.Viking;
-        if (child is null)
-            return string.Empty;
-
-        child.ProductData = contentXml;
+    [VikingSession]
+    public string? SetProduct(Viking viking, [FromForm] string contentXml) {
+        viking.ProductData = contentXml;
         ctx.SaveChanges();
-        return child.ProductData;
+        return viking.ProductData;
     }
 
     [HttpPost]
@@ -277,12 +269,8 @@ public class ContentController : Controller {
     [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetAvatar")] // used by World Of Jumpstart
-    public IActionResult GetAvatar([FromForm] string apiToken) {
-        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
-        if (viking is null || viking.AvatarSerialized is null) {
-            // TODO: result for invalid session
-            return Ok();
-        }
+    [VikingSession(UseLock=false)]
+    public IActionResult GetAvatar(Viking viking) {
         return Ok(viking.AvatarSerialized);
     }
 
@@ -324,13 +312,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/CreateRaisedPet")] // used by World Of Jumpstart
-    public RaisedPetData? CreateRaisedPet([FromForm] string apiToken, int petTypeID) {
-        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
-        if (viking is null) {
-            // TODO: result for invalid session
-            return null;
-        }
-
+    [VikingSession]
+    public RaisedPetData? CreateRaisedPet(Viking viking, int petTypeID) {
         // Update the RaisedPetData with the info
         String dragonId = Guid.NewGuid().ToString();
         
@@ -435,17 +418,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetRaisedPet")] // used by World Of Jumpstart
-    public IActionResult SetRaisedPetv1([FromForm] string apiToken, [FromForm] string raisedPetData) {
-        Console.WriteLine(string.Format("\n{0}", Request.Path));
-        foreach (var x in Request.Form)
-            Console.WriteLine(string.Format("{0}", x));
-        
-        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
-        if (viking is null) {
-            // TODO: result for invalid session
-            return Ok(false);
-        }
-
+    [VikingSession]
+    public IActionResult SetRaisedPetv1(Viking viking, [FromForm] string raisedPetData) {
         RaisedPetData petData = XmlUtil.DeserializeXml<RaisedPetData>(raisedPetData);
 
         // Find the dragon
@@ -586,7 +560,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetCurrentPetByUserID")] // used by World Of Jumpstart
-    public PetData? GetCurrentPetByUserID([FromForm] string apiToken, [FromForm] string userId, [FromForm] bool isActive) {
+    [VikingSession(UseLock=false)]
+    public PetData? GetCurrentPetByUserID(Viking viking, [FromForm] string userId, [FromForm] bool isActive) {
         Console.WriteLine(string.Format("\n{0}", Request.Path));
         foreach (var x in Request.Form)
             Console.WriteLine(string.Format("{0}", x));
@@ -599,6 +574,7 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetActiveRaisedPet")] // used by World Of Jumpstart
+    [VikingSession(UseLock=false)]
     public RaisedPetData[] GetActiveRaisedPet(Viking viking, [FromForm] string userId, [FromForm] bool isActive) {
         Dragon? dragon = viking.SelectedDragon;
         if (dragon is null) {
@@ -626,12 +602,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetInactiveRaisedPet")] // used by World Of Jumpstart
-    public RaisedPetData[] GetInactiveRaisedPet([FromForm] string apiToken) {
-        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
-        if (viking is null) {
-            return null;
-        }
-
+    [VikingSession(UseLock=false)]
+    public RaisedPetData[] GetInactiveRaisedPet(Viking viking) {
         return new RaisedPetData[0]; // FIXME should return real inactive pets list
     }
     
@@ -814,10 +786,10 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetTaskState")] // used by World Of Jumpstart
-    public IActionResult SetTaskStatev1([FromForm] string apiToken, [FromForm] string userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
-        Session? session = ctx.Sessions.FirstOrDefault(s => s.ApiToken == apiToken);
-        if (session is null || session.VikingId != userId)
-            return Ok(new SetTaskStateResult { Success = false, Status = SetTaskStateStatus.Unknown });
+    [VikingSession]
+    public IActionResult SetTaskStatev1(Viking viking, [FromForm] string userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
+        if (viking.Id != userId)
+            return Unauthorized("Can't set not owned task");
 
         List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, userId, completed, xmlPayload, apiKey);
 
