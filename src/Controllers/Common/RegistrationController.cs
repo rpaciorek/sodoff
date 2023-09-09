@@ -51,7 +51,7 @@ public class RegistrationController : Controller {
     [Route("v3/RegistrationWebService.asmx/RegisterParent")]
     [DecryptRequest("parentRegistrationData")]
     [EncryptResponse]
-    public IActionResult RegisterParent() {
+    public IActionResult RegisterParent([FromForm] string apiKey) {
         ParentRegistrationData data = XmlUtil.DeserializeXml<ParentRegistrationData>(Request.Form["parentRegistrationData"]);
         User u = new User {
             Id = Guid.NewGuid().ToString(),
@@ -66,6 +66,19 @@ public class RegistrationController : Controller {
         }
 
         ctx.Users.Add(u);
+
+        if(apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // Math Blaster
+            Viking v = new Viking {
+                Id = Guid.NewGuid().ToString(),
+                Name = data.ChildList[0].ChildName,
+                User = u,
+                Inventory = new Inventory { InventoryItems = new List<InventoryItem>() },
+                AchievementPoints = new List<AchievementPoints>(),
+                Rooms = new List<Room>()
+            };
+            ctx.Vikings.Add(v);
+        }
+
         ctx.SaveChanges();
 
         ParentLoginInfo pli = new ParentLoginInfo {

@@ -38,7 +38,7 @@ public class AuthenticationController : Controller {
 
         // Authenticate the user
         User? user = null;
-        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875") { // World Of JumpStart
+        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875" || apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // World Of JumpStart, Math Blaster
             user = ctx.Users.FirstOrDefault(e => e.Email == data.UserName);
         } else {
             user = ctx.Users.FirstOrDefault(e => e.Username == data.UserName);
