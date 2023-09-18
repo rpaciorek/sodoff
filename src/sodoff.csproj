@@ -16,6 +16,7 @@
     <None Remove="Resources\achievementtaskinfo.xml" />
     <None Remove="Resources\items.xml" />
     <None Remove="Resources\missions.xml" />
+    <None Remove="Resources\mmo.xml" />
     <None Remove="Resources\rankattrib.xml" />
     <None Remove="Resources\rewardmultiplier.xml" />
     <None Remove="Resources\store.xml" />
@@ -23,6 +24,7 @@
     <None Remove="Resources\achievementsids.xml" />
     <None Remove="Resources\achievementstasks.xml" />
     <None Remove="Resources\defaultmissionlist.xml" />
+    <None Remove="Resources\defaultmissionlistv1.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Resources\childlist.xml">
@@ -48,6 +50,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\mmo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\rewardmultiplier.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -79,6 +84,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
     <EmbeddedResource Include="Resources\defaultmissionlist.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+    <EmbeddedResource Include="Resources\defaultmissionlistv1.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
   </ItemGroup>

@@ -23,8 +23,11 @@ public class ProfileController : Controller {
         // NOTE: this is public info (for mmo) - no session check
 
         Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
-        if (viking is null)
-            return Conflict("Viking not found");
+        if (viking is null) {
+            return Ok(new UserProfileData());
+            // NOTE: do not return `Conflict("Viking not found")` due to client side error handling
+            //       (not Ok response cause soft-lock client - can't close error message)
+        }
 
         return Ok(GetProfileDataFromViking(viking, apiKey));
     }
@@ -105,11 +108,26 @@ public class ProfileController : Controller {
         return Ok("<?xml version='1.0' encoding='UTF-8'?><ArrayOfProfileTag xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:nil=\"true\"/>");
     }
     
-    private UserProfileData GetProfileDataFromViking(Viking viking, string apiKey) {
+    private UserProfileData GetProfileDataFromViking(Viking viking, [FromForm] string apiKey) {
         // Get the avatar data
         AvatarData avatarData = null;
         if (viking.AvatarSerialized is not null) {
             avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+            avatarData.Id = viking.Inventory.Id;
+        }
+
+        if (avatarData != null && (apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013")) {
+            if (avatarData.Part.FirstOrDefault(e => e.PartType == "Sword") is null) {
+                var extraParts = new AvatarDataPart[] {
+                    new AvatarDataPart {
+                        PartType = "Sword",
+                        Geometries = new string[] {"NULL"},
+                        Textures = new string[] {"__EMPTY__"},
+                        UserInventoryId = null,
+                    }
+                };
+                avatarData.Part = extraParts.Concat(avatarData.Part).ToArray();
+            }
         }
 
         if (avatarData != null && (apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013")) {
@@ -135,7 +153,7 @@ public class ProfileController : Controller {
                 ParentUserID = viking.UserId,
                 Username = viking.Name,
                 FirstName = viking.Name,
-                MultiplayerEnabled = false,
+                MultiplayerEnabled = (apiKey != "a1a13a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a2a09a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a3a12a0a-7c6e-4e9b-b0f7-22034d799013"),
                 Locale = "en-US", // placeholder
                 GenderID = Gender.Male, // placeholder
                 OpenChatEnabled = true,

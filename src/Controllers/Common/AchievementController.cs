@@ -92,8 +92,8 @@ public class AchievementController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("AchievementWebService.asmx/GetUserAchievementInfo")]
-    public IActionResult GetUserAchievementInfo([FromForm] string apiToken) { // used by World Of Jumpstart
+    [Route("AchievementWebService.asmx/GetUserAchievementInfo")] // used by World Of Jumpstart
+    public IActionResult GetUserAchievementInfo([FromForm] string apiToken) {
         Viking? viking = ctx.Sessions.FirstOrDefault(x => x.ApiToken == apiToken).Viking;
         
         if (viking != null) {
@@ -209,7 +209,7 @@ public class AchievementController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("AchievementWebService.asmx/SetAchievementByEntityIDs")]
-    [VikingSession]
+    [VikingSession(UseLock=true)]
     public IActionResult SetAchievementByEntityIDs(Viking viking, [FromForm] int achievementID, [FromForm] string petIDs) {
         Guid[] petGuids = XmlUtil.DeserializeXml<Guid[]>(petIDs);
 

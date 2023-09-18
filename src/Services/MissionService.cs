@@ -18,8 +18,14 @@ public class MissionService {
 
     public Mission GetMissionWithProgress(int missionId, string userId, string apiKey) {
         Mission mission;
-        if (missionId == 999 && (apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013" || apiKey == "a2a09a0a-7c6e-4e9b-b0f7-22034d799013")) { // TODO This is not a pretty solution with hard-coded values.
+        if (missionId == 999 && apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013") { // TODO This is not a pretty solution with hard-coded values.
             mission = missionStore.GetMission(10999);
+            mission.MissionID = 999;
+        } else if (missionId == 999 && apiKey == "a2a09a0a-7c6e-4e9b-b0f7-22034d799013") {
+            mission = missionStore.GetMission(20999);
+            mission.MissionID = 999;
+        } else if (missionId == 999 && apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
+            mission = missionStore.GetMission(30999);
             mission.MissionID = 999;
         } else {
             mission = missionStore.GetMission(missionId);
@@ -48,7 +54,19 @@ public class MissionService {
                 Viking viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId)!;
                 MissionState? missionState = viking.MissionStates.FirstOrDefault(x => x.MissionId == missionId);
                 if (missionState != null && missionState.MissionStatus == MissionStatus.Active) {
-                    missionState.MissionStatus = MissionStatus.Completed;
+                    if (mission.Repeatable) {
+                        // NOTE: This won't work if repeatable mission use sub-missions, but SoD doesn't have those repeatable mission
+                        // NOTE: Repeatable missions needs re-login to work correctly (this looks like og bug)
+                        //       probably due to client-side cache of task payload / status
+                        var taskStatuses = ctx.TaskStatuses.Where(e => e.VikingId == userId && e.MissionId == missionId);
+                        foreach (var task in taskStatuses) {
+                            task.Payload = null;
+                            task.Completed = false;
+                        }
+                        missionState.MissionStatus = MissionStatus.Upcoming;
+                    } else {
+                        missionState.MissionStatus = MissionStatus.Completed;
+                    }
                     missionState.UserAccepted = null;
                 }
                 var rewards = achievementService.ApplyAchievementRewards(viking, mission.Rewards.ToArray());
@@ -94,16 +112,17 @@ public class MissionService {
             mission.Completed = 1;
     }
 
-    public void SetUpMissions(Viking viking) {
+    public void SetUpMissions(Viking viking, string apiKey) {
         viking.MissionStates = new List<MissionState>();
-        foreach (int m in missionStore.GetActiveMissions()) {
+
+        foreach (int m in missionStore.GetActiveMissions(apiKey)) {
             viking.MissionStates.Add(new MissionState {
                 MissionId = m,
                 MissionStatus = MissionStatus.Active
             });
         }
         
-        foreach (int m in missionStore.GetUpcomingMissions()) {
+        foreach (int m in missionStore.GetUpcomingMissions(apiKey)) {
             viking.MissionStates.Add(new MissionState {
                 MissionId = m,
                 MissionStatus = MissionStatus.Upcoming
