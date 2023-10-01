@@ -68,21 +68,23 @@ public class RegistrationController : Controller {
         }
         else if (ctx.Users.Count(e => e.Username== u.Username) > 0) {
             return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateUserName });
-        }  
+        }
 
         ctx.Users.Add(u);
 
-        if(apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // Math Blaster
-            Viking v = new Viking {
-                Id = Guid.NewGuid().ToString(),
-                Name = data.ChildList[0].ChildName,
-                User = u,
-                Inventory = new Inventory { InventoryItems = new List<InventoryItem>() },
-                AchievementPoints = new List<AchievementPoints>(),
-                Rooms = new List<Room>()
-            };
-            ctx.Vikings.Add(v);
-        }
+        Viking v = new Viking
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = data.ChildList[0].ChildName,
+            User = u,
+            Inventory = new Inventory { InventoryItems = new List<InventoryItem>() },
+            AchievementPoints = new List<AchievementPoints>(),
+            Rooms = new List<Room>()
+        };
+
+        ctx.Vikings.Add(v);
+
+        missionService.SetUpMissions(v, apiKey);
 
         ctx.SaveChanges();
 
