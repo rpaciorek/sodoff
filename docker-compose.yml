@@ -8,3 +8,5 @@ services:
       dockerfile: src/Dockerfile
     ports:
       - 5000:5000
+    volumes:
+      - ./dbpasswd.txt:/app/dbpasswd.txt
