@@ -6,3 +6,5 @@ services:
     build:
       context: .
       dockerfile: src/Dockerfile
+    ports:
+      - 5000:5000
