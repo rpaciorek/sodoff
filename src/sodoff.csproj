@@ -5,11 +5,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+	<UserSecretsId>fae10659-21e6-4733-ae61-9f2a2675a9ae</UserSecretsId>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.5" />
   </ItemGroup>
 

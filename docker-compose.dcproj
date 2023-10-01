@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>411a09c2-8d33-4b4a-8667-06cf85bdb56b</ProjectGuid>
+    <ProjectGuid>c856c028-fca5-4577-b37f-8904a4729d91</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>sodoff</DockerServiceName>
