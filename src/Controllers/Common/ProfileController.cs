@@ -187,7 +187,7 @@ public class ProfileController : Controller {
             AchievementCount = 0,
             MythieCount = 0,
             AnswerData = new UserAnswerData { UserID = viking.Id },
-            GameCurrency = 65536,
+            GameCurrency = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency).Value,
             CashCurrency = 65536,
             ActivityCount = 0,
             BuddyCount = 0,
