@@ -159,18 +159,6 @@ namespace sodoff.Services {
         public UserGameCurrency GetUserCurrency(Viking viking) {
             AchievementPoints? currency = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency);
 
-            if (currency is null)
-            {
-                currency = new AchievementPoints
-                {
-                    Type = (int)AchievementPointTypes.GameCurrency,
-                    Value = 50, // give users 50 coins upon first check of user currency
-                    Viking = viking
-                };
-
-                ctx.SaveChanges();
-            }
-
             return new UserGameCurrency {
                 CashCurrency = 65536,
                 GameCurrency = currency.Value,
