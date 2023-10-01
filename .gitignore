@@ -9,3 +9,4 @@ src/sodoff.db-wal
 src/Properties
 __pycache__/
 /obj/Docker
+/docker-compose.override.yml
