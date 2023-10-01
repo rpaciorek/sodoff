@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  sodoff:
+    image: ${DOCKER_REGISTRY-}sodoff
+    build:
+      context: .
+      dockerfile: src/Dockerfile
