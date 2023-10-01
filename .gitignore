@@ -10,3 +10,5 @@ src/Properties
 __pycache__/
 /obj/Docker
 /docker-compose.override.yml
+/bin/Debug
+/obj/Debug
