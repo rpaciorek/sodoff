@@ -23,7 +23,14 @@ public class DBContext : DbContext {
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlite($"Data Source={DbPath}").UseLazyLoadingProxies();
+    {
+        if (System.Diagnostics.Debugger.IsAttached) optionsBuilder.UseSqlite($"Data Source={DbPath}").UseLazyLoadingProxies();
+        else
+        {
+            string dbPasswd = File.ReadAllText("./dbpasswd.txt");
+            optionsBuilder.UseMySQL($"Server=10.14.69.120;Database=jsdbdevsodoff;Uid=root;Pwd={dbPasswd};Allow User Variables=True").UseLazyLoadingProxies();
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder builder) {
         // Sessions
