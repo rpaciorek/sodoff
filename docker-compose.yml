@@ -7,6 +7,6 @@ services:
       context: .
       dockerfile: src/Dockerfile
     ports:
-      - 5001:5001
+      - 5000:5000
     volumes:
       - ./dbpasswd.txt:/app/dbpasswd.txt
