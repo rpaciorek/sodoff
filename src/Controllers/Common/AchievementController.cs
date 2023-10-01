@@ -216,6 +216,8 @@ public class AchievementController : Controller {
         {
             return Ok(payout++);
         }
+
+        return Ok(0);
     }
 
     [HttpPost]
