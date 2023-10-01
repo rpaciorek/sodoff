@@ -1175,6 +1175,18 @@ public class ContentController : Controller {
     }
 
     [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetDisplayNameByUserId")]
+    public IActionResult GetDisplayNameByUserId([FromForm] string userId)
+    {
+        Viking? idViking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+        if (idViking is null) return Ok("???");
+
+        // return display name
+        return Ok(XmlUtil.DeserializeXml<AvatarData>(idViking.AvatarSerialized!).DisplayName);
+    }
+
+    [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/SetDisplayName")] // used by World Of Jumpstart
     [VikingSession]
