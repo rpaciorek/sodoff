@@ -4,816 +4,8 @@
 		<IP xmlns="">127.0.0.1</IP>
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingThawfestDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldNBDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HelheimsGateDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">RacingDragon</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DEClubhouseINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TargetPracticeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkCloudsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GlacierIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonsEdgeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArmorWingIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">OpenOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GauntletDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubAuctionIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallSchoolIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ShipGraveyardDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTradewindIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubLookoutDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubEruptodonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubSchoolDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubVanaheimDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArctic01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TitanIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MyRoomINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDreadfallDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HobblegruntIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">PirateQueenShipDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWarlordIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallBerkIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DragonRacingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ZipplebackIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepCavesDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINT02DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ScuttleclawIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWilderness01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">CreditsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkNewDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTrainingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDeathsongIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArcticINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArenaFrenzyDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MudrakerIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkFarmDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubCenoteDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingThawfestDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldNBDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HelheimsGateDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">RacingDragon</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DEClubhouseINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TargetPracticeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkCloudsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GlacierIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonsEdgeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArmorWingIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">OpenOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GauntletDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubAuctionIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallSchoolIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ShipGraveyardDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTradewindIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubLookoutDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubEruptodonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubSchoolDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubVanaheimDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArctic01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TitanIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MyRoomINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDreadfallDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HobblegruntIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">PirateQueenShipDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWarlordIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallBerkIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DragonRacingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ZipplebackIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepCavesDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINT02DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ScuttleclawIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWilderness01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">CreditsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkNewDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTrainingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDeathsongIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArcticINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArenaFrenzyDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MudrakerIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkFarmDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubCenoteDO</ZN>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadPenguinHQINT</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -821,7 +13,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">FarmingThawfestDO</ZN>
+		<ZN xmlns="">UncleMilton</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -829,7 +21,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubHiddenWorldNBDO</ZN>
+		<ZN xmlns="">EnemyValley</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -837,7 +29,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HelheimsGateDO</ZN>
+		<ZN xmlns="">LoungeIntUpper</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -845,7 +37,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">RacingDragon</ZN>
+		<ZN xmlns="">UncleMiltonBounceHouse</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -853,7 +45,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">DEClubhouseINTDO</ZN>
+		<ZN xmlns="">Boardwalk</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -861,7 +53,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">TargetPracticeDO</ZN>
+		<ZN xmlns="">MyRoomsInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -869,7 +61,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">BerkCloudsDO</ZN>
+		<ZN xmlns="">DWMadEuropeAlps</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -877,7 +69,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HatcheryINTDO</ZN>
+		<ZN xmlns="">SpeedDrome</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -885,7 +77,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">GlacierIslandDO</ZN>
+		<ZN xmlns="">WinterWonderland</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -893,7 +85,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubDragonsEdgeDO</ZN>
+		<ZN xmlns="">GemMineInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -901,7 +93,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">ArmorWingIslandDO</ZN>
+		<ZN xmlns="">Beach</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -909,7 +101,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">OpenOceanDO</ZN>
+		<ZN xmlns="">TrainingIsland</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -917,7 +109,15 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">GauntletDO</ZN>
+		<ZN xmlns="">*</ZN>
+		<RZN xmlns="" />
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">127.0.0.1</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">IslandX</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -925,7 +125,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubAuctionIslandDO</ZN>
+		<ZN xmlns="">SanctuaryBaby</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -933,7 +133,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">GreatHallSchoolIntDO</ZN>
+		<ZN xmlns="">DWMadEuropeParis</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -941,7 +141,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">DarkDeepDO</ZN>
+		<ZN xmlns="">AdventureCanyon</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -949,7 +149,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">ShipGraveyardDO</ZN>
+		<ZN xmlns="">DWMadNYHarbor</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -957,7 +157,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubHiddenWorldDO</ZN>
+		<ZN xmlns="">JumpStartBowlInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -965,7 +165,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubDragonIslandDO</ZN>
+		<ZN xmlns="">TownCenter</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -973,7 +173,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubTradewindIslandDO</ZN>
+		<ZN xmlns="">SanctuaryFlying</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -981,7 +181,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubLookoutDO</ZN>
+		<ZN xmlns="">MultiplayerSystem</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -989,7 +189,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubEruptodonIslandDO</ZN>
+		<ZN xmlns="">DWMadNYCentralParkFunZone</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -997,7 +197,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubSchoolDO</ZN>
+		<ZN xmlns="">MainStreet</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1005,7 +205,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubDragonIslandINTDO</ZN>
+		<ZN xmlns="">LearningInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1013,7 +213,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubVanaheimDO</ZN>
+		<ZN xmlns="">HomeBase</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1021,7 +221,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubArctic01DO</ZN>
+		<ZN xmlns="">Hollows</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1029,7 +229,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">TitanIslandDO</ZN>
+		<ZN xmlns="">FreeFallMtn</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1037,7 +237,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">MyRoomINTDO</ZN>
+		<ZN xmlns="">ArcadeInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1045,7 +245,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubBerkDO</ZN>
+		<ZN xmlns="">ShipWreckLagoon</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1053,7 +253,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">FarmingDreadfallDO</ZN>
+		<ZN xmlns="">DWMadEuropeItaly</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1061,7 +261,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HobblegruntIslandDO</ZN>
+		<ZN xmlns="">MummyMazeInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1069,7 +269,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">PirateQueenShipDO</ZN>
+		<ZN xmlns="">EnchantedSanctuary</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1077,7 +277,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubWarlordIslandDO</ZN>
+		<ZN xmlns="">MyVIPRoomInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1085,7 +285,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">GreatHallBerkIntDO</ZN>
+		<ZN xmlns="">DownTown</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1093,7 +293,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">DragonRacingDO</ZN>
+		<ZN xmlns="">DWMadNYCentralPark</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1101,7 +301,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">ZipplebackIslandDO</ZN>
+		<ZN xmlns="">MyNeighborhood</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1109,7 +309,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">DarkDeepCavesDO</ZN>
+		<ZN xmlns="">MountainJetpack</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1117,7 +317,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">FarmingDO</ZN>
+		<ZN xmlns="">DWMadNYTimesSquare</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1125,7 +325,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HatcheryINT02DO</ZN>
+		<ZN xmlns="">MainStreetFunZone</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1133,7 +333,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">ScuttleclawIslandDO</ZN>
+		<ZN xmlns="">DuneBuggyZone</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1141,7 +341,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubWilderness01DO</ZN>
+		<ZN xmlns="">LoungeInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1149,7 +349,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">FarmingOceanDO</ZN>
+		<ZN xmlns="">JSStadiumInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1157,7 +357,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">CreditsDO</ZN>
+		<ZN xmlns="">SanctuaryAdult</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1165,7 +365,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubBerkNewDO</ZN>
+		<ZN xmlns="">BroomStickArena</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 	<MMOServerInfo>
@@ -1173,871 +373,7 @@
 		<PN xmlns="">9933</PN>
 		<VR xmlns="">S2X</VR>
 		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubTrainingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubDeathsongIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubArcticINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">true</DF>
-		<ZN xmlns="">ArenaFrenzyDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">true</DF>
-		<ZN xmlns="">MudrakerIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">true</DF>
-		<ZN xmlns="">BerkFarmDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">true</DF>
-		<ZN xmlns="">HubCenoteDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingThawfestDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldNBDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HelheimsGateDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">RacingDragon</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DEClubhouseINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TargetPracticeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkCloudsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GlacierIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonsEdgeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArmorWingIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">OpenOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GauntletDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubAuctionIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallSchoolIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ShipGraveyardDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTradewindIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubLookoutDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubEruptodonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubSchoolDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubVanaheimDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArctic01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TitanIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MyRoomINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDreadfallDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HobblegruntIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">PirateQueenShipDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWarlordIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallBerkIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DragonRacingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ZipplebackIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepCavesDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINT02DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ScuttleclawIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWilderness01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">CreditsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkNewDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTrainingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDeathsongIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArcticINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArenaFrenzyDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MudrakerIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkFarmDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubCenoteDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingThawfestDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldNBDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HelheimsGateDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">RacingDragon</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DEClubhouseINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TargetPracticeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkCloudsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GlacierIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonsEdgeDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArmorWingIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">OpenOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GauntletDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubAuctionIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallSchoolIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ShipGraveyardDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubHiddenWorldDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTradewindIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubLookoutDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubEruptodonIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubSchoolDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDragonIslandINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubVanaheimDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArctic01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">TitanIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MyRoomINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDreadfallDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HobblegruntIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">PirateQueenShipDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWarlordIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">GreatHallBerkIntDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DragonRacingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ZipplebackIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">DarkDeepCavesDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HatcheryINT02DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ScuttleclawIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubWilderness01DO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">FarmingOceanDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">CreditsDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubBerkNewDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubTrainingDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubDeathsongIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubArcticINTDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">ArenaFrenzyDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">MudrakerIslandDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">BerkFarmDO</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">127.0.0.1</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">false</DF>
-		<ZN xmlns="">HubCenoteDO</ZN>
+		<ZN xmlns="">RabbitHoleInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
 </ArrayOfMMOServerInfo>
