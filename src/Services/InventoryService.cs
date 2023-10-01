@@ -33,6 +33,10 @@ namespace sodoff.Services {
 
         public CommonInventoryResponseItem AddItemToInventoryAndGetResponse(Viking viking, int itemID, int quantity) {
             InventoryItem item = AddItemToInventory(viking, itemID, quantity);
+            ItemData data = itemService.GetItem(itemID); // get price of item
+
+            AchievementPoints? achievementPoints = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency);
+            if (achievementPoints != null) { achievementPoints.Value -= data.Cost; }
 
             ctx.SaveChanges(); // We need to get the ID of the newly created item
 

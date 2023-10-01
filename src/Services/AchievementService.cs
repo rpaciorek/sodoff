@@ -4,15 +4,19 @@ using sodoff.Util;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
+using ZstdSharp.Unsafe;
 
 namespace sodoff.Services {
     public class AchievementService {
         private AchievementStoreSingleton achievementStore;
         private InventoryService inventoryService;
+        private DBContext ctx;
 
-        public AchievementService(AchievementStoreSingleton achievementStore, InventoryService inventoryService) {
+        public AchievementService(AchievementStoreSingleton achievementStore, InventoryService inventoryService, DBContext ctx = null)
+        {
             this.achievementStore = achievementStore;
             this.inventoryService = inventoryService;
+            this.ctx = ctx;
         }
 
         public UserAchievementInfo CreateUserAchievementInfo(string userId, int? value, AchievementPointTypes type) {
@@ -153,10 +157,23 @@ namespace sodoff.Services {
         }
         
         public UserGameCurrency GetUserCurrency(Viking viking) {
-            // TODO: return real values (after implement currency collecting methods)
+            AchievementPoints? currency = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency);
+
+            if (currency is null)
+            {
+                currency = new AchievementPoints
+                {
+                    Type = (int)AchievementPointTypes.GameCurrency,
+                    Value = 50, // give users 50 coins upon first check of user currency
+                    Viking = viking
+                };
+
+                ctx.SaveChanges();
+            }
+
             return new UserGameCurrency {
                 CashCurrency = 65536,
-                GameCurrency = 65536,
+                GameCurrency = currency.Value,
                 UserGameCurrencyID = 1, // TODO: user's wallet ID?
                 UserID = Guid.Parse(viking.Id)
             };

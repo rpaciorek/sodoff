@@ -1225,6 +1225,18 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetGameCurrency")]
+    [VikingSession]
+    public IActionResult SetUserGameCurrency(Viking viking, [FromForm] int amount)
+    {
+        achievementService.AddAchievementPoints(viking, AchievementPointTypes.GameCurrency, amount);
+
+        ctx.SaveChanges();
+        return Ok(achievementService.GetUserCurrency(viking).GameCurrency ?? 0);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/RerollUserItem")]
     [VikingSession]
     public IActionResult RerollUserItem(Viking viking, [FromForm] string request) {
