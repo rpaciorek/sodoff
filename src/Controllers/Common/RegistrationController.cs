@@ -63,10 +63,12 @@ public class RegistrationController : Controller {
         };
 
         // Check if user exists
-        if (ctx.Users.Count(e => e.Email == u.Email) > 0) {
-            return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateEmail });
+        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875" || apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // World Of JumpStart, Math Blaster
+            if (ctx.Users.Count(e => e.Email == u.Email) > 0) {
+                return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateEmail });
+            }
         }
-        else if (ctx.Users.Count(e => e.Username== u.Username) > 0) {
+        if (ctx.Users.Count(e => e.Username== u.Username) > 0) {
             return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateUserName });
         }  
 
