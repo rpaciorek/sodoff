@@ -86,6 +86,13 @@ public class RegistrationController : Controller {
 
         missionService.SetUpMissions(v, apiKey);
 
+        // give created viking 50 coins
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.GameCurrency,
+            Value = 50
+        });
+
         ctx.SaveChanges();
 
         ParentLoginInfo pli = new ParentLoginInfo {
@@ -145,13 +152,13 @@ public class RegistrationController : Controller {
 
         // give child 50 coins on register
 
+        missionService.SetUpMissions(v, apiKey);
+
         v.AchievementPoints.Add(new AchievementPoints()
         {
             Type = (int)AchievementPointTypes.GameCurrency,
             Value = 50
         });
-
-        missionService.SetUpMissions(v, apiKey);
 
         ctx.Vikings.Add(v);
 
