@@ -181,17 +181,7 @@ public class ProfileController : Controller {
             }
         };
 
-        AchievementPoints? currency = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency);
-        if (currency is null)
-        {
-            currency = new AchievementPoints
-            {
-                Type = (int)AchievementPointTypes.GameCurrency,
-                Value = 50,
-                Viking = viking
-            };
-            ctx.SaveChanges();
-        }
+        int? currencyValue = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency)?.Value;
 
         return new UserProfileData {
             ID = viking.Id,
@@ -199,7 +189,7 @@ public class ProfileController : Controller {
             AchievementCount = 0,
             MythieCount = 0,
             AnswerData = new UserAnswerData { UserID = viking.Id },
-            GameCurrency = currency.Value,
+            GameCurrency = currencyValue ?? 0,
             CashCurrency = 65536,
             ActivityCount = 0,
             BuddyCount = 0,

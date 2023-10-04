@@ -143,6 +143,14 @@ public class RegistrationController : Controller {
             Rooms = new List<Room>()
         };
 
+        // give child 50 coins on register
+
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.GameCurrency,
+            Value = 50
+        });
+
         missionService.SetUpMissions(v, apiKey);
 
         ctx.Vikings.Add(v);

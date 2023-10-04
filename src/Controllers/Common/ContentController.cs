@@ -1012,10 +1012,15 @@ public class ContentController : Controller {
             itemService.CheckAndOpenBox(itemIdArr[i], out int itemId, out int quantity);
             for (int j=0; j<quantity; ++j) {
                 items.Add(inventoryService.AddItemToInventoryAndGetResponse(viking, itemId, 1));
+                ItemData data = itemService.GetItem(itemId); // get item price
+                AchievementPoints? currency = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency);
+                if(currency != null) currency.Value -= data.Cost;
                 // NOTE: The quantity of purchased items is always 0 and the items are instead duplicated in both the request and the response.
                 //       Call AddItemToInventoryAndGetResponse with Quantity == 1 we get response with quantity == 0.
             }
         }
+
+        ctx.SaveChanges(); // ensure changes are saved
 
         CommonInventoryResponse response = new CommonInventoryResponse {
             Success = true,
