@@ -333,6 +333,29 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetAvatar")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult SetAvatarV1(Viking viking, [FromForm] string contentXML) {
+        if (viking.AvatarSerialized != null) {
+            AvatarData dbAvatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+            AvatarData reqAvatarData = XmlUtil.DeserializeXml<AvatarData>(contentXML);
+
+            int dbAvatarVersion = GetAvatarVersion(dbAvatarData);
+            int reqAvatarVersion = GetAvatarVersion(reqAvatarData);
+
+            if (dbAvatarVersion > reqAvatarVersion) {
+                // do not allow override newer version avatar data by older version
+                return Ok(false);
+            }
+        }
+
+        viking.AvatarSerialized = contentXML;
+        ctx.SaveChanges();
+
+        return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/SetAvatar")]
     [VikingSession]
     public IActionResult SetAvatar(Viking viking, [FromForm] string contentXML) {
@@ -834,6 +857,16 @@ public class ContentController : Controller {
         UserMissionStateResult result = new UserMissionStateResult { Missions = new List<Mission>()  };
         foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus != MissionStatus.Completed)) {
             Mission updatedMission = missionService.GetMissionWithProgress(mission.MissionId, viking.Id, apiKey);
+
+            if (mission.MissionStatus == MissionStatus.Upcoming) {
+                // NOTE: in old SoD job board mission must be send as non active and required accept
+                //       (to avoid show all job board in journal and quest arrow pointing to job board)
+                //       do this in this place (instead of update missions.xml) to avoid conflict with newer versions of SoD
+                PrerequisiteItem prerequisite = updatedMission.MissionRule.Prerequisites.FirstOrDefault(x => x.Type == PrerequisiteRequiredType.Accept);
+                if (prerequisite != null)
+                    prerequisite.Value = "true";
+            }
+
             if (mission.UserAccepted != null)
                 updatedMission.Accepted = (bool)mission.UserAccepted;
             result.Missions.Add(updatedMission);
@@ -1271,6 +1304,9 @@ public class ContentController : Controller {
             foreach (string name in req.ItemStatNames) {
                 ItemStat itemStat = itemStatsMap.ItemStats.FirstOrDefault(e => e.Name == name);
 
+                if (itemStat is null)
+                    return Ok(new RollUserItemResponse { Status = Status.InvalidStatsMap });
+
                 // draw new stats
                 StatRangeMap rangeMap = itemData.PossibleStatsMap.Stats.FirstOrDefault(e => e.ItemStatsID == itemStat.ItemStatID).ItemStatsRangeMaps.FirstOrDefault(e => e.ItemTierID == (int)(itemStatsMap.ItemTier));
                 int newVal = random.Next(rangeMap.StartRange, rangeMap.EndRange+1);
@@ -1354,12 +1390,24 @@ public class ContentController : Controller {
         // remove items from DeductibleItemInventoryMaps and BluePrintFuseItemMaps
         foreach (var item in req.DeductibleItemInventoryMaps) {
             InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
+            if (invItem is null) {
+                invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == item.ItemID);
+            }
+            if (invItem is null || invItem.Quantity < item.Quantity) {
+                return Ok(new FuseItemsResponse { Status = Status.ItemNotFound });
+            }
             invItem.Quantity -= item.Quantity;
         }
         foreach (var item in req.BluePrintFuseItemMaps) {
+            if (item.UserInventoryID < 0) {
+                continue; // TODO: what we should do in this case?
+            }
             InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
+            if (invItem is null)
+                return Ok(new FuseItemsResponse { Status = Status.ItemNotFound });
             viking.Inventory.InventoryItems.Remove(invItem);
         }
+        // NOTE: we haven't saved any changes so far ... so we can safely interrupt "fusing" by return in loops above
         
         var resItemList = new List<InventoryItemStatsMap>();
         foreach (BluePrintSpecification output in blueprintItem.BluePrint.Outputs) {
