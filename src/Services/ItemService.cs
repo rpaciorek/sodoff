@@ -1,4 +1,5 @@
-﻿using sodoff.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
+using sodoff.Schema;
 using sodoff.Util;
 using System.Reflection;
 using System.Xml;
@@ -21,6 +22,7 @@ namespace sodoff.Services {
         }
 
         public ItemData GetItem(int id) {
+            if (items[id] == null) return null;
             return items[id];
         }
 
