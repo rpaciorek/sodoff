@@ -22,8 +22,12 @@ namespace sodoff.Services {
         }
 
         public ItemData GetItem(int id) {
-            if (items[id] == null) return null;
+            try {
             return items[id];
+            } catch (KeyNotFoundException)
+            {
+                return null;
+            }
         }
 
         public ItemData GetDTReward(Gender gender) {
