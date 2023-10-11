@@ -1,0 +1,11 @@
+﻿<ArrayOfContentInfoData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ContentInfoData>
+		<DisplayName>Test Movie (do not play)</DisplayName>
+		<LinkUrl>http://jsmedia.alanmoon.net/Content/MovieTheaterContent/test.ogg</LinkUrl>
+		<RolloverUrl/>
+		<CategoryUrl>http://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/test.jpg</CategoryUrl>
+		<ContentType>2</ContentType>
+		<MemberOnly>false</MemberOnly>
+		<LinkType>2</LinkType>
+	</ContentInfoData>
+</ArrayOfContentInfoData>
