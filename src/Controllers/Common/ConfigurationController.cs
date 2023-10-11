@@ -17,4 +17,13 @@ public class ConfigurationController : Controller {
         }
         return Ok(XmlUtil.ReadResourceXmlString("mmo"));
     }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ConfigurationWebService.asmx/GetContentByTypeByUser")]
+    public string GetContentByTypeByUser([FromForm] int contentType)
+    {
+        if (contentType == 1) return XmlUtil.ReadResourceXmlString("jukeboxcnt");
+        else return null;
+    }
 }
