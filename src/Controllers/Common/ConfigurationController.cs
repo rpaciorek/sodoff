@@ -21,9 +21,9 @@ public class ConfigurationController : Controller {
     [HttpPost]
     //[Produces("application/xml")]
     [Route("ConfigurationWebService.asmx/GetContentByTypeByUser")]
-    public string GetContentByTypeByUser([FromForm] int contentType)
+    public IActionResult GetContentByTypeByUser([FromForm] int contentType)
     {
-        if (contentType == 1) return XmlUtil.ReadResourceXmlString("jukeboxcnt");
-        else return null;
+        if (contentType == 1) return Ok(XmlUtil.ReadResourceXmlString("jukeboxcnt"));
+        else return NotFound();
     }
 }
