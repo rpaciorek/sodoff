@@ -95,6 +95,13 @@ public class RegistrationController : Controller {
             Value = 50
         });
 
+        // give created viking 50 XP
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.PlayerXP,
+            Value = 50
+        });
+
         ctx.SaveChanges();
 
         ParentLoginInfo pli = new ParentLoginInfo {
