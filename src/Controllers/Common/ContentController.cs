@@ -958,6 +958,14 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetFriendCode")]
+    public IActionResult GetFriendCode()
+    {
+        return Ok("SOONTM");
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("/ContentWebService.asmx/RedeemMysteryBoxItems")]
     [VikingSession]
     public IActionResult RedeemMysteryBoxItems(Viking viking, [FromForm] string request) {
