@@ -1297,6 +1297,27 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>2520</ii>
 		<ii>7179</ii>
 		<ii>7180</ii>
+		<ii>1959</ii>
+		<ii>1664</ii>
+		<ii>1666</ii>
+		<ii>1667</ii>
+		<ii>1669</ii>
+		<ii>1670</ii>
+		<ii>1686</ii>
+		<ii>1687</ii>
+		<ii>1874</ii>
+		<ii>1875</ii>
+		<ii>1876</ii>
+		<ii>1877</ii>
+		<ii>1902</ii>
+		<ii>1903</ii>
+		<ii>1904</ii>
+		<ii>1905</ii>
+		<ii>1906</ii>
+		<ii>1907</ii>
+		<ii>1908</ii>
+		<ii>1909</ii>
+		<ii>1910</ii>
 	</StoreData>
 	<StoreData>
 		<i>7</i>
@@ -1384,7 +1405,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1234</ii>
 		<ii>1240</ii>
 		<ii>1256</ii>
-		<ii>1275</ii>
 		<ii>1362</ii>
 		<ii>1379</ii>
 		<ii>1380</ii>
@@ -1456,8 +1476,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1217</ii>
 		<ii>1220</ii>
 		<ii>1255</ii>
-		<ii>1307</ii>
-		<ii>1320</ii>
 		<ii>1436</ii>
 		<ii>1468</ii>
 		<ii>1504</ii>
@@ -1501,7 +1519,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1236</ii>
 		<ii>1245</ii>
 		<ii>1248</ii>
-		<ii>1331</ii>
 		<ii>1357</ii>
 		<ii>1376</ii>
 		<ii>1404</ii>
@@ -1520,7 +1537,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>2033</ii>
 		<ii>3177</ii>
 		<ii>1222</ii>
-		<ii>1291</ii>
 		<ii>1373</ii>
 		<ii>1377</ii>
 		<ii>1388</ii>
@@ -1543,7 +1559,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>2479</ii>
 		<ii>1244</ii>
 		<ii>1246</ii>
-		<ii>1322</ii>
 		<ii>1358</ii>
 		<ii>1410</ii>
 		<ii>1518</ii>
@@ -1578,8 +1593,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>2784</ii>
 		<ii>1235</ii>
 		<ii>1249</ii>
-		<ii>1281</ii>
-		<ii>1327</ii>
 		<ii>1465</ii>
 		<ii>1519</ii>
 		<ii>1985</ii>
@@ -1590,7 +1603,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1641</ii>
 		<ii>1970</ii>
 		<ii>1223</ii>
-		<ii>1284</ii>
 		<ii>1360</ii>
 		<ii>1525</ii>
 		<ii>1529</ii>
@@ -1603,12 +1615,10 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>2445</ii>
 		<ii>1225</ii>
 		<ii>1243</ii>
-		<ii>1335</ii>
 		<ii>1385</ii>
 		<ii>1390</ii>
 		<ii>1396</ii>
 		<ii>1541</ii>
-		<ii>2074</ii>
 		<ii>2110</ii>
 		<ii>2112</ii>
 		<ii>2441</ii>
@@ -2081,6 +2091,91 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>19795</ii>
 		<ii>19796</ii>
 		<ii>19797</ii>
+		<ii>1269</ii>
+		<ii>1270</ii>
+		<ii>1271</ii>
+		<ii>1272</ii>
+		<ii>1273</ii>
+		<ii>1274</ii>
+		<ii>1275</ii>
+		<ii>1276</ii>
+		<ii>1277</ii>
+		<ii>1278</ii>
+		<ii>1279</ii>
+		<ii>1280</ii>
+		<ii>1281</ii>
+		<ii>1282</ii>
+		<ii>1283</ii>
+		<ii>1284</ii>
+		<ii>1285</ii>
+		<ii>1286</ii>
+		<ii>1287</ii>
+		<ii>1288</ii>
+		<ii>1289</ii>
+		<ii>1290</ii>
+		<ii>1291</ii>
+		<ii>1292</ii>
+		<ii>1293</ii>
+		<ii>1294</ii>
+		<ii>1295</ii>
+		<ii>1296</ii>
+		<ii>1297</ii>
+		<ii>1298</ii>
+		<ii>1299</ii>
+		<ii>1300</ii>
+		<ii>1301</ii>
+		<ii>1302</ii>
+		<ii>1303</ii>
+		<ii>1304</ii>
+		<ii>1305</ii>
+		<ii>1306</ii>
+		<ii>1307</ii>
+		<ii>1308</ii>
+		<ii>1309</ii>
+		<ii>1310</ii>
+		<ii>1311</ii>
+		<ii>1312</ii>
+		<ii>1313</ii>
+		<ii>1314</ii>
+		<ii>1315</ii>
+		<ii>1316</ii>
+		<ii>1317</ii>
+		<ii>1318</ii>
+		<ii>1319</ii>
+		<ii>1320</ii>
+		<ii>1321</ii>
+		<ii>1322</ii>
+		<ii>1323</ii>
+		<ii>1324</ii>
+		<ii>1325</ii>
+		<ii>1326</ii>
+		<ii>1327</ii>
+		<ii>1328</ii>
+		<ii>1329</ii>
+		<ii>1330</ii>
+		<ii>1331</ii>
+		<ii>1332</ii>
+		<ii>1333</ii>
+		<ii>1334</ii>
+		<ii>1335</ii>
+		<ii>1336</ii>
+		<ii>1337</ii>
+		<ii>1338</ii>
+		<ii>1339</ii>
+		<ii>1340</ii>
+		<ii>1341</ii>
+		<ii>2065</ii>
+		<ii>2066</ii>
+		<ii>2067</ii>
+		<ii>2068</ii>
+		<ii>2069</ii>
+		<ii>2070</ii>
+		<ii>2071</ii>
+		<ii>2072</ii>
+		<ii>2073</ii>
+		<ii>2074</ii>
+		<ii>2075</ii>
+		<ii>2076</ii>
 	</StoreData>
 	<StoreData>
 		<i>10</i>
