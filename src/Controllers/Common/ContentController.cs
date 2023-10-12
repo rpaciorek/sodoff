@@ -979,16 +979,18 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetBuddyList")]
     public IActionResult GetBuddyList() {
         // TODO: this is a placeholder
+
+        Viking placeholderBuddy = ctx.Vikings.FirstOrDefault(x => x.Name == "Alan");
         List<Buddy> buddyList = new List<Buddy>
         {
             new Buddy
             {
-                DisplayName = "SoonTM",
+                DisplayName = XmlUtil.DeserializeXml<AvatarData>(placeholderBuddy.AvatarSerialized)?.DisplayName,
                 Online = false,
                 CreateDate = DateTime.Now,
                 Status = BuddyStatus.Approved,
                 OnMobile = false,
-                UserID = Guid.NewGuid().ToString()
+                UserID = placeholderBuddy.Id
             }
         };
         return Ok(new BuddyList { Buddy = buddyList.ToArray() });
