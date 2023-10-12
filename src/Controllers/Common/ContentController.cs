@@ -232,6 +232,32 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetCommonInventoryByUserId")]
+    public IActionResult GetCommonInventoryByUserId([FromForm] string userId, [FromForm] int ContainerId)
+    {
+        Viking viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+
+        // TODO - placeholder - return 8 viking slot items
+        if (viking != null) return Ok(new CommonInventoryData
+        {
+            UserID = Guid.Parse(viking.Id),
+            Item = new UserItemData[] {
+                new UserItemData {
+                        UserInventoryID = 0,
+                        ItemID = 7971,
+                        Quantity = 8,
+                        Uses = -1,
+                        ModifiedDate = new DateTime(DateTime.Now.Ticks),
+                        Item = itemService.GetItem(7971)
+                }
+            }
+        });
+
+        return Ok(new CommonInventoryData());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetCommonInventory")]
     [VikingSession(UseLock=false)]
     public IActionResult GetCommonInventoryV2(Viking viking) {
@@ -953,7 +979,19 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetBuddyList")]
     public IActionResult GetBuddyList() {
         // TODO: this is a placeholder
-        return Ok(new BuddyList { Buddy = new Buddy[0] });
+        List<Buddy> buddyList = new List<Buddy>
+        {
+            new Buddy
+            {
+                DisplayName = "SoonTM",
+                Online = false,
+                CreateDate = DateTime.Now,
+                Status = BuddyStatus.Approved,
+                OnMobile = false,
+                UserID = Guid.NewGuid().ToString()
+            }
+        };
+        return Ok(new BuddyList { Buddy = buddyList.ToArray() });
     }
 
     [HttpPost]
