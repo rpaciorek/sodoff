@@ -26,4 +26,13 @@
 		<MemberOnly>false</MemberOnly>
 		<LinkType>2</LinkType>
 	</ContentInfoData>
+	<ContentInfoData>
+		<DisplayName>Big Cat</DisplayName>
+		<LinkUrl>http://jsmedia.alanmoon.net/Content/MovieTheaterContent/bigcat.ogg</LinkUrl>
+		<RolloverUrl/>
+		<CategoryUrl>http://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsrlogo.jpg</CategoryUrl>
+		<ContentType>2</ContentType>
+		<MemberOnly>false</MemberOnly>
+		<LinkType>2</LinkType>
+	</ContentInfoData>
 </ArrayOfContentInfoData>
