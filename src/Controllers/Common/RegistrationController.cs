@@ -169,6 +169,13 @@ public class RegistrationController : Controller {
             Value = 50
         });
 
+        // give created viking 50 XP
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.PlayerXP,
+            Value = 50
+        });
+
         ctx.Vikings.Add(v);
 
         if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
