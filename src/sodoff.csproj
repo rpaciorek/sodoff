@@ -21,7 +21,8 @@
     <None Remove="Resources\achievementtaskinfo.xml" />
     <None Remove="Resources\items.xml" />
     <None Remove="Resources\missions.xml" />
-    <None Remove="Resources\mmo.xml" />
+    <None Remove="Resources\mmo-js.xml" />
+	<None Remove="Resources\mmo-mb.xml" />
     <None Remove="Resources\displaynames.xml" />
     <None Remove="Resources\rankattrib.xml" />
     <None Remove="Resources\rewardmultiplier.xml" />
@@ -59,9 +60,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\mmo.xml">
+    <EmbeddedResource Include="Resources\mmo-js.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+	<EmbeddedResource Include="Resources\mmo-mb.xml">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</EmbeddedResource>
     <EmbeddedResource Include="Resources\displaynames.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
