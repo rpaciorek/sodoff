@@ -16,8 +16,8 @@ public class ConfigurationController : Controller {
             return Ok(XmlUtil.SerializeXml(new MMOServerInformation[0]));
         }
 
-        if (apiKey == "6738196D-2A2C-4EF8-9B6E-1252C6EC7325") return Ok(XmlUtil.ReadResourceXmlString("mmo-js"));
-        else if (apiKey == "1552008F-4A95-46F5-80E2-58574DA65875") return Ok(XmlUtil.ReadResourceXmlString("mmo-mb"));
+        if (apiKey == "1552008F-4A95-46F5-80E2-58574DA65875") return Ok(XmlUtil.ReadResourceXmlString("mmo-js"));
+        else if (apiKey == "6738196D-2A2C-4EF8-9B6E-1252C6EC7325") return Ok(XmlUtil.ReadResourceXmlString("mmo-mb"));
 
         return Ok(XmlUtil.SerializeXml(new MMOServerInformation[0]));
     }
