@@ -1305,10 +1305,19 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetGameDataByGame")]
     public IActionResult GetGameDataByGame()
     {
-        // TODO - placeholder, figure out what GetGameDataResponse is
+        // TODO - placeholder
         return Ok(new GameDataSummary());
     }
-    
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetGameDataByUser")]
+    public IActionResult GetGameDataByUser()
+    {
+        // TODO - placeholder
+        return Ok(new GameDataSummary());
+    }
+
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserGameCurrency")]
