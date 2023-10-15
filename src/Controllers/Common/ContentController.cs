@@ -1299,6 +1299,15 @@ public class ContentController : Controller {
         // TODO: This is a placeholder
         return Ok(new GetGameDataResponse());
     }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetGameDataByGame")]
+    public IActionResult GetGameDataByGame()
+    {
+        // TODO - placeholder, figure out what GetGameDataResponse is
+        return Ok(new GameDataSummary());
+    }
     
     [HttpPost]
     [Produces("application/xml")]
