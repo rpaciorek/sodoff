@@ -1086,9 +1086,92 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetBuddyList")]
-    public IActionResult GetBuddyList() {
+    [VikingSession]
+    public IActionResult GetBuddyList(Viking viking) {
+        // grab all relations from database
+        List<BuddyRelation> buddies = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Uid).ToList();
+        List<Buddy> buddiesRes = new List<Buddy>();
+
+        if (buddies is null) return Ok(new BuddyList());
+
+        foreach(var buddy in buddies)
+        {
+            AvatarData? avatar = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Uid == buddy.BuddyID)?.AvatarSerialized);
+            buddiesRes.Add(new Buddy
+            {
+                BestBuddy = false,
+                CreateDate = DateTime.Now,
+                UserID = buddy.BuddyID.ToString(),
+                Status = BuddyStatus.Approved,
+                Online = true,
+                DisplayName = avatar.DisplayName,
+                OnMobile = false
+            });
+        }
+
+        return Ok(new BuddyList{ Buddy = buddiesRes.ToArray() });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/AddBuddy")]
+    [VikingSession]
+    public IActionResult AddBuddy(Viking viking, [FromForm] string buddyUserID) {
+        // TODO: this still is a placeholder
+
+        // create two relations for each user
+
+        BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Uid, BuddyID = Guid.Parse(buddyUserID) };
+        BuddyRelation relation2 = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = Guid.Parse(buddyUserID), BuddyID = viking.Uid };
+
+        if (ctx.BuddyRelations.Contains(relation) || ctx.BuddyRelations.Contains(relation2)) return Ok(null); // DO NOT ADD IF ALREADY ADDED
+
+        ctx.BuddyRelations.Add(relation);
+        ctx.BuddyRelations.Add(relation2);
+        ctx.SaveChanges();
+
+        // TODO - get proper response
+        return Ok(new BuddyActionResult
+        {
+            BuddyUserID = relation.BuddyID.ToString(),
+            Result = BuddyActionResultType.Success,
+            Status = BuddyStatus.Approved
+        });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/RemoveBuddy")]
+    [VikingSession]
+    public IActionResult RemoveBuddy(Viking viking, [FromForm] string buddyUserId)
+    {
+        // get buddy relation 1
+        BuddyRelation relation = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Uid)
+            .FirstOrDefault(e => e.BuddyID == Guid.Parse(buddyUserId));
+
+        // remove it
+        ctx.BuddyRelations.Remove(relation);
+
+        // get buddy relation 2
+
+        BuddyRelation relation2 = ctx.BuddyRelations.Where(e => e.OwnerID == Guid.Parse(buddyUserId))
+            .FirstOrDefault(e => e.BuddyID == viking.Uid);
+
+        // remove it
+        ctx.BuddyRelations.Remove(relation2);
+
+        ctx.SaveChanges();
+
+        // TODO - get proper response
+        return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetFriendCode")]
+    public IActionResult GetFriendCode() {
         // TODO: this is a placeholder
-        return Ok(new BuddyList { Buddy = new Buddy[0] });
+        return Ok("SOONTM");
     }
 
     [HttpPost]

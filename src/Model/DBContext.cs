@@ -23,6 +23,7 @@ public class DBContext : DbContext {
     public DbSet<ProfileAnswer> ProfileAnswers { get; set; } = null!;
     public DbSet<MMORole> MMORoles { get; set; } = null!;
     public DbSet<Party> Parties { get; set; } = null!;
+    public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
     private readonly IOptions<ApiServerConfig> config;
 
     public DBContext(IOptions<ApiServerConfig> config) {
