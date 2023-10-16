@@ -1421,11 +1421,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1514</ii>
 		<ii>1528</ii>
 		<ii>1567</ii>
-		<ii>1738</ii>
-		<ii>1755</ii>
-		<ii>1767</ii>
-		<ii>1781</ii>
-		<ii>1802</ii>
 		<ii>2052</ii>
 		<ii>2056</ii>
 		<ii>2093</ii>
@@ -1482,11 +1477,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1539</ii>
 		<ii>1549</ii>
 		<ii>1566</ii>
-		<ii>1779</ii>
-		<ii>1815</ii>
-		<ii>1818</ii>
-		<ii>1839</ii>
-		<ii>1842</ii>
 		<ii>2036</ii>
 		<ii>2039</ii>
 		<ii>2100</ii>
@@ -1509,7 +1499,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1452</ii>
 		<ii>1459</ii>
 		<ii>1483</ii>
-		<ii>1692</ii>
 		<ii>2092</ii>
 		<ii>2630</ii>
 		<ii>2645</ii>
@@ -1606,7 +1595,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>1360</ii>
 		<ii>1525</ii>
 		<ii>1529</ii>
-		<ii>1786</ii>
 		<ii>1971</ii>
 		<ii>2035</ii>
 		<ii>2060</ii>
@@ -2176,6 +2164,176 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>2074</ii>
 		<ii>2075</ii>
 		<ii>2076</ii>
+		<ii>1689</ii>
+		<ii>1690</ii>
+		<ii>1691</ii>
+		<ii>1692</ii>
+		<ii>1693</ii>
+		<ii>1694</ii>
+		<ii>1695</ii>
+		<ii>1696</ii>
+		<ii>1697</ii>
+		<ii>1698</ii>
+		<ii>1699</ii>
+		<ii>1700</ii>
+		<ii>1701</ii>
+		<ii>1702</ii>
+		<ii>1703</ii>
+		<ii>1704</ii>
+		<ii>1705</ii>
+		<ii>1706</ii>
+		<ii>1707</ii>
+		<ii>1708</ii>
+		<ii>1709</ii>
+		<ii>1710</ii>
+		<ii>1711</ii>
+		<ii>1712</ii>
+		<ii>1713</ii>
+		<ii>1714</ii>
+		<ii>1715</ii>
+		<ii>1716</ii>
+		<ii>1717</ii>
+		<ii>1718</ii>
+		<ii>1719</ii>
+		<ii>1720</ii>
+		<ii>1721</ii>
+		<ii>1722</ii>
+		<ii>1723</ii>
+		<ii>1724</ii>
+		<ii>1725</ii>
+		<ii>1726</ii>
+		<ii>1727</ii>
+		<ii>1728</ii>
+		<ii>1729</ii>
+		<ii>1730</ii>
+		<ii>1731</ii>
+		<ii>1732</ii>
+		<ii>1733</ii>
+		<ii>1734</ii>
+		<ii>1735</ii>
+		<ii>1736</ii>
+		<ii>1737</ii>
+		<ii>1738</ii>
+		<ii>1739</ii>
+		<ii>1740</ii>
+		<ii>1741</ii>
+		<ii>1742</ii>
+		<ii>1743</ii>
+		<ii>1744</ii>
+		<ii>1745</ii>
+		<ii>1746</ii>
+		<ii>1747</ii>
+		<ii>1748</ii>
+		<ii>1749</ii>
+		<ii>1750</ii>
+		<ii>1751</ii>
+		<ii>1752</ii>
+		<ii>1753</ii>
+		<ii>1754</ii>
+		<ii>1755</ii>
+		<ii>1756</ii>
+		<ii>1757</ii>
+		<ii>1758</ii>
+		<ii>1759</ii>
+		<ii>1760</ii>
+		<ii>1761</ii>
+		<ii>1762</ii>
+		<ii>1763</ii>
+		<ii>1764</ii>
+		<ii>1765</ii>
+		<ii>1766</ii>
+		<ii>1767</ii>
+		<ii>1768</ii>
+		<ii>1769</ii>
+		<ii>1770</ii>
+		<ii>1771</ii>
+		<ii>1772</ii>
+		<ii>1773</ii>
+		<ii>1774</ii>
+		<ii>1775</ii>
+		<ii>1776</ii>
+		<ii>1777</ii>
+		<ii>1778</ii>
+		<ii>1779</ii>
+		<ii>1780</ii>
+		<ii>1781</ii>
+		<ii>1782</ii>
+		<ii>1783</ii>
+		<ii>1784</ii>
+		<ii>1785</ii>
+		<ii>1786</ii>
+		<ii>1787</ii>
+		<ii>1788</ii>
+		<ii>1789</ii>
+		<ii>1790</ii>
+		<ii>1791</ii>
+		<ii>1792</ii>
+		<ii>1793</ii>
+		<ii>1794</ii>
+		<ii>1795</ii>
+		<ii>1796</ii>
+		<ii>1797</ii>
+		<ii>1798</ii>
+		<ii>1799</ii>
+		<ii>1800</ii>
+		<ii>1801</ii>
+		<ii>1802</ii>
+		<ii>1803</ii>
+		<ii>1804</ii>
+		<ii>1805</ii>
+		<ii>1806</ii>
+		<ii>1807</ii>
+		<ii>1808</ii>
+		<ii>1809</ii>
+		<ii>1810</ii>
+		<ii>1811</ii>
+		<ii>1812</ii>
+		<ii>1813</ii>
+		<ii>1814</ii>
+		<ii>1815</ii>
+		<ii>1816</ii>
+		<ii>1817</ii>
+		<ii>1818</ii>
+		<ii>1819</ii>
+		<ii>1820</ii>
+		<ii>1821</ii>
+		<ii>1822</ii>
+		<ii>1823</ii>
+		<ii>1824</ii>
+		<ii>1825</ii>
+		<ii>1826</ii>
+		<ii>1827</ii>
+		<ii>1828</ii>
+		<ii>1829</ii>
+		<ii>1830</ii>
+		<ii>1831</ii>
+		<ii>1832</ii>
+		<ii>1833</ii>
+		<ii>1834</ii>
+		<ii>1835</ii>
+		<ii>1836</ii>
+		<ii>1837</ii>
+		<ii>1838</ii>
+		<ii>1839</ii>
+		<ii>1840</ii>
+		<ii>1841</ii>
+		<ii>1842</ii>
+		<ii>1843</ii>
+		<ii>1844</ii>
+		<ii>1845</ii>
+		<ii>1846</ii>
+		<ii>1847</ii>
+		<ii>1848</ii>
+		<ii>1849</ii>
+		<ii>1850</ii>
+		<ii>1851</ii>
+		<ii>1852</ii>
+		<ii>1853</ii>
+		<ii>1854</ii>
+		<ii>1855</ii>
+		<ii>1856</ii>
+		<ii>1857</ii>
+		<ii>1858</ii>
 	</StoreData>
 	<StoreData>
 		<i>10</i>
