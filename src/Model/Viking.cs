@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using sodoff.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace sodoff.Model;
 public class Viking {

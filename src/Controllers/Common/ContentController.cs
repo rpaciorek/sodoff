@@ -977,30 +977,47 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetBuddyList")]
-    public IActionResult GetBuddyList() {
-        // TODO: this is a placeholder
+    [VikingSession]
+    public IActionResult GetBuddyList(Viking viking) {
+        // grab all relations from database
+        List<BuddyRelation> buddies = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Id).ToList();
+        List<Buddy> buddiesRes = new List<Buddy>();
 
-        Viking placeholderBuddy = ctx.Vikings.FirstOrDefault(x => x.Name == "Alan");
-        List<Buddy> buddyList = new List<Buddy>
+        if (buddies is null) return Ok(new BuddyList());
+
+        foreach(var buddy in buddies)
         {
-            new Buddy
+            AvatarData? avatar = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == buddy.BuddyID)?.AvatarSerialized);
+            buddiesRes.Add(new Buddy
             {
-                DisplayName = XmlUtil.DeserializeXml<AvatarData>(placeholderBuddy.AvatarSerialized)?.DisplayName,
-                Online = false,
+                BestBuddy = false,
                 CreateDate = DateTime.Now,
+                UserID = buddy.BuddyID,
                 Status = BuddyStatus.Approved,
-                OnMobile = false,
-                UserID = placeholderBuddy.Id
-            }
-        };
-        return Ok(new BuddyList { Buddy = buddyList.ToArray() });
+                Online = true,
+                DisplayName = avatar.DisplayName
+            });
+        }
+
+        return Ok(new BuddyList{ Buddy = buddiesRes.ToArray() });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/AddBuddy")]
+    [VikingSession]
+    public IActionResult AddBuddy(Viking viking, [FromForm] string buddyUserID) {
+        // create a new relation in the database
+        BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Id, BuddyID = buddyUserID };
+        ctx.BuddyRelations.Add(relation);
+
+        return Ok(true);
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetFriendCode")]
-    public IActionResult GetFriendCode()
-    {
+    public IActionResult GetFriendCode() {
         return Ok("SOONTM");
     }
 

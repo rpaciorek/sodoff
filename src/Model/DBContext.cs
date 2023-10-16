@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using sodoff.Schema;
 
 namespace sodoff.Model;
 public class DBContext : DbContext {
@@ -15,6 +16,7 @@ public class DBContext : DbContext {
     public DbSet<MissionState> MissionStates { get; set; } = null!;
     public DbSet<Room> Rooms { get; set; } = null!;
     public DbSet<RoomItem> RoomItems { get; set; } = null!;
+    public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
 
     public string DbPath { get; }
 

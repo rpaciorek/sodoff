@@ -22,6 +22,7 @@
     <None Remove="Resources\items.xml" />
     <None Remove="Resources\missions.xml" />
     <None Remove="Resources\mmo-js.xml" />
+	<None Remove="Resources\mmo-js-dev.xml" />
 	<None Remove="Resources\mmo-mb.xml" />
     <None Remove="Resources\displaynames.xml" />
     <None Remove="Resources\rankattrib.xml" />
@@ -63,6 +64,9 @@
     <EmbeddedResource Include="Resources\mmo-js.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+	<EmbeddedResource Include="Resources\mmo-js-dev.xml">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</EmbeddedResource>
 	<EmbeddedResource Include="Resources\mmo-mb.xml">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</EmbeddedResource>
