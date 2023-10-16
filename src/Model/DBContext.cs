@@ -77,6 +77,9 @@ public class DBContext : DbContext {
         builder.Entity<Viking>().HasMany(v => v.PairData)
             .WithOne(e => e.Viking);
 
+        builder.Entity<Viking>().HasMany(v => v.Buddies)
+            .WithOne(e => e.Viking);
+
         builder.Entity<Viking>().HasOne(v => v.Inventory)
             .WithOne(e => e.Viking);
 

@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using sodoff.Model;
+using System.Xml.Serialization;
 
 namespace sodoff.Schema;
 
@@ -25,4 +26,6 @@ public class Buddy {
 
     [XmlElement(ElementName = "BestBuddy")]
     public bool BestBuddy;
+
+    public virtual Viking? Viking { get; set; } = null!;
 }

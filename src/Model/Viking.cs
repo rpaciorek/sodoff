@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using sodoff.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace sodoff.Model;
 public class Viking {
@@ -23,6 +24,7 @@ public class Viking {
     public virtual ICollection<Room> Rooms { get; set; } = null!;
     public virtual ICollection<AchievementPoints> AchievementPoints { get; set; } = null!;
     public virtual ICollection<PairData> PairData { get; set; } = null!;
+    public virtual ICollection<Buddy> Buddies { get; set; } = null!;
     public virtual Inventory Inventory { get; set; } = null!;
     public virtual Dragon? SelectedDragon { get; set; }
 
