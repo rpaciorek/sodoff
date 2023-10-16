@@ -1720,6 +1720,15 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetCombinedListMessage")]
+    public IActionResult GetCombinedListMessage()
+    {
+        // TODO - placeholder
+        return Ok(new ArrayOfMessageInfo());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("MissionWebService.asmx/GetTreasureChest")] // used by Math Blaster
     public IActionResult GetTreasureChest() {
         // TODO: This is a placeholder
