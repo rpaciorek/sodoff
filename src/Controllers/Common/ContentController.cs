@@ -995,7 +995,8 @@ public class ContentController : Controller {
                 UserID = buddy.BuddyID,
                 Status = BuddyStatus.Approved,
                 Online = true,
-                DisplayName = avatar.DisplayName
+                DisplayName = avatar.DisplayName,
+                OnMobile = false
             });
         }
 
@@ -1017,7 +1018,16 @@ public class ContentController : Controller {
         ctx.SaveChanges();
 
         // TODO - get proper response
-        return Ok("OK");
+        return Ok(new Buddy
+        {
+            UserID = buddyUserID,
+            Online = true,
+            CreateDate = DateTime.Now,
+            BestBuddy = false,
+            Status = BuddyStatus.Approved,
+            DisplayName = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == buddyUserID)?.AvatarSerialized).DisplayName,
+            OnMobile = false
+        });
     }
 
     [HttpPost]
