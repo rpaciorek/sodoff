@@ -75,7 +75,7 @@ public class ItemStoreController : Controller {
             Description = "Test",
             StartDate = DateTime.Now,
             EndDate = DateTime.Today.AddDays(1),
-            Type = AnnouncementType.Text
+            Type = AnnouncementType.GeneralText
         };
 
         annList.Add(testAnnouncement);
