@@ -1023,6 +1023,33 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/RemoveBuddy")]
+    [VikingSession]
+    public IActionResult RemoveBuddy(Viking viking, [FromForm] string buddyUserId)
+    {
+        // get buddy relation 1
+        BuddyRelation relation = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Id)
+            .FirstOrDefault(e => e.BuddyID == buddyUserId);
+
+        // remove it
+        ctx.BuddyRelations.Remove(relation);
+
+        // get buddy relation 2
+
+        BuddyRelation relation2 = ctx.BuddyRelations.Where(e => e.BuddyID == buddyUserId)
+            .FirstOrDefault(e => e.OwnerID == viking.Id);
+
+        // remove it
+        ctx.BuddyRelations.Remove(relation2);
+
+        ctx.SaveChanges();
+
+        // TODO - get proper response
+        return Ok(1);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetFriendCode")]
     public IActionResult GetFriendCode() {
         return Ok("SOONTM");
