@@ -1036,8 +1036,8 @@ public class ContentController : Controller {
 
         // get buddy relation 2
 
-        BuddyRelation relation2 = ctx.BuddyRelations.Where(e => e.BuddyID == buddyUserId)
-            .FirstOrDefault(e => e.OwnerID == viking.Id);
+        BuddyRelation relation2 = ctx.BuddyRelations.Where(e => e.OwnerID == buddyUserId)
+            .FirstOrDefault(e => e.BuddyID == viking.Id);
 
         // remove it
         ctx.BuddyRelations.Remove(relation2);
