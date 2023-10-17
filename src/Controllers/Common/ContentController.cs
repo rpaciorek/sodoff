@@ -1010,8 +1010,9 @@ public class ContentController : Controller {
         // create a new relation in the database
         BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Id, BuddyID = buddyUserID };
         ctx.BuddyRelations.Add(relation);
+        ctx.SaveChanges();
 
-        return Ok(true);
+        return Ok("OK");
     }
 
     [HttpPost]
