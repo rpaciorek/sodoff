@@ -70,7 +70,7 @@ public class ItemStoreController : Controller {
 
         Announcement testAnnouncement = new Announcement
         {
-            AnnouncementID = worldObjectID,
+            AnnouncementID = 0,
             AnnouncementText = "Test",
             Description = "Test",
             StartDate = DateTime.Now,
