@@ -1018,16 +1018,7 @@ public class ContentController : Controller {
         ctx.SaveChanges();
 
         // TODO - get proper response
-        return Ok(new Buddy
-        {
-            UserID = buddyUserID,
-            Online = true,
-            CreateDate = DateTime.Now,
-            BestBuddy = false,
-            Status = BuddyStatus.Approved,
-            DisplayName = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == buddyUserID)?.AvatarSerialized).DisplayName,
-            OnMobile = false
-        });
+        return Ok(1);
     }
 
     [HttpPost]
