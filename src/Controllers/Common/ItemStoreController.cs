@@ -66,7 +66,20 @@ public class ItemStoreController : Controller {
     [Route("ItemStoreWebService.asmx/GetAnnouncementsByUser")]
     //[VikingSession(UseLock=false)]
     public IActionResult GetAnnouncements([FromForm] int worldObjectID) {
-        // TODO: This is a placeholder, although this endpoint seems to be only used to send announcements to the user (such as the server shutdown), so this might be sufficient.
-        return Ok(new AnnouncementList());
+        List<Announcement> annList = new List<Announcement>();
+
+        Announcement testAnnouncement = new Announcement
+        {
+            AnnouncementID = worldObjectID,
+            AnnouncementText = "Test",
+            Description = "Test",
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Today.AddDays(1),
+            Type = AnnouncementType.Text
+        };
+
+        annList.Add(testAnnouncement);
+
+        return Ok(new AnnouncementList { Announcements = annList.ToArray() });
     }
 }
