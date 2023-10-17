@@ -1007,11 +1007,16 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/AddBuddy")]
     [VikingSession]
     public IActionResult AddBuddy(Viking viking, [FromForm] string buddyUserID) {
-        // create a new relation in the database
+        // create two relations for each user
+
         BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Id, BuddyID = buddyUserID };
+        BuddyRelation relation2 = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = buddyUserID, BuddyID = viking.Id };
+
         ctx.BuddyRelations.Add(relation);
+        ctx.BuddyRelations.Add(relation2);
         ctx.SaveChanges();
 
+        // TODO - get proper response
         return Ok("OK");
     }
 
