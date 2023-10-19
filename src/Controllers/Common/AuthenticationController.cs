@@ -48,6 +48,43 @@ public class AuthenticationController : Controller {
             return Ok(new ParentLoginInfo { Status = MembershipUserStatus.InvalidPassword });
         }
 
+        // check if session already exists for user
+        Session currentSession = ctx.Sessions.FirstOrDefault(e => e.UserId == user.Id);
+
+        if (currentSession != null)
+        {
+
+            if (DateTime.Now == currentSession.CreatedAt.Value.AddDays(7))
+            {
+                // session has expired, delete it from the database and refuse login
+
+                ctx.Sessions.Remove(currentSession);
+                ctx.SaveChanges();
+
+                return Ok(new ParentLoginInfo { Status = MembershipUserStatus.InvalidApiToken });
+            }
+
+            var cL = new List<sodoff.Schema.UserLoginInfo>();
+            foreach (var viking in user.Vikings)
+            {
+                cL.Add(new sodoff.Schema.UserLoginInfo { UserName = viking.Name, UserID = viking.Id });
+            }
+
+            var res = new ParentLoginInfo
+            {
+                UserName = user.Username,
+                Email = user.Email,
+                ApiToken = currentSession.ApiToken,
+                UserID = user.Id,
+                Status = MembershipUserStatus.Success,
+                SendActivationReminder = false,
+                UnAuthorized = false,
+                ChildList = cL.ToArray()
+            };
+
+            return Ok(res);
+        }
+
         // Create session
         Session session = new Session {
             User = user,
@@ -164,6 +201,19 @@ public class AuthenticationController : Controller {
         // Check if user is viking parent
         if (user != viking.User) {
             return Unauthorized();
+        }
+
+        // check if a session for child already exists
+        Session existingSession = ctx.Sessions.FirstOrDefault(e => e.VikingId == viking.Id);
+
+        if (existingSession != null)
+        {
+            if(DateTime.Now == existingSession.CreatedAt.Value.AddDays(7))
+            {
+                // delete session to keep database clean
+                ctx.Sessions.Remove(existingSession);
+                ctx.SaveChanges();
+            }
         }
 
         // Create session
