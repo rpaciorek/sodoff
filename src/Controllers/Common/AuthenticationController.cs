@@ -244,6 +244,15 @@ public class AuthenticationController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ScoreWebService.asmx/SetScore")]
+    public IActionResult SetScore()
+    {
+        // TODO - placeholder
+        return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("AuthenticationWebService.asmx/DeleteAccountNotification")]
     public IActionResult DeleteAccountNotification([FromForm] string apiToken) {
         User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.User;
