@@ -212,8 +212,21 @@ public class AuthenticationController : Controller {
             {
                 // delete session to keep database clean
                 ctx.Sessions.Remove(existingSession);
+
+                // Create new session
+                Session newSession = new Session
+                {
+                    Viking = viking,
+                    ApiToken = Guid.NewGuid().ToString(),
+                    CreatedAt = DateTime.UtcNow
+                };
+                ctx.Sessions.Add(newSession);
                 ctx.SaveChanges();
+
+                return Ok(newSession.ApiToken);
             }
+
+            return Ok(existingSession.ApiToken);
         }
 
         // Create session
