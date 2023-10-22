@@ -36,6 +36,7 @@
     <None Remove="Resources\defaultmissionlist_wojs.xml" />
 	<None Remove="Resources\jukeboxcnt.xml" />
 	<None Remove="Resources\moviecnt.xml" />
+	<None Remove="Resources\profiletags.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Resources\childlist.xml">
@@ -119,6 +120,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\moviecnt.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\profiletags.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
   </ItemGroup>

@@ -105,7 +105,7 @@ public class ProfileController : Controller {
     [Route("ProfileWebService.asmx/GetProfileTagAll")] // used by Magic & Mythies
     public IActionResult GetProfileTagAll() {
         // TODO: This is a placeholder
-        return Ok("<?xml version='1.0' encoding='UTF-8'?><ArrayOfProfileTag xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:nil=\"true\"/>");
+        return Ok(XmlUtil.ReadResourceXmlString("profiletags"));
     }
     
     private UserProfileData GetProfileDataFromViking(Viking viking, [FromForm] string apiKey) {
