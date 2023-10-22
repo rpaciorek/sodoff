@@ -376,12 +376,4 @@
 		<ZN xmlns="">RabbitHoleInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
-	<MMOServerInfo>
-		<IP xmlns="">jsmmo.alanmoon.net</IP>
-		<PN xmlns="">9933</PN>
-		<VR xmlns="">S2X</VR>
-		<DF xmlns="">true</DF>
-		<ZN xmlns="">Lobby</ZN>
-		<RZN xmlns="">JumpStart</RZN>
-	</MMOServerInfo>
 </ArrayOfMMOServerInfo>
