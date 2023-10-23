@@ -1336,11 +1336,21 @@ public class ContentController : Controller {
     }
 
     [HttpPost]
-    //[Produces("application/xml")]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetScene")] // used by World Of Jumpstart
     public IActionResult GetScene() {
         // TODO: This is a placeholder
-        return Ok("<?xml version=\"1.0\" encoding=\"utf-8\"?><SceneData xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:nil=\"true\" />");
+        return Ok(new SceneData
+        {
+            BuildSpots = new List<BuildSpot>
+            {
+                new BuildSpot
+                {
+                    Name = "FunZoneID",
+                    Item = "3165"
+                }
+            }.ToArray()
+        });
     }
 
     [HttpPost]
