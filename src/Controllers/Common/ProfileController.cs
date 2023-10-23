@@ -101,11 +101,19 @@ public class ProfileController : Controller {
     }
     
     [HttpPost]
-    //[Produces("application/xml")]
+    [Produces("application/xml")]
     [Route("ProfileWebService.asmx/GetProfileTagAll")] // used by Magic & Mythies
-    public IActionResult GetProfileTagAll() {
+    [VikingSession]
+    public IActionResult GetProfileTagAll(Viking viking) {
         // TODO: This is a placeholder
-        return Ok(XmlUtil.ReadResourceXmlString("profiletags"));
+        return Ok(new UserProfileTag
+        {
+            CreateDate = DateTime.Now,
+            ProductGroupID = 1,
+            ProfileTags = new List<ProfileTag>(),
+            UserProfileTagID = 1,
+            UserID = Guid.Parse(viking.Id)
+        });
     }
     
     private UserProfileData GetProfileDataFromViking(Viking viking, [FromForm] string apiKey) {
