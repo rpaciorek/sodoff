@@ -103,8 +103,7 @@ public class ProfileController : Controller {
     [HttpPost]
     //[Produces("application/xml")]
     [Route("ProfileWebService.asmx/GetProfileTagAll")] // used by Magic & Mythies
-    [VikingSession]
-    public IActionResult GetProfileTagAll(Viking viking) {
+    public IActionResult GetProfileTagAll() {
         // TODO: This is a placeholder
         return Ok(XmlUtil.ReadResourceXmlString("profiletags"));
     }
