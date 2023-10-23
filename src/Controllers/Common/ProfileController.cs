@@ -106,14 +106,7 @@ public class ProfileController : Controller {
     [VikingSession]
     public IActionResult GetProfileTagAll(Viking viking) {
         // TODO: This is a placeholder
-        return Ok(new UserProfileTag
-        {
-            CreateDate = DateTime.Now,
-            ProductGroupID = 1,
-            ProfileTags = new List<ProfileTag>(),
-            UserProfileTagID = 1,
-            UserID = Guid.Parse(viking.Id)
-        });
+        return Ok(XmlUtil.ReadResourceXmlString("profiletags"));
     }
     
     private UserProfileData GetProfileDataFromViking(Viking viking, [FromForm] string apiKey) {
@@ -201,7 +194,15 @@ public class ProfileController : Controller {
             CashCurrency = 65536,
             ActivityCount = 0,
             BuddyCount = 0,
-            UserGradeData = new UserGrade { UserGradeID = 0 }
+            UserGradeData = new UserGrade { UserGradeID = 0 },
+            UserProfileTag = new UserProfileTag // placeholder
+            {
+                CreateDate = DateTime.Now,
+                ProductGroupID = 1,
+                ProfileTags = new List<ProfileTag>(),
+                UserID = Guid.Parse(viking.Id),
+                UserProfileTagID = 1
+            }
         };
     }
 }
