@@ -199,7 +199,15 @@ public class ProfileController : Controller {
             {
                 CreateDate = new DateTime(DateTime.Now.Ticks),
                 ProductGroupID = 1,
-                ProfileTags = new List<ProfileTag>(),
+                ProfileTags = new List<ProfileTag>()
+                {
+                    new ProfileTag
+                    {
+                        TagID = 1,
+                        TagName = "Social",
+                        Value = 1
+                    }
+                },
                 UserID = Guid.Parse(viking.Id),
                 UserProfileTagID = 1
             }
