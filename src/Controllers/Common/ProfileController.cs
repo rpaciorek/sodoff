@@ -197,7 +197,7 @@ public class ProfileController : Controller {
             UserGradeData = new UserGrade { UserGradeID = 0 },
             UserProfileTag = new UserProfileTag // placeholder
             {
-                CreateDate = DateTime.Now,
+                CreateDate = new DateTime(DateTime.Now.Ticks),
                 ProductGroupID = 1,
                 ProfileTags = new List<ProfileTag>(),
                 UserID = Guid.Parse(viking.Id),
