@@ -193,7 +193,15 @@ public class ProfileController : Controller {
             CashCurrency = 65536,
             ActivityCount = 0,
             BuddyCount = 0,
-            UserGradeData = new UserGrade { UserGradeID = 0 }
+            UserGradeData = new UserGrade { UserGradeID = 0 },
+            UserProfileTag = new UserProfileTag() // placeholder
+            {
+                CreateDate = new DateTime(DateTime.Now.Ticks),
+                ProductGroupID = 1,
+                ProfileTags = new List<ProfileTag>(),
+                UserID = Guid.Parse(viking.Id),
+                UserProfileTagID = 1
+            }
         };
     }
 }
