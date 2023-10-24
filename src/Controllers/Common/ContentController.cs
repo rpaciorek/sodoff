@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Security.Certificates;
 using sodoff.Attributes;
 using sodoff.Model;
 using sodoff.Schema;
@@ -1347,6 +1348,29 @@ public class ContentController : Controller {
     }
 
     [HttpPost]
+    [Route("ContentWebSerivce.asmx/GetHouse")]
+    [VikingSession]
+    public IActionResult GetHouse(Viking viking) {
+        if (viking.House is not null) return Ok(viking.House.XmlData);
+        else return Ok("");
+    }
+
+    [HttpPost]
+    [Route("ContentWebService.asmx/GetHouseByUserId")]
+    public IActionResult GetHouseByUserId([FromForm] string userId)
+    {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+
+        if (viking is not null)
+        {
+            if (viking.House is not null) return Ok(viking.House.XmlData);
+            else return Ok("");
+        }
+
+        return Ok("");
+    }
+
+    [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetSceneByUserId")]
     public IActionResult GetSceneByUserId([FromForm] string userId, [FromForm] string sceneName) {
@@ -1378,6 +1402,26 @@ public class ContentController : Controller {
             };
             viking.SceneData.Add(sceneData);
             ctx.SaveChanges(); 
+            return Ok(true);
+        }
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetHouse")]
+    [VikingSession]
+    public IActionResult SetHouse(Viking viking, [FromForm] string contentXml) {
+        HouseData? house = viking.House;
+
+        if(house is null)
+        {
+            HouseData newHouse = new HouseData{ XmlData = contentXml };
+            ctx.SaveChanges();
+            return Ok(true);
+        } else
+        {
+            house.XmlData = contentXml;
+            ctx.SaveChanges();
             return Ok(true);
         }
     }
