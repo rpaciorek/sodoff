@@ -15,6 +15,7 @@ public class DBContext : DbContext {
     public DbSet<InventoryItem> InventoryItems { get; set; } = null!;
     public DbSet<MissionState> MissionStates { get; set; } = null!;
     public DbSet<Room> Rooms { get; set; } = null!;
+    public DbSet<SceneData> SceneData { get; set; } = null!;
     public DbSet<RoomItem> RoomItems { get; set; } = null!;
     public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
 
@@ -71,6 +72,9 @@ public class DBContext : DbContext {
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasMany(v => v.Rooms)
+            .WithOne(e => e.Viking);
+
+        builder.Entity<Viking>().HasMany(v => v.SceneData)
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasMany(v => v.AchievementPoints)
@@ -169,6 +173,10 @@ public class DBContext : DbContext {
         builder.Entity<AchievementPoints>()
             .HasOne(e => e.Viking)
             .WithMany(e => e.AchievementPoints)
+            .HasForeignKey(e => e.VikingId);
+
+        builder.Entity<SceneData>().HasOne(i => i.Viking)
+            .WithMany(i => i.SceneData)
             .HasForeignKey(e => e.VikingId);
     }
 }

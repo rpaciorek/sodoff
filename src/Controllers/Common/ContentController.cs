@@ -1336,21 +1336,49 @@ public class ContentController : Controller {
     }
 
     [HttpPost]
-    [Produces("application/xml")]
+    //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetScene")] // used by World Of Jumpstart
-    public IActionResult GetScene() {
-        // TODO: This is a placeholder
-        return Ok(new SceneData
+    [VikingSession]
+    public IActionResult GetScene(Viking viking, [FromForm] string sceneName) {
+        SceneData? scene = viking.SceneData.FirstOrDefault(e => e.SceneName == sceneName);
+
+        if (scene is not null) return Ok(scene.XmlData);
+        else return Ok(null);
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetSceneByUserId")]
+    public IActionResult GetSceneByUserId([FromForm] string userId, [FromForm] string sceneName) {
+        SceneData? scene = ctx.Vikings.FirstOrDefault(e => e.Id == userId)?.SceneData.FirstOrDefault(x => x.SceneName == sceneName);
+
+        if (scene is not null) return Ok(scene.XmlData);
+        else return Ok(null);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.xsml/SetScene")] // used by World of Jumpstart
+    [VikingSession]
+    public IActionResult SetScene(Viking viking, [FromForm] string sceneName, [FromForm] string contentXml) {
+        SceneData? existingScene = viking.SceneData.FirstOrDefault(e => e.SceneName == sceneName);
+
+        if(existingScene is not null)
         {
-            BuildSpots = new List<BuildSpot>
+            existingScene.XmlData = contentXml;
+            return Ok(true);
+        }
+        else
+        {
+            SceneData sceneData = new SceneData
             {
-                new BuildSpot
-                {
-                    Name = "FunZoneID",
-                    Item = "3165"
-                }
-            }.ToArray()
-        });
+                SceneName = sceneName,
+                XmlData = contentXml
+            };
+            viking.SceneData.Add(sceneData);
+            ctx.SaveChanges(); 
+            return Ok(true);
+        }
     }
 
     [HttpPost]

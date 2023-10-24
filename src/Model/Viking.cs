@@ -22,6 +22,7 @@ public class Viking {
     public virtual ICollection<Image> Images { get; set; } = null!;
     public virtual ICollection<MissionState> MissionStates { get; set; } = null!;
     public virtual ICollection<Room> Rooms { get; set; } = null!;
+    public virtual ICollection<SceneData> SceneData { get; set; } = null!;
     public virtual ICollection<AchievementPoints> AchievementPoints { get; set; } = null!;
     public virtual ICollection<PairData> PairData { get; set; } = null!;
     public virtual Inventory Inventory { get; set; } = null!;

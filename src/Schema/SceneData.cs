@@ -1,15 +1,16 @@
-﻿using System.Xml.Serialization;
+﻿using sodoff.Model;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Serialization;
 
 namespace sodoff.Schema
 {
-    [XmlRoot(ElementName = "SceneData", Namespace = "", IsNullable = true)]
-    [Serializable]
     public class SceneData
     {
-        [XmlArrayItem("BuildSpot", IsNullable = false)]
-        public BuildSpot[] BuildSpots;
-
-        [XmlArrayItem("Module", IsNullable = false)]
-        public Module[] Modules;
+        [Key]
+        public int Id { get; set; }
+        public string VikingId { get; set; } = null!;
+        public string SceneName { get; set; } = null!;
+        public string XmlData {  get; set; } = null!;
+        public Viking Viking { get; set; } = null!;
     }
 }
