@@ -78,9 +78,6 @@ public class DBContext : DbContext {
         builder.Entity<Viking>().HasMany(v => v.SceneData)
             .WithOne(e => e.Viking);
 
-        builder.Entity<Viking>().HasOne(v => v.House)
-            .WithOne(e => e.Viking);
-
         builder.Entity<Viking>().HasMany(v => v.AchievementPoints)
             .WithOne(e => e.Viking);
 
@@ -182,5 +179,8 @@ public class DBContext : DbContext {
         builder.Entity<SceneData>().HasOne(i => i.Viking)
             .WithMany(i => i.SceneData)
             .HasForeignKey(e => e.VikingId);
+
+        builder.Entity<HouseData>().HasOne(i => i.Viking)
+            .WithOne(i => i.House);
     }
 }
