@@ -1343,7 +1343,7 @@ public class ContentController : Controller {
         SceneData? scene = viking.SceneData.FirstOrDefault(e => e.SceneName == sceneName);
 
         if (scene is not null) return Ok(scene.XmlData);
-        else return Ok(null);
+        else return Ok("");
     }
 
     [HttpPost]
@@ -1358,7 +1358,7 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.xsml/SetScene")] // used by World of Jumpstart
+    [Route("ContentWebService.asmx/SetScene")] // used by World of Jumpstart
     [VikingSession]
     public IActionResult SetScene(Viking viking, [FromForm] string sceneName, [FromForm] string contentXml) {
         SceneData? existingScene = viking.SceneData.FirstOrDefault(e => e.SceneName == sceneName);
