@@ -1366,6 +1366,7 @@ public class ContentController : Controller {
         if(existingScene is not null)
         {
             existingScene.XmlData = contentXml;
+            ctx.SaveChanges();
             return Ok(true);
         }
         else
