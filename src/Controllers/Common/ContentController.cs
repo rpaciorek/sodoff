@@ -1416,6 +1416,7 @@ public class ContentController : Controller {
         if(house is null)
         {
             HouseData newHouse = new HouseData{ XmlData = contentXml };
+            viking.House = newHouse;
             ctx.SaveChanges();
             return Ok(true);
         } else
