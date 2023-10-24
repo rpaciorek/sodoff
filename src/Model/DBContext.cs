@@ -182,8 +182,5 @@ public class DBContext : DbContext {
         builder.Entity<SceneData>().HasOne(i => i.Viking)
             .WithMany(i => i.SceneData)
             .HasForeignKey(e => e.VikingId);
-
-        builder.Entity<HouseData>().HasOne(i => i.Viking)
-            .WithOne(e => e.House);
     }
 }
