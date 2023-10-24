@@ -11,6 +11,6 @@ namespace sodoff.Schema
         public string VikingId { get; set; } = null!;
         public string SceneName { get; set; } = null!;
         public string XmlData {  get; set; } = null!;
-        public Viking Viking { get; set; } = null!;
+        public virtual Viking Viking { get; set; } = null!;
     }
 }
