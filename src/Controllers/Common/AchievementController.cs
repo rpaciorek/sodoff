@@ -211,7 +211,7 @@ public class AchievementController : Controller {
     [Route("MissionWebService.asmx/GetPayout")] // Used By World of JumpStart, should be in its own controller but it counts as achievement points so it goes here.
     public IActionResult GetPayout([FromForm] int points)
     {
-        return Ok(points / (500/3));
+        return Ok(points / (350/3));
     }
 
     [HttpPost]
