@@ -1014,6 +1014,8 @@ public class ContentController : Controller {
         BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Id, BuddyID = buddyUserID };
         BuddyRelation relation2 = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = buddyUserID, BuddyID = viking.Id };
 
+        if (ctx.BuddyRelations.Contains(relation) || ctx.BuddyRelations.Contains(relation2)) return Ok(0); // DO NOT ADD IF ALREADY ADDED
+
         ctx.BuddyRelations.Add(relation);
         ctx.BuddyRelations.Add(relation2);
         ctx.SaveChanges();
