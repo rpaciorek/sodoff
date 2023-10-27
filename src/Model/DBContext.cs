@@ -19,7 +19,6 @@ public class DBContext : DbContext {
     public DbSet<HouseData> Houses { get; set; } = null!;
     public DbSet<RoomItem> RoomItems { get; set; } = null!;
     public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
-    public DbSet<BuddyRequest> BuddyRequests { get; set; } = null!;
 
     public string DbPath { get; }
 
