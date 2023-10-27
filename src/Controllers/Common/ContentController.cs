@@ -1021,14 +1021,10 @@ public class ContentController : Controller {
         ctx.SaveChanges();
 
         // TODO - get proper response
-        return Ok(new Buddy
+        return Ok(new BuddyActionResult
         {
-            UserID = relation.BuddyID,
-            BestBuddy = false,
-            CreateDate = DateTime.Now,
-            DisplayName = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == relation.BuddyID)?.AvatarSerialized).DisplayName,
-            Online = true,
-            OnMobile = false,
+            BuddyUserID = relation.BuddyID,
+            Result = BuddyActionResultType.Success,
             Status = BuddyStatus.Approved
         });
     }
