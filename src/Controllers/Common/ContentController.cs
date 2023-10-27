@@ -1014,14 +1014,23 @@ public class ContentController : Controller {
         BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Id, BuddyID = buddyUserID };
         BuddyRelation relation2 = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = buddyUserID, BuddyID = viking.Id };
 
-        if (ctx.BuddyRelations.Contains(relation) || ctx.BuddyRelations.Contains(relation2)) return Ok(0); // DO NOT ADD IF ALREADY ADDED
+        if (ctx.BuddyRelations.Contains(relation) || ctx.BuddyRelations.Contains(relation2)) return Ok(null); // DO NOT ADD IF ALREADY ADDED
 
         ctx.BuddyRelations.Add(relation);
         ctx.BuddyRelations.Add(relation2);
         ctx.SaveChanges();
 
         // TODO - get proper response
-        return Ok(1);
+        return Ok(new Buddy
+        {
+            UserID = relation.BuddyID,
+            BestBuddy = false,
+            CreateDate = DateTime.Now,
+            DisplayName = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == relation.BuddyID)?.AvatarSerialized).DisplayName,
+            Online = true,
+            OnMobile = false,
+            Status = BuddyStatus.Approved
+        });
     }
 
     [HttpPost]
