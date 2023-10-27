@@ -1009,10 +1009,13 @@ public class ContentController : Controller {
             AvatarData? avatar = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == request.RequestUserID)?.AvatarSerialized);
             buddiesRes.Add(new Buddy
             {
+                BestBuddy = false,
                 CreateDate = DateTime.Now,
                 UserID = request.RequestUserID,
-                Status = BuddyStatus.PendingApprovalFromSelf,
-                DisplayName = avatar.DisplayName
+                Status = BuddyStatus.PendingApprovalFromOther,
+                Online = true,
+                DisplayName = avatar.DisplayName,
+                OnMobile = false
             });
         }
 
