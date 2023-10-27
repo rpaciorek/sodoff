@@ -1014,6 +1014,7 @@ public class ContentController : Controller {
                 Status = BuddyStatus.PendingApprovalFromSelf,
                 DisplayName = avatar.DisplayName
             });
+            Console.WriteLine("Added One Buddy Request");
         }
 
         return Ok(new BuddyList{ Buddy = buddiesRes.ToArray() });
@@ -1061,11 +1062,7 @@ public class ContentController : Controller {
 
         ctx.SaveChanges();
 
-        return Ok(new BuddyActionResult
-        {
-            BuddyUserID = buddyUserId,
-            Result = BuddyActionResultType.Success
-        });
+        return Ok(true);
     }
 
     [HttpPost]
