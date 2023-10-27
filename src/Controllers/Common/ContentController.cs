@@ -1053,7 +1053,7 @@ public class ContentController : Controller {
         ctx.SaveChanges();
 
         // TODO - get proper response
-        return Ok(1);
+        return Ok(true);
     }
 
     [HttpPost]
