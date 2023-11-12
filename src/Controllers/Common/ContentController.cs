@@ -1291,14 +1291,20 @@ public class ContentController : Controller {
     public IActionResult GetActiveParties()
     {
         // TODO - placeholder
-        return Ok(new UserParty[] { new UserParty
+        return Ok(new UserPartyData
         {
-            DisplayName = "Alan MoonDragon",
-            PrivateParty = false,
-            ExpirationDate = DateTime.Now.AddDays(7),
-            UserName = "Alan MoonDragon",
-            UserID = Guid.Parse("e1521dff-1d7c-4c50-9a58-ad24f41e91d8")
-        }});
+            NonBuddyParties = new UserParty[]
+            {
+                new UserParty
+                {
+                    DisplayName = "Alan MoonDragon",
+                    UserName = "Alan MoonDragon",
+                    UserID = Guid.Parse("e1521dff-1d7c-4c50-9a58-ad24f41e91d8"),
+                    ExpirationDate = DateTime.Now.AddDays(7),
+                    PrivateParty = false
+                }
+            }
+        });
     }
 
     [HttpPost]
