@@ -1293,19 +1293,8 @@ public class ContentController : Controller {
         // TODO - placeholder
         return Ok(new UserPartyData
         {
-            NonBuddyParties = new UserParty[]
-            {
-                new UserParty
-                {
-                    DisplayName = "Alan MoonDragon",
-                    UserName = "Alan MoonDragon",
-                    UserID = Guid.Parse("e1521dff-1d7c-4c50-9a58-ad24f41e91d8"),
-                    ExpirationDate = DateTime.Now.AddDays(7),
-                    PrivateParty = false,
-                    Location = "TestLocation"
-                }
-            },
-            BuddyParties = new UserParty[0]
+            NonBuddyParties = new List<UserParty>().ToArray(),
+            BuddyParties = new List<UserParty>().ToArray()
         });
     }
 
