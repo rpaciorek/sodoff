@@ -1287,6 +1287,22 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetActiveParties")]
+    public IActionResult GetActiveParties()
+    {
+        // TODO - placeholder
+        return Ok(new UserParty[] { new UserParty
+        {
+            DisplayName = "Alan MoonDragon",
+            PrivateParty = false,
+            ExpirationDate = DateTime.Now.AddDays(7),
+            UserName = "Alan MoonDragon",
+            UserID = Guid.Parse("e1521dff-1d7c-4c50-9a58-ad24f41e91d8")
+        }});
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserActivityByUserID")]
     public IActionResult GetUserActivityByUserID() {
         // TODO: This is a placeholder
