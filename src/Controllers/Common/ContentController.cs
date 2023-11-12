@@ -1303,7 +1303,8 @@ public class ContentController : Controller {
                     ExpirationDate = DateTime.Now.AddDays(7),
                     PrivateParty = false
                 }
-            }
+            },
+            BuddyParties = new UserParty[0]
         });
     }
 
