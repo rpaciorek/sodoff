@@ -1301,7 +1301,8 @@ public class ContentController : Controller {
                     UserName = "Alan MoonDragon",
                     UserID = Guid.Parse("e1521dff-1d7c-4c50-9a58-ad24f41e91d8"),
                     ExpirationDate = DateTime.Now.AddDays(7),
-                    PrivateParty = false
+                    PrivateParty = false,
+                    Location = "TestLocation"
                 }
             },
             BuddyParties = new UserParty[0]
