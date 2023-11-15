@@ -1290,11 +1290,26 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetActiveParties")]
     public IActionResult GetActiveParties()
     {
+        Viking placeholderViking = ctx.Vikings.FirstOrDefault(ex => ex.Name == "Alan");
+
+        // get placeholder data
+        AvatarData placeholderAvi = XmlUtil.DeserializeXml<AvatarData>(placeholderViking?.AvatarSerialized);
+
         // TODO - placeholder
         return Ok(new UserPartyData
         {
-            NonBuddyParties = new List<UserParty>().ToArray(),
-            BuddyParties = new List<UserParty>().ToArray()
+            NonBuddyParties = new List<UserParty>()
+            {
+                new UserParty
+                {
+                    DisplayName = placeholderAvi.DisplayName,
+                    UserName = placeholderAvi.DisplayName,
+                    ExpirationDate = DateTime.Now.AddDays(7),
+                    PrivateParty = false,
+                    UserID = Guid.Parse(placeholderViking.UserId),
+                    Location = "MyNeighborhood"
+                }
+            }.ToArray()
         });
     }
 
