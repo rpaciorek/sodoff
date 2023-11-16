@@ -1347,6 +1347,9 @@ public class ContentController : Controller {
 
             if (ctx.Parties.FirstOrDefault(e => e.VikingId == party.VikingId) != null) return Ok(null);
 
+            // take away coins
+            viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency)!.Value -= 60;
+
             ctx.Parties.Add(party);
             ctx.SaveChanges();
 
