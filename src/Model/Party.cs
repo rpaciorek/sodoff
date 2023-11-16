@@ -6,8 +6,7 @@ namespace sodoff.Model
     public class Party
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
         public string Location { get; set; } = null!;
         public string VikingId { get; set; } = null!;
         public DateTime ExpirationDate { get; set; } = DateTime.UtcNow;

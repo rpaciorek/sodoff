@@ -1300,6 +1300,8 @@ public class ContentController : Controller {
             {
                 ctx.Parties.Remove(party);
                 ctx.SaveChanges();
+
+                continue;
             }
 
             AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == party.VikingId)?.AvatarSerialized);
@@ -1329,6 +1331,7 @@ public class ContentController : Controller {
 
         Party party = new Party
         {
+            Id = Guid.NewGuid().ToString(),
             VikingId = viking.Id,
             PrivateParty = false
         };
@@ -1346,7 +1349,7 @@ public class ContentController : Controller {
             return Ok(true);
         }
 
-        return Ok(false);
+        return Ok(null);
     }
 
     [HttpPost]
