@@ -1296,6 +1296,14 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/PurchaseParty")]
+    public IActionResult PurchaseParty()
+    {
+        return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserActivityByUserID")]
     public IActionResult GetUserActivityByUserID() {
         // TODO: This is a placeholder
