@@ -1302,7 +1302,8 @@ public class ContentController : Controller {
                     ExpirationDate = DateTime.Now.AddDays(7),
                     PrivateParty = false,
                     UserID = Guid.Parse("151d1ee8-a007-48ae-8296-34142dc78b02"),
-                    Location = "MyNeighborhood"
+                    Location = "MyNeighborhood",
+                    Icon = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood"
                 }
             }.ToArray()
         });
