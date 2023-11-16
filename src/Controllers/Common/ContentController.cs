@@ -1290,7 +1290,7 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetActiveParties")]
     public IActionResult GetActiveParties()
     {
-        Viking placeholderViking = ctx.Vikings.FirstOrDefault(ex => ex.Name == "Alan");
+        Viking placeholderViking = ctx.Vikings.FirstOrDefault(ex => ex.Id == "e1521dff-1d7c-4c50-9a58-ad24f41e91d8");
 
         // get placeholder data
         AvatarData placeholderAvi = XmlUtil.DeserializeXml<AvatarData>(placeholderViking?.AvatarSerialized);
