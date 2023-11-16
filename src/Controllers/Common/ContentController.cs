@@ -1297,11 +1297,11 @@ public class ContentController : Controller {
             {
                 new UserParty
                 {
-                    DisplayName = "Alan MoonDragon",
-                    UserName = "Alan MoonDragon",
+                    DisplayName = "Alex YellowMonkey",
+                    UserName = "Alex YellowMonkey",
                     ExpirationDate = DateTime.Now.AddDays(7),
                     PrivateParty = false,
-                    UserID = Guid.Parse("e1521dff-1d7c-4c50-9a58-ad24f41e91d8"),
+                    UserID = Guid.Parse("151d1ee8-a007-48ae-8296-34142dc78b02"),
                     Location = "MyNeighborhood"
                 }
             }.ToArray()
