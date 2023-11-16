@@ -1291,22 +1291,7 @@ public class ContentController : Controller {
     public IActionResult GetActiveParties()
     {
         // TODO - placeholder
-        return Ok(new UserPartyData
-        {
-            NonBuddyParties = new List<UserParty>()
-            {
-                new UserParty
-                {
-                    DisplayName = "Alex YellowMonkey",
-                    UserName = "Alex YellowMonkey",
-                    ExpirationDate = DateTime.Now.AddDays(7),
-                    PrivateParty = false,
-                    UserID = Guid.Parse("151d1ee8-a007-48ae-8296-34142dc78b02"),
-                    Location = "MyNeighborhood",
-                    Icon = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood"
-                }
-            }.ToArray()
-        });
+        return Ok(new UserPartyData());
     }
 
     [HttpPost]
