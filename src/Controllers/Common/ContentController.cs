@@ -1296,7 +1296,7 @@ public class ContentController : Controller {
 
         foreach(var party in allParties)
         {
-            if(party.ExpirationDate == DateTime.UtcNow)
+            if(DateTime.UtcNow >= party.ExpirationDate)
             {
                 ctx.Parties.Remove(party);
                 ctx.SaveChanges();
