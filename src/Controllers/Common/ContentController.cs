@@ -1343,6 +1343,10 @@ public class ContentController : Controller {
             party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
             party.ExpirationDate = DateTime.UtcNow.AddHours(1);
 
+            // check if party already exists
+
+            if (ctx.Parties.FirstOrDefault(e => e.VikingId == party.VikingId) != null) return Ok(null);
+
             ctx.Parties.Add(party);
             ctx.SaveChanges();
 
