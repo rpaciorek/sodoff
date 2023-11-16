@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Ocsp;
 using Org.BouncyCastle.Security.Certificates;
 using sodoff.Attributes;
 using sodoff.Model;
@@ -1290,16 +1291,62 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetActiveParties")]
     public IActionResult GetActiveParties()
     {
-        // TODO - placeholder
-        return Ok(new UserPartyData());
+        List<Party> allParties = ctx.Parties.ToList();
+        List<UserParty> userParties = new List<UserParty>();
+
+        foreach(var party in allParties)
+        {
+            if(party.ExpirationDate == DateTime.UtcNow)
+            {
+                ctx.Parties.Remove(party);
+                ctx.SaveChanges();
+            }
+
+            AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == party.VikingId)?.AvatarSerialized);
+            UserParty userParty = new UserParty
+            {
+                DisplayName = avatarData.DisplayName,
+                UserName = avatarData.DisplayName,
+                ExpirationDate = party.ExpirationDate,
+                Icon = party.LocationIconAsset,
+                Location = party.Location,
+                PrivateParty = party.PrivateParty!.Value,
+                UserID = Guid.Parse(party.VikingId)
+            };
+            userParties.Add(userParty);
+        }
+
+        return Ok(new UserPartyData { NonBuddyParties = userParties.ToArray() });
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/PurchaseParty")]
-    public IActionResult PurchaseParty()
+    [VikingSession]
+    public IActionResult PurchaseParty(Viking viking, [FromForm] int itemId)
     {
-        return Ok(true);
+        // create a party based on bought itemid
+
+        Party party = new Party
+        {
+            VikingId = viking.Id,
+            PrivateParty = false
+        };
+
+        // TODO - add other items to this if statement
+        if(itemId == 6259)
+        {
+            party.Location = "MyNeighborhood";
+            party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
+            party.ExpirationDate = DateTime.UtcNow.AddHours(1);
+
+            ctx.Parties.Add(party);
+            ctx.SaveChanges();
+
+            return Ok(true);
+        }
+
+        return Ok(false);
     }
 
     [HttpPost]
