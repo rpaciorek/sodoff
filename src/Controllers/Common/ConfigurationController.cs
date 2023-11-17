@@ -38,6 +38,10 @@ public class ConfigurationController : Controller {
         {
             ContentInfoArray = XmlUtil.DeserializeXml<ContentInfoData[]>(XmlUtil.ReadResourceXmlString("moviecnt"))
         });
+        if (contentType == 3) return Ok(new ContentInfo
+        {
+            ContentInfoArray = XmlUtil.DeserializeXml<ContentInfoData[]>(XmlUtil.ReadResourceXmlString("aracadecnt"))
+        });
 
         return NotFound();
     }
