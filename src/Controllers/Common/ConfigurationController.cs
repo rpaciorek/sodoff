@@ -40,7 +40,7 @@ public class ConfigurationController : Controller {
         });
         if (contentType == 3) return Ok(new ContentInfo
         {
-            ContentInfoArray = XmlUtil.DeserializeXml<ContentInfoData[]>(XmlUtil.ReadResourceXmlString("aracadecnt"))
+            ContentInfoArray = XmlUtil.DeserializeXml<ContentInfoData[]>(XmlUtil.ReadResourceXmlString("arcadecnt"))
         });
 
         return NotFound();
