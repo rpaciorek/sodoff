@@ -9,9 +9,9 @@ namespace sodoff.Model
         public string Id { get; set; } = null!;
 
         [Required]
-        public string OwnerID { get; set; } = null!;
+        public Guid OwnerID { get; set; }
 
-        public string BuddyID { get; set; } = null!;
+        public Guid BuddyID { get; set; }
 
     }
 }

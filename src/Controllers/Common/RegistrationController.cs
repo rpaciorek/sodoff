@@ -27,13 +27,13 @@ public class RegistrationController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("v3/RegistrationWebService.asmx/DeleteProfile")]
-    public IActionResult DeleteProfile([FromForm] string apiToken, [FromForm] string userID) {
+    public IActionResult DeleteProfile([FromForm] Guid apiToken, [FromForm] Guid userID) {
         User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.User;
         if (user is null) {
             return Ok(DeleteProfileStatus.OWNER_ID_NOT_FOUND);
         }
 
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userID);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userID);
         if (viking is null) {
             return Ok(DeleteProfileStatus.PROFILE_NOT_FOUND);
         }
@@ -56,7 +56,7 @@ public class RegistrationController : Controller {
     public IActionResult RegisterParent([FromForm] string apiKey) {
         ParentRegistrationData data = XmlUtil.DeserializeXml<ParentRegistrationData>(Request.Form["parentRegistrationData"]);
         User u = new User {
-            Id = Guid.NewGuid().ToString(),
+            Id = Guid.NewGuid(),
             Username = data.ChildList[0].ChildName,
             Password = new PasswordHasher<object>().HashPassword(null, data.Password),
             Email = data.Email
@@ -76,10 +76,10 @@ public class RegistrationController : Controller {
 
         Viking v = new Viking
         {
-            Id = Guid.NewGuid().ToString(),
+            Uid = Guid.NewGuid(),
             Name = data.ChildList[0].ChildName,
             User = u,
-            Inventory = new Inventory { InventoryItems = new List<InventoryItem>() },
+            InventoryItems = new List<InventoryItem>(),
             AchievementPoints = new List<AchievementPoints>(),
             Rooms = new List<Room>()
         };
@@ -107,14 +107,14 @@ public class RegistrationController : Controller {
         ParentLoginInfo pli = new ParentLoginInfo {
             UserName = u.Username,
             ApiToken = Guid.NewGuid().ToString(),
-            UserID = u.Id,
+            UserID = u.Id.ToString(),
             Status = MembershipUserStatus.Success,
             UnAuthorized = false
         };
 
         var response = new RegistrationResult {
             ParentLoginInfo = pli,
-            UserID = u.Id,
+            UserID = u.Id.ToString(),
             Status = MembershipUserStatus.Success,
             ApiToken = Guid.NewGuid().ToString()
         };
@@ -128,7 +128,7 @@ public class RegistrationController : Controller {
     [Route("V4/RegistrationWebService.asmx/RegisterChild")]
     [DecryptRequest("childRegistrationData")]
     [EncryptResponse]
-    public IActionResult RegisterChild([FromForm] string parentApiToken, [FromForm] string apiKey) {
+    public IActionResult RegisterChild([FromForm] Guid parentApiToken, [FromForm] string apiKey) {
         User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == parentApiToken)?.User;
         if (user is null) {
             return Ok(new RegistrationResult{
@@ -147,14 +147,15 @@ public class RegistrationController : Controller {
             return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateUserName });
         }
 
-        Inventory inv = new Inventory { InventoryItems = new List<InventoryItem>() };
-        inv.InventoryItems.Add(new InventoryItem { ItemId = 8977, Quantity = 1 }); // DragonStableINTDO - Dragons Dragon Stable
+        List<InventoryItem> items = new() {
+            new InventoryItem { ItemId = 8977, Quantity = 1 } // DragonStableINTDO - Dragons Dragon Stable
+        };
 
         Viking v = new Viking {
-            Id = Guid.NewGuid().ToString(),
+            Uid = Guid.NewGuid(),
             Name = data.ChildName,
             User = user,
-            Inventory = inv,
+            InventoryItems = items,
             AchievementPoints = new List<AchievementPoints>(),
             Rooms = new List<Room>()
         };
@@ -177,6 +178,7 @@ public class RegistrationController : Controller {
         });
 
         ctx.Vikings.Add(v);
+        ctx.SaveChanges();
 
         if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
             keyValueService.SetPairData(null, v, null, 2017, new Schema.PairData {
@@ -189,12 +191,11 @@ public class RegistrationController : Controller {
                 }
             });
         }
-        ctx.SaveChanges();
 
         roomService.CreateRoom(v, "MyRoomINT");
 
         return Ok(new RegistrationResult {
-            UserID = v.Id,
+            UserID = v.Uid.ToString(),
             Status = MembershipUserStatus.Success
         });
     }
