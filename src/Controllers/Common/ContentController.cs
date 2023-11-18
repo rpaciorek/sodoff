@@ -68,7 +68,10 @@ public class ContentController : Controller {
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/SetProduct")] // used by World Of Jumpstart
     [VikingSession]
-    public bool SetProduct(Viking viking, [FromForm] string contentXml) {
+    public bool SetProduct(Viking viking, [FromForm] string contentXml, [FromForm] string apiKey) {
+        if (apiKey == "b4e0f71a-1cda-462a-97b3-0b355e87e0c8") // do not set product to adventureland product
+            return false;
+
         viking.ProductData = contentXml;
         ctx.SaveChanges();
         return true;
