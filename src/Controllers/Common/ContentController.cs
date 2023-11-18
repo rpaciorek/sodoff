@@ -71,8 +71,8 @@ public class ContentController : Controller {
     [HttpPost]
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetCurrentPetByUserID")] // used by World Of Jumpstart
-    public IActionResult GetCurrentPetByUserID([FromForm] string userId, [FromForm] bool isActive) {
-        string? petData = ctx.Vikings.FirstOrDefault(e => e.Id == userId)?.PetSerialized;
+    public IActionResult GetCurrentPetByUserID([FromForm] Guid userId, [FromForm] bool isActive) {
+        string? petData = ctx.Vikings.FirstOrDefault(e => e.Uid == userId)?.PetSerialized;
         if (petData is null)
             return Ok(XmlUtil.SerializeXml<PetData>(null));
 
@@ -215,7 +215,7 @@ public class ContentController : Controller {
         } else {
             // TODO: placeholder - return 8 viking slot items
             return Ok(new CommonInventoryData {
-                UserID = Guid.Parse(user.Id),
+                UserID = user.Id,
                 Item = new UserItemData[] {
                     new UserItemData {
                         UserInventoryID = 0,
@@ -249,7 +249,7 @@ public class ContentController : Controller {
         // SetCommonInventory can remove any number of items from the inventory, this checks if it's possible
         foreach (var req in request) {
             if (req.Quantity >= 0) continue;
-            int inventorySum = viking.Inventory.InventoryItems.Sum(e => {if (e.ItemId == req.ItemID) return e.Quantity; return 0;});
+            int inventorySum = viking.InventoryItems.Sum(e => {if (e.ItemId == req.ItemID) return e.Quantity; return 0;});
             if (inventorySum < -req.Quantity)
                 return Ok(new CommonInventoryResponse { Success = false });
         }
@@ -261,7 +261,7 @@ public class ContentController : Controller {
             if (inventoryService.ItemNeedUniqueInventorySlot((int)req.ItemID)) {
                 // if req.Quantity < 0 remove unique items
                 for (int i=req.Quantity; i<0; ++i) {
-                     InventoryItem? item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID && e.Quantity>0);
+                     InventoryItem? item = viking.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID && e.Quantity>0);
                      item.Quantity--;
                 }
                 // if req.Quantity > 0 add unique items
@@ -292,7 +292,7 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/UseInventory")]
     [VikingSession]
     public IActionResult UseInventory(Viking viking, [FromForm] int userInventoryId, [FromForm] int numberOfUses) {
-        InventoryItem? item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == userInventoryId);
+        InventoryItem? item = viking.InventoryItems.FirstOrDefault(e => e.Id == userInventoryId);
         if (item is null)
             return Ok(false);
         if (item.Quantity < numberOfUses)
@@ -326,7 +326,7 @@ public class ContentController : Controller {
     [VikingSession(UseLock=false)]
     public IActionResult GetAvatar(Viking viking) {
         AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
-        avatarData.Id = viking.Inventory.Id;
+        avatarData.Id = viking.Id;
         return Ok(avatarData);
     }
 
@@ -413,7 +413,7 @@ public class ContentController : Controller {
         };
         // Save the dragon in the db
         Dragon dragon = new Dragon {
-            EntityId = Guid.NewGuid().ToString(),
+            EntityId = Guid.NewGuid(),
             Viking = viking,
             RaisedPetData = XmlUtil.SerializeXml(raisedPetData),
         };
@@ -441,7 +441,7 @@ public class ContentController : Controller {
         // TODO: Investigate SetAsSelectedPet and UnSelectOtherPets - they don't seem to do anything
 
         // Update the RaisedPetData with the info
-        String dragonId = Guid.NewGuid().ToString();
+        string dragonId = Guid.NewGuid().ToString();
         raisedPetRequest.RaisedPetData.IsPetCreated = true;
         raisedPetRequest.RaisedPetData.RaisedPetID = 0; // Initially make zero, so the db auto-fills
         raisedPetRequest.RaisedPetData.EntityID = Guid.Parse(dragonId);
@@ -460,7 +460,7 @@ public class ContentController : Controller {
         };
         // Save the dragon in the db
         Dragon dragon = new Dragon {
-            EntityId = Guid.NewGuid().ToString(),
+            EntityId = Guid.NewGuid(),
             Viking = viking,
             RaisedPetData = XmlUtil.SerializeXml(raisedPetRequest.RaisedPetData),
         };
@@ -475,7 +475,7 @@ public class ContentController : Controller {
 
         if (raisedPetRequest.CommonInventoryRequests is not null) {
             foreach (var req in raisedPetRequest.CommonInventoryRequests) {
-                InventoryItem? item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
+                InventoryItem? item = viking.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
                 
                 //Does the item exist in the user's inventory?
                 if (item is null) continue; //If not, skip it.
@@ -614,14 +614,14 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetAllActivePetsByuserId")]
-    public RaisedPetData[]? GetAllActivePetsByuserId([FromForm] string userId, [FromForm] bool active) {
+    public RaisedPetData[]? GetAllActivePetsByuserId([FromForm] Guid userId, [FromForm] bool active) {
         // NOTE: this is public info (for mmo) - no session check
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
         if (viking is null)
             return null;
 
         RaisedPetData[] dragons = ctx.Dragons
-            .Where(d => d.VikingId == userId && d.RaisedPetData != null)
+            .Where(d => d.VikingId == viking.Id && d.RaisedPetData != null)
             .Select(d => GetRaisedPetDataFromDragon(d, viking.SelectedDragonId))
             .ToArray();
 
@@ -766,9 +766,9 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetImageByUserId")]
-    public ImageData? GetImageByUserId([FromForm] string userId, [FromForm] string ImageType, [FromForm] int ImageSlot) {
+    public ImageData? GetImageByUserId([FromForm] Guid userId, [FromForm] string ImageType, [FromForm] int ImageSlot) {
         // NOTE: this is public info (for mmo) - no session check
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
         if (viking is null || viking.Images is null) {
             return null;
         }
@@ -779,8 +779,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserUpcomingMissionState")]
-    public IActionResult GetUserUpcomingMissionState([FromForm] string apiToken, [FromForm] string userId, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserUpcomingMissionState([FromForm] Guid apiToken, [FromForm] Guid userId, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
         
@@ -788,15 +788,15 @@ public class ContentController : Controller {
         foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus == MissionStatus.Upcoming))
             result.Missions.Add(missionService.GetMissionWithProgress(mission.MissionId, viking.Id, apiKey));
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserActiveMissionState")]
-    public IActionResult GetUserActiveMissionState([FromForm] string apiToken, [FromForm] string userId, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserActiveMissionState([FromForm] Guid apiToken, [FromForm] Guid userId, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
         
@@ -808,15 +808,15 @@ public class ContentController : Controller {
             result.Missions.Add(updatedMission);
         }
         
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserCompletedMissionState")]
-    public IActionResult GetUserCompletedMissionState([FromForm] string apiToken, [FromForm] string userId, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserCompletedMissionState([FromForm] Guid apiToken, [FromForm] Guid userId, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
 
@@ -824,7 +824,7 @@ public class ContentController : Controller {
         foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus == MissionStatus.Completed))
             result.Missions.Add(missionService.GetMissionWithProgress(mission.MissionId, viking.Id, apiKey));
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
@@ -832,8 +832,8 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/AcceptMission")]
     [VikingSession]
-    public IActionResult AcceptMission(Viking viking, [FromForm] string userId, [FromForm] int missionId) {
-        if (viking.Id != userId)
+    public IActionResult AcceptMission(Viking viking, [FromForm] Guid userId, [FromForm] int missionId) {
+        if (viking.Uid != userId)
             return Unauthorized("Can't accept not owned mission");
 
         MissionState? missionState = viking.MissionStates.FirstOrDefault(x => x.MissionId == missionId);
@@ -849,8 +849,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserMissionState")] // used by SoD 1.13
-    public IActionResult GetUserMissionStatev1([FromForm] string userId, [FromForm] string filter, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserMissionStatev1([FromForm] Guid userId, [FromForm] string filter, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
 
@@ -872,7 +872,7 @@ public class ContentController : Controller {
             result.Missions.Add(updatedMission);
         }
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
@@ -880,9 +880,9 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserMissionState")]
     //[VikingSession(UseLock=false)]
-    public IActionResult GetUserMissionState([FromForm] string userId, [FromForm] string filter, [FromForm] string apiKey) {
+    public IActionResult GetUserMissionState([FromForm] Guid userId, [FromForm] string filter, [FromForm] string apiKey) {
         MissionRequestFilterV2 filterV2 = XmlUtil.DeserializeXml<MissionRequestFilterV2>(filter);
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
 
@@ -891,7 +891,7 @@ public class ContentController : Controller {
             foreach (var m in filterV2.MissionPair)
                 if (m.MissionID != null)
                     result.Missions.Add(missionService.GetMissionWithProgress((int)m.MissionID, viking.Id, apiKey));
-        // TODO: probably should also check for msiion based on filterV2.ProductGroupID vs mission.GroupID
+        // TODO: probably should also check for mission based on filterV2.ProductGroupID vs mission.GroupID
         } else {
             if (filterV2.GetCompletedMission ?? false) {
                 foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus == MissionStatus.Completed))
@@ -902,7 +902,7 @@ public class ContentController : Controller {
             }
         }
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
@@ -910,11 +910,11 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetTaskState")] // used by SoD 1.13
     [VikingSession(UseLock=true)]
-    public IActionResult SetTaskStatev1(Viking viking, [FromForm] string userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
-        if (viking.Id != userId)
+    public IActionResult SetTaskStatev1(Viking viking, [FromForm] Guid userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
+        if (viking.Uid != userId)
             return Unauthorized("Can't set not owned task");
 
-        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, userId, completed, xmlPayload, apiKey);
+        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, viking.Id, completed, xmlPayload, apiKey);
 
         SetTaskStateResult taskResult = new SetTaskStateResult {
             Success = true,
@@ -931,11 +931,11 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/SetTaskState")]
     [VikingSession]
-    public IActionResult SetTaskState(Viking viking, [FromForm] string userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
-        if (viking.Id != userId)
+    public IActionResult SetTaskState(Viking viking, [FromForm] Guid userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
+        if (viking.Uid != userId)
             return Unauthorized("Can't set not owned task");
 
-        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, userId, completed, xmlPayload, apiKey);
+        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, viking.Id, completed, xmlPayload, apiKey);
 
         SetTaskStateResult taskResult = new SetTaskStateResult {
             Success = true,
@@ -964,14 +964,15 @@ public class ContentController : Controller {
         var req = XmlUtil.DeserializeXml<RedeemRequest>(request);
 
         // get and reduce quantity of box item
-        InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
+        InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
         if (invItem is null || invItem.Quantity < 1) {
             return Ok(new CommonInventoryResponse{ Success = false });
         }
         --invItem.Quantity;
 
         // get real item id (from box) add it to inventory
-        itemService.OpenBox(req.ItemID, out int newItemId, out int quantity);
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
+        itemService.OpenBox(req.ItemID, gender, out int newItemId, out int quantity);
         ItemData newItem = itemService.GetItem(newItemId);
         CommonInventoryResponseItem newInvItem = inventoryService.AddItemToInventoryAndGetResponse(viking, newItem.ItemID, quantity);
 
@@ -1002,6 +1003,7 @@ public class ContentController : Controller {
     public IActionResult PurchaseItems(Viking viking, [FromForm] string purchaseItemRequest) {
         PurchaseStoreItemRequest request = XmlUtil.DeserializeXml<PurchaseStoreItemRequest>(purchaseItemRequest);
         List<CommonInventoryResponseItem> items = new List<CommonInventoryResponseItem>();
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
         for (int i = 0; i < request.Items.Length; i++) {
             int itemId = request.Items[i];
             if (request.AddMysteryBoxToInventory) {
@@ -1017,7 +1019,7 @@ public class ContentController : Controller {
                 }
             } else {
                 // check for mystery box ... open if need
-                itemService.CheckAndOpenBox(itemId, out itemId, out int quantity);
+                itemService.CheckAndOpenBox(itemId, gender, out itemId, out int quantity);
                 for (int j=0; j<quantity; ++j) {
                     items.Add(inventoryService.AddItemToInventoryAndGetResponse(viking, itemId, 1));
                 }
@@ -1041,8 +1043,9 @@ public class ContentController : Controller {
     public IActionResult PurchaseItemsV1(Viking viking, [FromForm] string itemIDArrayXml) {
         int[] itemIdArr = XmlUtil.DeserializeXml<int[]>(itemIDArrayXml);
         List<CommonInventoryResponseItem> items = new List<CommonInventoryResponseItem>();
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
         for (int i = 0; i < itemIdArr.Length; i++) {
-            itemService.CheckAndOpenBox(itemIdArr[i], out int itemId, out int quantity);
+            itemService.CheckAndOpenBox(itemIdArr[i], gender, out int itemId, out int quantity);
             for (int j=0; j<quantity; ++j) {
                 items.Add(inventoryService.AddItemToInventoryAndGetResponse(viking, itemId, 1));
                 // NOTE: The quantity of purchased items is always 0 and the items are instead duplicated in both the request and the response.
@@ -1061,9 +1064,9 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserRoomItemPositions")]
-    public IActionResult GetUserRoomItemPositions([FromForm] string userId, [FromForm] string roomID) {
+    public IActionResult GetUserRoomItemPositions([FromForm] Guid userId, [FromForm] string roomID) {
         // NOTE: this is public info (for mmo) - no session check
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
 
         if (roomID is null)
             roomID = "";
@@ -1119,7 +1122,7 @@ public class ContentController : Controller {
         // NOTE: this is public info (for mmo) - no session check
         // TODO: Categories are not supported
         UserRoomGetRequest userRoomRequest = XmlUtil.DeserializeXml<UserRoomGetRequest>(request);
-        ICollection<Room>? rooms = ctx.Vikings.FirstOrDefault(x => x.Id == userRoomRequest.UserID.ToString())?.Rooms;
+        ICollection<Room>? rooms = ctx.Vikings.FirstOrDefault(x => x.Uid == userRoomRequest.UserID)?.Rooms;
         UserRoomResponse response = new UserRoomResponse { UserRoomList = new List<UserRoom>() };
         if (rooms is null)
             return Ok(response);
@@ -1130,7 +1133,7 @@ public class ContentController : Controller {
             if (room.RoomId != "") {
                 // farm expansion room: RoomId is Id for expansion item
                 if (Int32.TryParse(room.RoomId, out int inventoryItemId)) {
-                    InventoryItem? item = room.Viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == inventoryItemId);
+                    InventoryItem? item = room.Viking.InventoryItems.FirstOrDefault(e => e.Id == inventoryItemId);
                     if (item != null) {
                         itemID = item.ItemId;
                     }
@@ -1252,7 +1255,7 @@ public class ContentController : Controller {
         RollUserItemRequest req = XmlUtil.DeserializeXml<RollUserItemRequest>(request);
 
         // get item
-        InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == req.UserInventoryID);
+        InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.Id == req.UserInventoryID);
         if (invItem is null)
             return Ok(new RollUserItemResponse { Status = Status.ItemNotFound });
         
@@ -1347,7 +1350,7 @@ public class ContentController : Controller {
         try {
             if (req.BluePrintInventoryID != null) {
                 blueprintItem = itemService.GetItem(
-                    viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == req.BluePrintInventoryID).ItemId
+                    viking.InventoryItems.FirstOrDefault(e => e.Id == req.BluePrintInventoryID).ItemId
                 );
             } else {
                 blueprintItem = itemService.GetItem(req.BluePrintItemID ?? -1);
@@ -1360,9 +1363,9 @@ public class ContentController : Controller {
         
         // remove items from DeductibleItemInventoryMaps and BluePrintFuseItemMaps
         foreach (var item in req.DeductibleItemInventoryMaps) {
-            InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
+            InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
             if (invItem is null) {
-                invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == item.ItemID);
+                invItem = viking.InventoryItems.FirstOrDefault(e => e.ItemId == item.ItemID);
             }
             if (invItem is null || invItem.Quantity < item.Quantity) {
                 return Ok(new FuseItemsResponse { Status = Status.ItemNotFound });
@@ -1373,19 +1376,20 @@ public class ContentController : Controller {
             if (item.UserInventoryID < 0) {
                 continue; // TODO: what we should do in this case?
             }
-            InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
+            InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
             if (invItem is null)
                 return Ok(new FuseItemsResponse { Status = Status.ItemNotFound });
-            viking.Inventory.InventoryItems.Remove(invItem);
+            viking.InventoryItems.Remove(invItem);
         }
         // NOTE: we haven't saved any changes so far ... so we can safely interrupt "fusing" by return in loops above
         
         var resItemList = new List<InventoryItemStatsMap>();
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
         foreach (BluePrintSpecification output in blueprintItem.BluePrint.Outputs) {
             if (output.ItemID is null)
                 continue;
 
-            itemService.CheckAndOpenBox((int)(output.ItemID), out int newItemId, out int quantity);
+            itemService.CheckAndOpenBox((int)(output.ItemID), gender, out int newItemId, out int quantity);
             for (int i=0; i<quantity; ++i) {
                 resItemList.Add(
                     inventoryService.AddBattleItemToInventory(viking, newItemId, (int)output.Tier)
@@ -1482,7 +1486,7 @@ public class ContentController : Controller {
                 case ActionType.MoveToInventory:
                     // item is in inventory in result of ApplyRewards ... only add to itemsAddedToInventory
                     itemsAddedToInventory.Add (new CommonInventoryResponseRewardBinItem {
-                        ItemID = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == actionMap.ID).ItemId,
+                        ItemID = viking.InventoryItems.FirstOrDefault(e => e.Id == actionMap.ID).ItemId,
                         CommonInventoryID = actionMap.ID,
                         Quantity = 0,
                         UserItemStatsMapID = actionMap.ID
@@ -1581,7 +1585,7 @@ public class ContentController : Controller {
             if (itemService.ItemHasCategory(rewardItem, 651) || rewardItem.PossibleStatsMap is null) {
                 // blueprint or no battle item (including box)
                 List<CommonInventoryResponseItem> standardItems = new List<CommonInventoryResponseItem>();
-                itemService.CheckAndOpenBox(rewardItem.ItemID, out int itemId, out int quantity);
+                itemService.CheckAndOpenBox(rewardItem.ItemID, gender, out int itemId, out int quantity);
                 for (int i=0; i<quantity; ++i) {
                     standardItems.Add(inventoryService.AddItemToInventoryAndGetResponse(viking, itemId, 1));
                     // NOTE: client require single quantity items
@@ -1644,7 +1648,7 @@ public class ContentController : Controller {
             selectedDragonId = dragon.Viking.SelectedDragonId;
         RaisedPetData data = XmlUtil.DeserializeXml<RaisedPetData>(dragon.RaisedPetData);
         data.RaisedPetID = dragon.Id;
-        data.EntityID = Guid.Parse(dragon.EntityId);
+        data.EntityID = dragon.EntityId;
         data.IsSelected = (selectedDragonId == dragon.Id);
         return data;
     }
@@ -1704,7 +1708,7 @@ public class ContentController : Controller {
             return null;
         }
 
-        string imageUrl = string.Format("{0}://{1}/RawImage/{2}/{3}/{4}.jpg", HttpContext.Request.Scheme, HttpContext.Request.Host, viking.Id, ImageType, ImageSlot);
+        string imageUrl = string.Format("{0}://{1}/RawImage/{2}/{3}/{4}.jpg", HttpContext.Request.Scheme, HttpContext.Request.Host, viking.Uid, ImageType, ImageSlot);
 
         return new ImageData {
             ImageURL = imageUrl,
