@@ -34,6 +34,15 @@ public class MessagingController : Controller {
     public IActionResult GetCombinedListMessage()
     {
         // TODO - placeholder
-        return Ok(new ArrayOfMessageInfo());
+        return Ok(new ArrayOfMessageInfo
+        {
+            MessageInfo = new List<MessageInfo>()
+            {
+                new MessageInfo
+                {
+                    MemberMessage = "Test"
+                }
+            }.ToArray()
+        });
     }
 }
