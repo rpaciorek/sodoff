@@ -40,6 +40,10 @@ public class MessagingController : Controller {
             {
                 new MessageInfo
                 {
+                    MessageID = 1,
+                    MessageTypeID = 1,
+                    UserMessageQueueID = 1,
+                    FromUserID = "e1521dff-1d7c-4c50-9a58-ad24f41e91d8",
                     MemberMessage = "Test"
                 }
             }.ToArray()
