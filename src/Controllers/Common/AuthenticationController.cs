@@ -61,7 +61,7 @@ public class AuthenticationController : Controller {
                 ctx.Sessions.Remove(currentSession);
                 ctx.SaveChanges();
 
-                return Ok(new ParentLoginInfo { Status = MembershipUserStatus.InvalidApiToken });
+                return Ok(new ParentLoginInfo { Status = MembershipUserStatus.InvalidPassword });
             }
 
             var cL = new List<sodoff.Schema.UserLoginInfo>();
