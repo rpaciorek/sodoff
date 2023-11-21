@@ -54,7 +54,7 @@ public class AuthenticationController : Controller {
         if (currentSession != null)
         {
 
-            if (DateTime.Now == currentSession.CreatedAt.Value.AddDays(7))
+            if (DateTime.UtcNow >= currentSession.CreatedAt.Value.AddDays(7))
             {
                 // session has expired, delete it from the database and refuse login
 
@@ -222,7 +222,7 @@ public class AuthenticationController : Controller {
 
         if (existingSession != null)
         {
-            if(DateTime.Now == existingSession.CreatedAt.Value.AddDays(7))
+            if(DateTime.UtcNow >= existingSession.CreatedAt.Value.AddDays(7))
             {
                 // delete session to keep database clean
                 ctx.Sessions.Remove(existingSession);
