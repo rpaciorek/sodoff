@@ -1565,6 +1565,7 @@ public class ContentController : Controller {
         foreach (var data in ctx.GameData.Where(x => x.GameId == gameData.GameId)
             .Where(x => x.Difficulty == gameData.Difficulty)
             .Where(x => x.GameLevel == gameData.GameLevel)
+            .OrderBy(item => item.RankId)
             .OrderByDescending(item => item.Score))
         {
             nextRank++;
