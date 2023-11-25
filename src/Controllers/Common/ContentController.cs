@@ -1531,7 +1531,28 @@ public class ContentController : Controller {
     public IActionResult GetGameDataByGame()
     {
         // TODO - placeholder
-        return Ok(new GameDataSummary());
+        return Ok(new GameDataSummary
+        {
+            IsMultiplayer = false,
+            Difficulty = 0,
+            GameID = 42,
+            GameDataList = new List<GameData> 
+            {
+                new GameData
+                {
+                    UserName = "Test User",
+                    IsMember = false,
+                    Loss = 0,
+                    Win = 1,
+                    PlatformID = 0,
+                    ProductID = 0,
+                    RankID = 1,
+                    Value = 10000,
+                    DatePlayed = DateTime.Now,
+                    UserID = Guid.NewGuid()
+                }
+            }.ToArray()
+        });
     }
 
     [HttpPost]
