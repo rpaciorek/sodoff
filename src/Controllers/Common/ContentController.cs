@@ -1576,8 +1576,7 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetGameDataByGame")]
-    public IActionResult GetGameDataByGame([FromForm] string userId,
-        [FromForm] int gameId,
+    public IActionResult GetGameDataByGame([FromForm] int gameId,
         [FromForm] int difficulty,
         [FromForm] int gameLevel,
         [FromForm] int count)
@@ -1586,7 +1585,6 @@ public class ContentController : Controller {
         List<GameDataDb> gameData = ctx.GameData.Where(x => x.GameId == gameId)
             .Where(x => x.Difficulty == difficulty)
             .Where(x => x.GameLevel == gameLevel)
-            .Where(x => x.VikingId != userId)
             .ToList();
         List<GameData> gameDataList = new List<GameData>();
 
