@@ -1602,7 +1602,8 @@ public class ContentController : Controller {
                 PlatformID = 0,
                 ProductID = 0,
                 RankID = data.RankId,
-                UserName = vikingAviData.DisplayName
+                UserName = vikingAviData.DisplayName,
+                Value = data.Score
             };
             gameDataList.Add(gameGameData);
             i++;
