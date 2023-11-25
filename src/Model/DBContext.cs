@@ -20,6 +20,7 @@ public class DBContext : DbContext {
     public DbSet<RoomItem> RoomItems { get; set; } = null!;
     public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
     public DbSet<Party> Parties { get; set; } = null!;
+    public DbSet<GameDataDb> GameData { get; set; } = null!;
 
     public string DbPath { get; }
 

@@ -1527,32 +1527,55 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SendRawGameData")]
+    public IActionResult SendRawGameData([FromForm] string userId, 
+        [FromForm] int gameId, 
+        [FromForm] bool isMultiplayer, 
+        [FromForm] int difficulty, 
+        [FromForm] int gameLevel, 
+        [FromForm] string xmlDocumentData, 
+        [FromForm] bool win, 
+        [FromForm] bool loss)
+    {
+        int winInt = win ? 1 : 0;
+        int lossInt = loss ? 1 : 0;
+
+        // create new game data
+        GameDataDb gameData = new GameDataDb
+        {
+            Difficulty = difficulty,
+            GameLevel = gameLevel,
+            GameId = gameId,
+            Id = Guid.NewGuid().ToString(),
+            IsMultiplayer = isMultiplayer,
+            VikingId = userId,
+            Win = winInt,
+            Loss = lossInt
+        };
+
+        // deserialize high score data then set score to the high score (TODO - figure out what other scores are sent through this method)
+        XmlGameData xmlData = XmlUtil.DeserializeXml<XmlGameData>(xmlDocumentData);
+        gameData.Score = xmlData.HighScore;
+
+        var nextRank = 1;
+        foreach(var data in ctx.GameData.OrderByDescending(item => item.Score))
+        {
+            gameData.RankId = nextRank++;
+        }
+
+        ctx.GameData.Add(gameData);
+        ctx.SaveChanges();
+
+        return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetGameDataByGame")]
     public IActionResult GetGameDataByGame()
     {
         // TODO - placeholder
-        return Ok(new GameDataSummary
-        {
-            IsMultiplayer = false,
-            Difficulty = 0,
-            GameID = 42,
-            GameDataList = new List<GameData> 
-            {
-                new GameData
-                {
-                    UserName = "Test User",
-                    IsMember = false,
-                    Loss = 0,
-                    Win = 1,
-                    PlatformID = 0,
-                    ProductID = 0,
-                    RankID = 1,
-                    Value = 10000,
-                    DatePlayed = DateTime.Now,
-                    UserID = Guid.NewGuid()
-                }
-            }.ToArray()
-        });
+        return Ok(new GameDataSummary());
     }
 
     [HttpPost]
