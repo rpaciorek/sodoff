@@ -1537,40 +1537,43 @@ public class ContentController : Controller {
         [FromForm] bool win, 
         [FromForm] bool loss)
     {
-        int winInt = win ? 1 : 0;
-        int lossInt = loss ? 1 : 0;
-
-        // create new game data
-        GameDataDb gameData = new GameDataDb
-        {
-            Difficulty = difficulty,
-            GameLevel = gameLevel,
-            GameId = gameId,
-            Id = Guid.NewGuid().ToString(),
-            IsMultiplayer = isMultiplayer,
-            VikingId = userId,
-            Win = winInt,
-            Loss = lossInt,
-            DatePlayed = DateTime.UtcNow
-        };
-
-        // deserialize high score data then set score to the high score (TODO - figure out what other scores are sent through this method)
-        XmlGameData xmlData = XmlUtil.DeserializeXml<XmlGameData>(xmlDocumentData);
-        gameData.Score = xmlData.HighScore;
-
-        var nextRank = 1;
-        foreach(var data in ctx.GameData.Where(x => x.GameId == gameData.GameId)
-            .Where(x => x.Difficulty == gameData.Difficulty)
-            .OrderByDescending(item => item.Score))
-        {
-            nextRank++;
-        }
-        gameData.RankId = nextRank;
-
-        ctx.GameData.Add(gameData);
-        ctx.SaveChanges();
-
+        // TODO - figure out how to properly order scores by rank
         return Ok(true);
+
+        //int winInt = win ? 1 : 0;
+        //int lossInt = loss ? 1 : 0;
+
+        //// create new game data
+        //GameDataDb gameData = new GameDataDb
+        //{
+        //    Difficulty = difficulty,
+        //    GameLevel = gameLevel,
+        //    GameId = gameId,
+        //    Id = Guid.NewGuid().ToString(),
+        //    IsMultiplayer = isMultiplayer,
+        //    VikingId = userId,
+        //    Win = winInt,
+        //    Loss = lossInt,
+        //    DatePlayed = DateTime.UtcNow
+        //};
+
+        //// deserialize high score data then set score to the high score (TODO - figure out what other scores are sent through this method)
+        //XmlGameData xmlData = XmlUtil.DeserializeXml<XmlGameData>(xmlDocumentData);
+        //gameData.Score = xmlData.HighScore;
+
+        //var nextRank = 1;
+        //foreach(var data in ctx.GameData.Where(x => x.GameId == gameData.GameId)
+        //    .Where(x => x.Difficulty == gameData.Difficulty)
+        //    .OrderByDescending(item => item.Score))
+        //{
+        //    nextRank++;
+        //}
+        //gameData.RankId = nextRank;
+
+        //ctx.GameData.Add(gameData);
+        //ctx.SaveChanges();
+
+        //return Ok(true);
     }
 
     [HttpPost]
@@ -1581,53 +1584,56 @@ public class ContentController : Controller {
         [FromForm] int gameLevel,
         [FromForm] int count)
     {
-        // get scores based on form attributes
-        List<GameDataDb> gameData = ctx.GameData.Where(x => x.GameId == gameId)
-            .Where(x => x.Difficulty == difficulty)
-            .Where(x => x.GameLevel == gameLevel)
-            .OrderByDescending(x => x.Score)
-            .ToList();
-        List<GameData> gameDataList = new List<GameData>();
+        // TODO - figure out how to properly order scores by rank
+        return Ok(new GameDataSummary());
 
-        int i = 0;
-        foreach(var data in gameData)
-        {
-            AvatarData vikingAviData = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(x => x.Id == data.VikingId)?.AvatarSerialized);
-            GameData gameGameData = new GameData
-            {
-                DatePlayed = data.DatePlayed,
-                IsMember = true,
-                Win = data.Win,
-                Loss = data.Loss,
-                UserID = Guid.Parse(data.VikingId),
-                PlatformID = 0,
-                ProductID = 0,
-                RankID = data.RankId,
-                UserName = vikingAviData.DisplayName,
-                Value = data.Score
-            };
-            gameDataList.Add(gameGameData);
-            i++;
-            if (i == count) break;
-        }
+        //// get scores based on form attributes
+        //List<GameDataDb> gameData = ctx.GameData.Where(x => x.GameId == gameId)
+        //    .Where(x => x.Difficulty == difficulty)
+        //    .Where(x => x.GameLevel == gameLevel)
+        //    .OrderByDescending(x => x.Score)
+        //    .ToList();
+        //List<GameData> gameDataList = new List<GameData>();
 
-        if (gameDataList.Count == 0) return Ok(new GameDataSummary
-        {
-            Difficulty = difficulty,
-            GameID = gameId,
-            GameLevel = gameLevel,
-            IsMultiplayer = false,
-            GameDataList = new List<GameData>().ToArray()
-        });
+        //int i = 0;
+        //foreach(var data in gameData)
+        //{
+        //    AvatarData vikingAviData = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(x => x.Id == data.VikingId)?.AvatarSerialized);
+        //    GameData gameGameData = new GameData
+        //    {
+        //        DatePlayed = data.DatePlayed,
+        //        IsMember = true,
+        //        Win = data.Win,
+        //        Loss = data.Loss,
+        //        UserID = Guid.Parse(data.VikingId),
+        //        PlatformID = 0,
+        //        ProductID = 0,
+        //        RankID = data.RankId,
+        //        UserName = vikingAviData.DisplayName,
+        //        Value = data.Score
+        //    };
+        //    gameDataList.Add(gameGameData);
+        //    i++;
+        //    if (i == count) break;
+        //}
 
-        return Ok(new GameDataSummary
-        {
-            Difficulty = difficulty,
-            GameID = gameId,
-            GameLevel = gameLevel,
-            GameDataList = gameDataList.ToArray(),
-            IsMultiplayer = false
-        });
+        //if (gameDataList.Count == 0) return Ok(new GameDataSummary
+        //{
+        //    Difficulty = difficulty,
+        //    GameID = gameId,
+        //    GameLevel = gameLevel,
+        //    IsMultiplayer = false,
+        //    GameDataList = new List<GameData>().ToArray()
+        //});
+
+        //return Ok(new GameDataSummary
+        //{
+        //    Difficulty = difficulty,
+        //    GameID = gameId,
+        //    GameLevel = gameLevel,
+        //    GameDataList = gameDataList.ToArray(),
+        //    IsMultiplayer = false
+        //});
     }
 
     [HttpPost]
