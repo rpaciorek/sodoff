@@ -1585,7 +1585,7 @@ public class ContentController : Controller {
         List<GameDataDb> gameData = ctx.GameData.Where(x => x.GameId == gameId)
             .Where(x => x.Difficulty == difficulty)
             .Where(x => x.GameLevel == gameLevel)
-            .OrderByDescending(x => x.RankId)
+            .OrderByDescending(x => x.Score)
             .ToList();
         List<GameData> gameDataList = new List<GameData>();
 
