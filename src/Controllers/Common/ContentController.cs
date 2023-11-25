@@ -1550,7 +1550,8 @@ public class ContentController : Controller {
             IsMultiplayer = isMultiplayer,
             VikingId = userId,
             Win = winInt,
-            Loss = lossInt
+            Loss = lossInt,
+            DatePlayed = DateTime.UtcNow
         };
 
         // deserialize high score data then set score to the high score (TODO - figure out what other scores are sent through this method)
@@ -1575,10 +1576,58 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetGameDataByGame")]
-    public IActionResult GetGameDataByGame()
+    public IActionResult GetGameDataByGame([FromForm] string userId,
+        [FromForm] int gameId,
+        [FromForm] int difficulty,
+        [FromForm] int gameLevel,
+        [FromForm] int count)
     {
-        // TODO - placeholder
-        return Ok(new GameDataSummary());
+        // get scores based on form attributes
+        List<GameDataDb> gameData = ctx.GameData.Where(x => x.GameId == gameId)
+            .Where(x => x.Difficulty == difficulty)
+            .Where(x => x.GameLevel == gameLevel)
+            .Where(x => x.VikingId != userId)
+            .ToList();
+        List<GameData> gameDataList = new List<GameData>();
+
+        int i = 0;
+        foreach(var data in gameData)
+        {
+            AvatarData vikingAviData = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(x => x.Id == data.VikingId)?.AvatarSerialized);
+            GameData gameGameData = new GameData
+            {
+                DatePlayed = data.DatePlayed,
+                IsMember = true,
+                Win = data.Win,
+                Loss = data.Loss,
+                UserID = Guid.Parse(data.VikingId),
+                PlatformID = 0,
+                ProductID = 0,
+                RankID = data.RankId,
+                UserName = vikingAviData.DisplayName
+            };
+            gameDataList.Add(gameGameData);
+            i++;
+            if (i == count) break;
+        }
+
+        if (gameDataList.Count == 0) return Ok(new GameDataSummary
+        {
+            Difficulty = difficulty,
+            GameID = gameId,
+            GameLevel = gameLevel,
+            IsMultiplayer = false,
+            GameDataList = new List<GameData>().ToArray()
+        });
+
+        return Ok(new GameDataSummary
+        {
+            Difficulty = difficulty,
+            GameID = gameId,
+            GameLevel = gameLevel,
+            GameDataList = gameDataList.ToArray(),
+            IsMultiplayer = false
+        });
     }
 
     [HttpPost]

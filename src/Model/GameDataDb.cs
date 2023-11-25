@@ -15,5 +15,6 @@ namespace sodoff.Model
         public int Win {  get; set; }
         public int Loss { get; set; }
         public int Score { get; set; }
+        public DateTime DatePlayed { get; set; }
     }
 }
