@@ -1558,10 +1558,13 @@ public class ContentController : Controller {
         gameData.Score = xmlData.HighScore;
 
         var nextRank = 1;
-        foreach(var data in ctx.GameData.Where(x => x.GameId == gameData.GameId).OrderByDescending(item => item.Score))
+        foreach(var data in ctx.GameData.Where(x => x.GameId == gameData.GameId)
+            .Where(x => x.Difficulty == gameData.Difficulty)
+            .OrderByDescending(item => item.Score))
         {
-            gameData.RankId = nextRank++;
+            nextRank++;
         }
+        gameData.RankId = nextRank;
 
         ctx.GameData.Add(gameData);
         ctx.SaveChanges();
