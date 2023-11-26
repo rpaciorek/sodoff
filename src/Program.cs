@@ -26,6 +26,7 @@ builder.Services.AddScoped<MissionService>();
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<InventoryService>();
 builder.Services.AddScoped<AchievementService>();
+builder.Services.AddScoped<GameDataService>();
 
 var app = builder.Build();
 

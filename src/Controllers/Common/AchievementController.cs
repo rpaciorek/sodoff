@@ -218,4 +218,13 @@ public class AchievementController : Controller {
         
         return Ok(rewards);
     }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("V2/AchievementWebService.asmx/GetTopAchievementPointUsers")]
+    [VikingSession]
+    public IActionResult GetTopAchievementPointUsers(string request) {
+        UserAchievementInfoRequest infoRequest = XmlUtil.DeserializeXml<UserAchievementInfoRequest>(request);
+        return Ok(achievementService.GetTopAchievementUsers(infoRequest));
+    }
 }
