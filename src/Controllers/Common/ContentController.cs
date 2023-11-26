@@ -54,7 +54,13 @@ public class ContentController : Controller {
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/GetProduct")] // used by World Of Jumpstart
     [VikingSession(UseLock=false)]
-    public string? GetProduct(Viking viking) {
+    public string? GetProduct(Viking viking, [FromForm] string apiKey) {
+        if(apiKey == "b4e0f71a-1cda-462a-97b3-0b355e87e0c8")
+        {
+            // do not send product data to adventureland
+            return "<?xml version=\"1.0\" encoding=\"utf-8\"?><ProductData xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:nil=\"true\" />";
+        }
+
         return viking.ProductData;
     }
 
@@ -62,7 +68,10 @@ public class ContentController : Controller {
     //[Produces("application/xml")]
     [Route("ContentWebService.asmx/SetProduct")] // used by World Of Jumpstart
     [VikingSession]
-    public bool SetProduct(Viking viking, [FromForm] string contentXml) {
+    public bool SetProduct(Viking viking, [FromForm] string contentXml, [FromForm] string apiKey) {
+        if (apiKey == "b4e0f71a-1cda-462a-97b3-0b355e87e0c8") // do not set product to adventureland product
+            return false;
+
         viking.ProductData = contentXml;
         ctx.SaveChanges();
         return true;
@@ -1525,16 +1534,7 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetGameDataByGame")]
     public IActionResult GetGameDataByGame()
     {
-        // TODO - placeholder
-        return Ok(new GameDataSummary());
-    }
-
-    [HttpPost]
-    [Produces("application/xml")]
-    [Route("ContentWebService.asmx/GetGameDataByUser")]
-    public IActionResult GetGameDataByUser()
-    {
-        // TODO - placeholder
+        // TODO: This is a placeholder
         return Ok(new GameDataSummary());
     }
 

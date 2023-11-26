@@ -54,14 +54,14 @@ public class AuthenticationController : Controller {
         if (currentSession != null)
         {
 
-            if (DateTime.Now == currentSession.CreatedAt.Value.AddDays(7))
+            if (DateTime.UtcNow >= currentSession.CreatedAt.Value.AddDays(7))
             {
                 // session has expired, delete it from the database and refuse login
 
                 ctx.Sessions.Remove(currentSession);
                 ctx.SaveChanges();
 
-                return Ok(new ParentLoginInfo { Status = MembershipUserStatus.InvalidApiToken });
+                return Ok(new ParentLoginInfo { Status = MembershipUserStatus.InvalidPassword });
             }
 
             var cL = new List<sodoff.Schema.UserLoginInfo>();
@@ -196,6 +196,20 @@ public class AuthenticationController : Controller {
         return Ok(ApiTokenStatus.TokenValid);
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("AuthenticationWebService.asmx/IsValidApiToken")] // used by World Of Jumpstart (FutureLand)
+    public IActionResult IsValidApiToken_V1([FromForm] string? apiToken)
+    {
+        if (apiToken is null)
+            return Ok(false);
+        User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.User;
+        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
+        if (user is null && viking is null)
+            return Ok(false);
+        return Ok(true);
+    }
+
     // This is more of a "create session for viking", rather than "login child"
     [Route("AuthenticationWebService.asmx/LoginChild")]
     [DecryptRequest("childUserID")]
@@ -223,25 +237,11 @@ public class AuthenticationController : Controller {
 
         if (existingSession != null)
         {
-            if(DateTime.Now == existingSession.CreatedAt.Value.AddDays(7))
+            if(DateTime.UtcNow >= existingSession.CreatedAt.Value.AddDays(7))
             {
                 // delete session to keep database clean
                 ctx.Sessions.Remove(existingSession);
-
-                // Create new session
-                Session newSession = new Session
-                {
-                    Viking = viking,
-                    ApiToken = Guid.NewGuid(),
-                    CreatedAt = DateTime.UtcNow
-                };
-                ctx.Sessions.Add(newSession);
-                ctx.SaveChanges();
-
-                return Ok(newSession.ApiToken);
             }
-
-            return Ok(existingSession.ApiToken);
         }
 
         // Create session
