@@ -33,6 +33,7 @@ public class Viking {
     public virtual ICollection<AchievementPoints> AchievementPoints { get; set; } = null!;
     public virtual ICollection<PairData> PairData { get; set; } = null!;
     public virtual ICollection<InventoryItem> InventoryItems { get; set; } = null!;
+    public virtual ICollection<GameData> GameData { get; set; } = null!;
     public virtual Dragon? SelectedDragon { get; set; }
 
     public string? ProductData { get; set; }

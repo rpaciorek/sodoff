@@ -196,20 +196,6 @@ public class AuthenticationController : Controller {
         return Ok(ApiTokenStatus.TokenValid);
     }
 
-    [HttpPost]
-    [Produces("application/xml")]
-    [Route("AuthenticationWebService.asmx/IsValidApiToken")] // used by World Of Jumpstart (FutureLand)
-    public IActionResult IsValidApiToken_V1([FromForm] string? apiToken)
-    {
-        if (apiToken is null)
-            return Ok(false);
-        User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.User;
-        Viking? viking = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.Viking;
-        if (user is null && viking is null)
-            return Ok(false);
-        return Ok(true);
-    }
-
     // This is more of a "create session for viking", rather than "login child"
     [Route("AuthenticationWebService.asmx/LoginChild")]
     [DecryptRequest("childUserID")]

@@ -8,6 +8,7 @@ using sodoff.Schema;
 using sodoff.Services;
 using sodoff.Util;
 using System;
+using System.Globalization;
 
 namespace sodoff.Controllers.Common;
 public class ContentController : Controller {
@@ -20,8 +21,9 @@ public class ContentController : Controller {
     private AchievementService achievementService;
     private InventoryService inventoryService;
     private DisplayNamesService displayNamesService;
+    private GameDataService gameDataService;
     private Random random = new Random();
-    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, DisplayNamesService displayNamesService) {
+    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, GameDataService gameDataService, DisplayNamesService displayNamesService) {
         this.ctx = ctx;
         this.keyValueService = keyValueService;
         this.itemService = itemService;
@@ -30,6 +32,7 @@ public class ContentController : Controller {
         this.achievementService = achievementService;
         this.inventoryService = inventoryService;
         this.displayNamesService = displayNamesService;
+        this.gameDataService = gameDataService;
     }
 
     [HttpPost]
@@ -1524,9 +1527,10 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetGameData")]
-    public IActionResult GetGameData() {
-        // TODO: This is a placeholder
-        return Ok(new GetGameDataResponse());
+    [VikingSession]
+    public IActionResult GetGameData(Viking viking, [FromForm] string gameDataRequest) {
+        GetGameDataRequest request = XmlUtil.DeserializeXml<GetGameDataRequest>(gameDataRequest);
+        return Ok(gameDataService.GetGameDataForPlayer(viking, request));
     }
 
     [HttpPost]
@@ -1930,6 +1934,26 @@ public class ContentController : Controller {
         });
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SendRawGameData")]
+    [VikingSession(UseLock = true)]
+    public IActionResult SendRawGameData(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string xmlDocumentData, bool win, bool loss) {
+        return Ok(gameDataService.SaveGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, xmlDocumentData, win, loss));
+    }
+
+    [Route("ContentWebService.asmx/GetGameDataByGame")]
+    [VikingSession(UseLock = true)]
+    public IActionResult GetGameDataByGame(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, bool buddyFilter) {
+        return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter));
+    }
+
+    [Route("V2/ContentWebService.asmx/GetGameDataByGameForDateRange")]
+    [VikingSession(UseLock = true)]
+    public IActionResult GetGameDataByGameForDateRange(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, string startDate, string endDate, bool buddyFilter) {
+        CultureInfo usCulture = new CultureInfo("en-US", false);
+        return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter, DateTime.Parse(startDate, usCulture), DateTime.Parse(endDate, usCulture)));
+    }
 
     [HttpPost]
     [Produces("application/xml")]

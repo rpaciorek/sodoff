@@ -19,6 +19,9 @@ public class DBContext : DbContext {
     public DbSet<RoomItem> RoomItems { get; set; } = null!;
     public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
     public DbSet<Party> Parties { get; set; } = null!;
+    public DbSet<GameData> GameData { get; set; } = null!;
+    public DbSet<GameDataPair> GameDataPairs { get; set; } = null!;
+    public DbSet<AchievementPoints> AchievementPoints { get; set; } = null!;
 
     public string DbPath { get; }
 
@@ -94,6 +97,9 @@ public class DBContext : DbContext {
             .WithOne()
             .HasForeignKey<Viking>(e => e.SelectedDragonId);
 
+        builder.Entity<Viking>().HasMany(v => v.GameData)
+            .WithOne(e => e.Viking);
+
         // Dragons
         builder.Entity<Dragon>().HasOne(d => d.Viking)
             .WithMany(e => e.Dragons)
@@ -148,6 +154,17 @@ public class DBContext : DbContext {
         builder.Entity<RoomItem>().HasOne(i => i.Room)
             .WithMany(r => r.Items)
             .HasForeignKey(e => e.RoomId);
+
+        // GameData
+
+        builder.Entity<GameData>().HasOne(e => e.Viking)
+            .WithMany(e => e.GameData);
+
+        builder.Entity<GameData>().HasMany(e => e.GameDataPairs)
+            .WithOne(e => e.GameData);
+
+        builder.Entity<GameDataPair>().HasOne(e => e.GameData)
+            .WithMany(e => e.GameDataPairs);
 
         // Others ..
         builder.Entity<Image>().HasOne(s => s.Viking)
