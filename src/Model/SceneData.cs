@@ -1,13 +1,12 @@
-﻿using sodoff.Model;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace sodoff.Schema
+namespace sodoff.Model
 {
     public class SceneData
     {
         [Key]
         public int Id { get; set; }
-        public string VikingId { get; set; } = null!;
+        public int VikingId { get; set; }
         public string SceneName { get; set; } = null!;
         public string XmlData {  get; set; } = null!;
         public virtual Viking Viking { get; set; } = null!;
