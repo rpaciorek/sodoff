@@ -441,7 +441,10 @@ public class ContentController : Controller {
         raisedPetData.IsSelected = false; // The api returns false, not sure why
         raisedPetData.CreateDate = new DateTime(DateTime.Now.Ticks);
         raisedPetData.UpdateDate = new DateTime(DateTime.Now.Ticks);
-        raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "POWERUP" };
+        if (petTypeID == 2)
+            raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "BABY" };
+        else
+            raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "POWERUP" };
         int imageSlot = (viking.Images.Select(i => i.ImageSlot).DefaultIfEmpty(-1).Max() + 1);
         raisedPetData.ImagePosition = imageSlot;
         // NOTE: Placing an egg into a hatchery slot calls CreatePet, but doesn't SetImage.
@@ -720,6 +723,25 @@ public class ContentController : Controller {
             return new RaisedPetData[0];
 
         // NOTE: returned dragon PetTypeID should be equal value of pair 1967 → CurrentRaisedPetType
+        return new RaisedPetData[] {dragonData};
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetActiveRaisedPetsByTypes")] // used by Math Blaster
+    [VikingSession(UseLock=false)]
+    public RaisedPetData[] GetActiveRaisedPet([FromForm] Guid userId, [FromForm] string petTypeIDs) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+        Dragon? dragon = viking.SelectedDragon;
+        if (dragon is null) {
+            return new RaisedPetData[0];
+        }
+
+        RaisedPetData dragonData = GetRaisedPetDataFromDragon(dragon);
+        int[] petTypeIDsInt = Array.ConvertAll(petTypeIDs.Split(','), s => int.Parse(s));
+        if (!petTypeIDsInt.Contains(dragonData.PetTypeID))
+            return new RaisedPetData[0];
+
         return new RaisedPetData[] {dragonData};
     }
 
