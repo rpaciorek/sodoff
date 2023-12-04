@@ -8,3 +8,9 @@ src/sodoff.db-shm
 src/sodoff.db-wal
 src/Properties
 __pycache__/
+/obj/Docker
+/docker-compose.override.yml
+/bin/Debug
+/obj/Debug
+/src/sodoff.db-shm
+/src/sodoff.db-wal

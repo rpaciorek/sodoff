@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Ocsp;
+using Org.BouncyCastle.Security.Certificates;
 using sodoff.Attributes;
 using sodoff.Model;
 using sodoff.Schema;
 using sodoff.Services;
 using sodoff.Util;
 using System;
+using System.Globalization;
 
 namespace sodoff.Controllers.Common;
 public class ContentController : Controller {
@@ -17,8 +20,10 @@ public class ContentController : Controller {
     private RoomService roomService;
     private AchievementService achievementService;
     private InventoryService inventoryService;
+    private DisplayNamesService displayNamesService;
+    private GameDataService gameDataService;
     private Random random = new Random();
-    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService) {
+    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, GameDataService gameDataService, DisplayNamesService displayNamesService) {
         this.ctx = ctx;
         this.keyValueService = keyValueService;
         this.itemService = itemService;
@@ -26,6 +31,96 @@ public class ContentController : Controller {
         this.roomService = roomService;
         this.achievementService = achievementService;
         this.inventoryService = inventoryService;
+        this.displayNamesService = displayNamesService;
+        this.gameDataService = gameDataService;
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetRaisedPetGrowthStates")] // used by World Of Jumpstart 1.1
+    public RaisedPetGrowthState[] GetRaisedPetGrowthStates()
+    {
+        return new RaisedPetGrowthState[] {
+            new RaisedPetGrowthState {GrowthStateID = 0, Name = "none"},
+            new RaisedPetGrowthState {GrowthStateID = 1, Name = "powerup"},
+            new RaisedPetGrowthState {GrowthStateID = 2, Name = "find"},
+            new RaisedPetGrowthState {GrowthStateID = 3, Name = "eggInHand"},
+            new RaisedPetGrowthState {GrowthStateID = 4, Name = "hatching"},
+            new RaisedPetGrowthState {GrowthStateID = 5, Name = "baby"},
+            new RaisedPetGrowthState {GrowthStateID = 6, Name = "child"},
+            new RaisedPetGrowthState {GrowthStateID = 7, Name = "teen"},
+            new RaisedPetGrowthState {GrowthStateID = 8, Name = "adult"},
+        };
+    }
+    
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetProduct")] // used by World Of Jumpstart
+    [VikingSession(UseLock=false)]
+    public string? GetProduct(Viking viking, [FromForm] string apiKey) {
+        if(apiKey == "b4e0f71a-1cda-462a-97b3-0b355e87e0c8")
+        {
+            // do not send product data to adventureland
+            return "<?xml version=\"1.0\" encoding=\"utf-8\"?><ProductData xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:nil=\"true\" />";
+        }
+
+        return viking.ProductData;
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetProduct")] // used by World Of Jumpstart
+    [VikingSession]
+    public bool SetProduct(Viking viking, [FromForm] string contentXml, [FromForm] string apiKey) {
+        if (apiKey == "b4e0f71a-1cda-462a-97b3-0b355e87e0c8") // do not set product to adventureland product
+            return false;
+
+        viking.ProductData = contentXml;
+        ctx.SaveChanges();
+        return true;
+    }
+
+    // NOTE: "Pet" (Petz) system (GetCurrentPetByUserID, GetCurrentPet, SetCurrentPet, DelCurrentPet) is a totally different system than "RaisedPet" (Dragons)
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetCurrentPetByUserID")] // used by World Of Jumpstart
+    public IActionResult GetCurrentPetByUserID([FromForm] Guid userId, [FromForm] bool isActive) {
+        string? petData = ctx.Vikings.FirstOrDefault(e => e.Uid == userId)?.PetSerialized;
+        if (petData is null)
+            return Ok(XmlUtil.SerializeXml<PetData>(null));
+
+        return Ok(petData);
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetCurrentPet")] // used by World Of Jumpstart
+    public IActionResult GetCurrentPet(Viking viking, [FromForm] bool isActive) {
+        if (viking.PetSerialized is null)
+            return Ok(XmlUtil.SerializeXml<PetData>(null));
+
+        return Ok(viking.PetSerialized);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetCurrentPet")] // used by World Of Jumpstart
+    [VikingSession]
+    public bool SetCurrentPet(Viking viking, [FromForm] string contentXml) {
+        viking.PetSerialized = contentXml;
+        ctx.SaveChanges();
+        return true;
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/DelCurrentPet")] // used by World Of Jumpstart
+    [VikingSession]
+    public bool DelCurrentPet(Viking viking, [FromForm] bool isActive) {
+        viking.PetSerialized = null;
+        ctx.SaveChanges();
+        return true;
     }
 
     [HttpPost]
@@ -134,7 +229,7 @@ public class ContentController : Controller {
         } else {
             // TODO: placeholder - return 8 viking slot items
             return Ok(new CommonInventoryData {
-                UserID = Guid.Parse(user.Id),
+                UserID = user.Id,
                 Item = new UserItemData[] {
                     new UserItemData {
                         UserInventoryID = 0,
@@ -147,6 +242,32 @@ public class ContentController : Controller {
                 }
             });
         }
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetCommonInventoryByUserId")] // used by ...
+    public IActionResult GetCommonInventoryByUserId([FromForm] Guid userId, [FromForm] int ContainerId)
+    {
+        Viking viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+
+        // TODO - placeholder - return 8 viking slot items
+        if (viking != null) return Ok(new CommonInventoryData
+        {
+            UserID = viking.Uid,
+            Item = new UserItemData[] {
+                new UserItemData {
+                        UserInventoryID = 0,
+                        ItemID = 7971,
+                        Quantity = 8,
+                        Uses = -1,
+                        ModifiedDate = new DateTime(DateTime.Now.Ticks),
+                        Item = itemService.GetItem(7971)
+                }
+            }
+        });
+
+        return Ok(new CommonInventoryData());
     }
 
     [HttpPost]
@@ -168,7 +289,7 @@ public class ContentController : Controller {
         // SetCommonInventory can remove any number of items from the inventory, this checks if it's possible
         foreach (var req in request) {
             if (req.Quantity >= 0) continue;
-            int inventorySum = viking.Inventory.InventoryItems.Sum(e => {if (e.ItemId == req.ItemID) return e.Quantity; return 0;});
+            int inventorySum = viking.InventoryItems.Sum(e => {if (e.ItemId == req.ItemID) return e.Quantity; return 0;});
             if (inventorySum < -req.Quantity)
                 return Ok(new CommonInventoryResponse { Success = false });
         }
@@ -180,7 +301,7 @@ public class ContentController : Controller {
             if (inventoryService.ItemNeedUniqueInventorySlot((int)req.ItemID)) {
                 // if req.Quantity < 0 remove unique items
                 for (int i=req.Quantity; i<0; ++i) {
-                     InventoryItem? item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID && e.Quantity>0);
+                     InventoryItem? item = viking.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID && e.Quantity>0);
                      item.Quantity--;
                 }
                 // if req.Quantity > 0 add unique items
@@ -211,7 +332,7 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/UseInventory")]
     [VikingSession]
     public IActionResult UseInventory(Viking viking, [FromForm] int userInventoryId, [FromForm] int numberOfUses) {
-        InventoryItem? item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == userInventoryId);
+        InventoryItem? item = viking.InventoryItems.FirstOrDefault(e => e.Id == userInventoryId);
         if (item is null)
             return Ok(false);
         if (item.Quantity < numberOfUses)
@@ -237,6 +358,40 @@ public class ContentController : Controller {
             }
         }
         return 0;
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetAvatar")] // used by World Of Jumpstart
+    [VikingSession(UseLock=false)]
+    public IActionResult GetAvatar(Viking viking) {
+        AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+        avatarData.Id = viking.Id;
+        return Ok(avatarData);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetAvatar")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult SetAvatarV1(Viking viking, [FromForm] string contentXML) {
+        if (viking.AvatarSerialized != null) {
+            AvatarData dbAvatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+            AvatarData reqAvatarData = XmlUtil.DeserializeXml<AvatarData>(contentXML);
+
+            int dbAvatarVersion = GetAvatarVersion(dbAvatarData);
+            int reqAvatarVersion = GetAvatarVersion(reqAvatarData);
+
+            if (dbAvatarVersion > reqAvatarVersion) {
+                // do not allow override newer version avatar data by older version
+                return Ok(false);
+            }
+        }
+
+        viking.AvatarSerialized = contentXML;
+        ctx.SaveChanges();
+
+        return Ok(true);
     }
 
     [HttpPost]
@@ -271,6 +426,57 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/CreateRaisedPet")] // used by World Of Jumpstart
+    [VikingSession]
+    public RaisedPetData? CreateRaisedPet(Viking viking, int petTypeID) {
+        // Update the RaisedPetData with the info
+        String dragonId = Guid.NewGuid().ToString();
+        
+        var raisedPetData = new RaisedPetData();
+        raisedPetData.IsPetCreated = true;
+        raisedPetData.PetTypeID = petTypeID;
+        raisedPetData.RaisedPetID = 0; // Initially make zero, so the db auto-fills
+        raisedPetData.EntityID = Guid.Parse(dragonId);
+        raisedPetData.Name = string.Concat("Dragon-", dragonId.AsSpan(0, 8)); // Start off with a random name
+        raisedPetData.IsSelected = false; // The api returns false, not sure why
+        raisedPetData.CreateDate = new DateTime(DateTime.Now.Ticks);
+        raisedPetData.UpdateDate = new DateTime(DateTime.Now.Ticks);
+        if (petTypeID == 2)
+            raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "BABY" };
+        else
+            raisedPetData.GrowthState = new RaisedPetGrowthState { Name = "POWERUP" };
+        int imageSlot = (viking.Images.Select(i => i.ImageSlot).DefaultIfEmpty(-1).Max() + 1);
+        raisedPetData.ImagePosition = imageSlot;
+        // NOTE: Placing an egg into a hatchery slot calls CreatePet, but doesn't SetImage.
+        // NOTE: We need to force create an image slot because hatching multiple eggs at once would create dragons with the same slot
+        Image image = new Image {
+            ImageType = "EggColor", // NOTE: The game doesn't seem to use anything other than EggColor.
+            ImageSlot = imageSlot,
+            Viking = viking,
+        };
+        // Save the dragon in the db
+        Dragon dragon = new Dragon {
+            EntityId = Guid.NewGuid(),
+            Viking = viking,
+            RaisedPetData = XmlUtil.SerializeXml(raisedPetData),
+        };
+
+        ctx.Dragons.Add(dragon);
+        ctx.Images.Add(image);
+        
+        if (petTypeID != 2) {
+            // Minisaurs should not be set as active pet
+            viking.SelectedDragon = dragon;
+            ctx.Update(viking);
+        }
+        
+        ctx.SaveChanges();
+        
+        return GetRaisedPetDataFromDragon(dragon);
+    }
+    
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/CreatePet")]
     [VikingSession]
     public IActionResult CreatePet(Viking viking, [FromForm] string request) {
@@ -278,7 +484,7 @@ public class ContentController : Controller {
         // TODO: Investigate SetAsSelectedPet and UnSelectOtherPets - they don't seem to do anything
 
         // Update the RaisedPetData with the info
-        String dragonId = Guid.NewGuid().ToString();
+        string dragonId = Guid.NewGuid().ToString();
         raisedPetRequest.RaisedPetData.IsPetCreated = true;
         raisedPetRequest.RaisedPetData.RaisedPetID = 0; // Initially make zero, so the db auto-fills
         raisedPetRequest.RaisedPetData.EntityID = Guid.Parse(dragonId);
@@ -297,7 +503,7 @@ public class ContentController : Controller {
         };
         // Save the dragon in the db
         Dragon dragon = new Dragon {
-            EntityId = Guid.NewGuid().ToString(),
+            EntityId = Guid.NewGuid(),
             Viking = viking,
             RaisedPetData = XmlUtil.SerializeXml(raisedPetRequest.RaisedPetData),
         };
@@ -312,7 +518,7 @@ public class ContentController : Controller {
 
         if (raisedPetRequest.CommonInventoryRequests is not null) {
             foreach (var req in raisedPetRequest.CommonInventoryRequests) {
-                InventoryItem? item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
+                InventoryItem? item = viking.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
                 
                 //Does the item exist in the user's inventory?
                 if (item is null) continue; //If not, skip it.
@@ -330,6 +536,28 @@ public class ContentController : Controller {
         });
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetRaisedPet")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult SetRaisedPetv1(Viking viking, [FromForm] string raisedPetData) {
+        RaisedPetData petData = XmlUtil.DeserializeXml<RaisedPetData>(raisedPetData);
+
+        // Find the dragon
+        Dragon? dragon = viking.Dragons.FirstOrDefault(e => e.Id == petData.RaisedPetID);
+        if (dragon is null) {
+            return Ok(new SetRaisedPetResponse {
+                RaisedPetSetResult = RaisedPetSetResult.Invalid
+            });
+        }
+
+        dragon.RaisedPetData = XmlUtil.SerializeXml(UpdateDragon(dragon, petData));
+        ctx.Update(dragon);
+        ctx.SaveChanges();
+
+        return Ok(true);
+    }
+    
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/SetRaisedPet")] // used by Magic & Mythies
@@ -382,6 +610,31 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetRaisedPetInactive")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult SetRaisedPetInactive(Viking viking, [FromForm] int raisedPetID) {
+        if (raisedPetID == viking.SelectedDragonId) {
+            viking.SelectedDragonId = null;
+        } else {
+            Dragon? dragon = viking.Dragons.FirstOrDefault(e => e.Id == raisedPetID);
+            if (dragon is null) {
+                return Ok(false);
+            }
+
+            // check if Minisaurs - we real delete only Minisaurs
+            RaisedPetData dragonData = XmlUtil.DeserializeXml<RaisedPetData>(dragon.RaisedPetData);
+            if (dragonData.PetTypeID != 2) {
+                return Ok(false);
+            }
+
+            viking.Dragons.Remove(dragon);
+        }
+        ctx.SaveChanges();
+        return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetSelectedPet")]
     [VikingSession]
     public IActionResult SetSelectedPet(Viking viking, [FromForm] int raisedPetID) {
@@ -404,14 +657,14 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetAllActivePetsByuserId")]
-    public RaisedPetData[]? GetAllActivePetsByuserId([FromForm] string userId, [FromForm] bool active) {
+    public RaisedPetData[]? GetAllActivePetsByuserId([FromForm] Guid userId, [FromForm] bool active) {
         // NOTE: this is public info (for mmo) - no session check
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
         if (viking is null)
             return null;
 
         RaisedPetData[] dragons = ctx.Dragons
-            .Where(d => d.VikingId == userId && d.RaisedPetData != null)
+            .Where(d => d.VikingId == viking.Id && d.RaisedPetData != null)
             .Select(d => GetRaisedPetDataFromDragon(d, viking.SelectedDragonId))
             .ToArray();
 
@@ -452,6 +705,48 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetActiveRaisedPet")] // used by World Of Jumpstart
+    [VikingSession(UseLock=false)]
+    public RaisedPetData[] GetActiveRaisedPet(Viking viking, [FromForm] string userId, [FromForm] int petTypeID) {
+        if (petTypeID == 2) {
+            // player can have multiple Minisaurs at the same time ... Minisaurs should never have been selected also ... so use GetUnselectedPetByTypes in this case
+            return GetUnselectedPetByTypes(viking, "2", false);
+        }
+
+        Dragon? dragon = viking.SelectedDragon;
+        if (dragon is null) {
+            return new RaisedPetData[0];
+        }
+
+        RaisedPetData dragonData = GetRaisedPetDataFromDragon(dragon);
+        if (petTypeID != dragonData.PetTypeID)
+            return new RaisedPetData[0];
+
+        // NOTE: returned dragon PetTypeID should be equal value of pair 1967 → CurrentRaisedPetType
+        return new RaisedPetData[] {dragonData};
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetActiveRaisedPetsByTypes")] // used by Math Blaster
+    [VikingSession(UseLock=false)]
+    public RaisedPetData[] GetActiveRaisedPet([FromForm] Guid userId, [FromForm] string petTypeIDs) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+        Dragon? dragon = viking.SelectedDragon;
+        if (dragon is null) {
+            return new RaisedPetData[0];
+        }
+
+        RaisedPetData dragonData = GetRaisedPetDataFromDragon(dragon);
+        int[] petTypeIDsInt = Array.ConvertAll(petTypeIDs.Split(','), s => int.Parse(s));
+        if (!petTypeIDsInt.Contains(dragonData.PetTypeID))
+            return new RaisedPetData[0];
+
+        return new RaisedPetData[] {dragonData};
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetSelectedRaisedPet")]
     [VikingSession(UseLock=false)]
     public RaisedPetData[]? GetSelectedRaisedPet(Viking viking, [FromForm] string userId, [FromForm] bool isActive) {
@@ -465,6 +760,30 @@ public class ContentController : Controller {
         };
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetInactiveRaisedPet")] // used by World Of Jumpstart 1.1
+    [VikingSession(UseLock=false)]
+    public RaisedPetData[] GetInactiveRaisedPet(Viking viking, [FromForm] int petTypeID) {
+        RaisedPetData[] dragons = viking.Dragons
+            .Where(d => d.RaisedPetData is not null && d.Id != viking.SelectedDragonId)
+            .Select(d => GetRaisedPetDataFromDragon(d, viking.SelectedDragonId))
+            .ToArray();
+
+        List<RaisedPetData> filteredDragons = new List<RaisedPetData>();
+        foreach (RaisedPetData dragon in dragons) {
+            if (petTypeID == dragon.PetTypeID) {
+                filteredDragons.Add(dragon);
+            }
+        }
+
+        if (filteredDragons.Count == 0) {
+            return null;
+        }
+
+        return filteredDragons.ToArray();
+    }
+    
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetImage")]
@@ -509,9 +828,9 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetImageByUserId")]
-    public ImageData? GetImageByUserId([FromForm] string userId, [FromForm] string ImageType, [FromForm] int ImageSlot) {
+    public ImageData? GetImageByUserId([FromForm] Guid userId, [FromForm] string ImageType, [FromForm] int ImageSlot) {
         // NOTE: this is public info (for mmo) - no session check
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
         if (viking is null || viking.Images is null) {
             return null;
         }
@@ -522,8 +841,8 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserUpcomingMissionState")]
-    public IActionResult GetUserUpcomingMissionState([FromForm] string apiToken, [FromForm] string userId, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserUpcomingMissionState([FromForm] Guid apiToken, [FromForm] Guid userId, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
         
@@ -531,15 +850,15 @@ public class ContentController : Controller {
         foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus == MissionStatus.Upcoming))
             result.Missions.Add(missionService.GetMissionWithProgress(mission.MissionId, viking.Id, apiKey));
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserActiveMissionState")]
-    public IActionResult GetUserActiveMissionState([FromForm] string apiToken, [FromForm] string userId, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserActiveMissionState([FromForm] Guid apiToken, [FromForm] Guid userId, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
         
@@ -551,15 +870,15 @@ public class ContentController : Controller {
             result.Missions.Add(updatedMission);
         }
         
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserCompletedMissionState")]
-    public IActionResult GetUserCompletedMissionState([FromForm] string apiToken, [FromForm] string userId, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserCompletedMissionState([FromForm] Guid apiToken, [FromForm] Guid userId, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
 
@@ -567,7 +886,7 @@ public class ContentController : Controller {
         foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus == MissionStatus.Completed))
             result.Missions.Add(missionService.GetMissionWithProgress(mission.MissionId, viking.Id, apiKey));
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
@@ -575,8 +894,8 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/AcceptMission")]
     [VikingSession]
-    public IActionResult AcceptMission(Viking viking, [FromForm] string userId, [FromForm] int missionId) {
-        if (viking.Id != userId)
+    public IActionResult AcceptMission(Viking viking, [FromForm] Guid userId, [FromForm] int missionId) {
+        if (viking.Uid != userId)
             return Unauthorized("Can't accept not owned mission");
 
         MissionState? missionState = viking.MissionStates.FirstOrDefault(x => x.MissionId == missionId);
@@ -592,20 +911,30 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserMissionState")] // used by SoD 1.13
-    public IActionResult GetUserMissionStatev1([FromForm] string userId, [FromForm] string filter, [FromForm] string apiKey) {
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+    public IActionResult GetUserMissionStatev1([FromForm] Guid userId, [FromForm] string filter, [FromForm] string apiKey) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
 
         UserMissionStateResult result = new UserMissionStateResult { Missions = new List<Mission>()  };
         foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus != MissionStatus.Completed)) {
             Mission updatedMission = missionService.GetMissionWithProgress(mission.MissionId, viking.Id, apiKey);
+
+            if (mission.MissionStatus == MissionStatus.Upcoming) {
+                // NOTE: in old SoD job board mission must be send as non active and required accept
+                //       (to avoid show all job board in journal and quest arrow pointing to job board)
+                //       do this in this place (instead of update missions.xml) to avoid conflict with newer versions of SoD
+                PrerequisiteItem prerequisite = updatedMission.MissionRule.Prerequisites.FirstOrDefault(x => x.Type == PrerequisiteRequiredType.Accept);
+                if (prerequisite != null)
+                    prerequisite.Value = "true";
+            }
+
             if (mission.UserAccepted != null)
                 updatedMission.Accepted = (bool)mission.UserAccepted;
             result.Missions.Add(updatedMission);
         }
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
@@ -613,9 +942,9 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetUserMissionState")]
     //[VikingSession(UseLock=false)]
-    public IActionResult GetUserMissionState([FromForm] string userId, [FromForm] string filter, [FromForm] string apiKey) {
+    public IActionResult GetUserMissionState([FromForm] Guid userId, [FromForm] string filter, [FromForm] string apiKey) {
         MissionRequestFilterV2 filterV2 = XmlUtil.DeserializeXml<MissionRequestFilterV2>(filter);
-        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(x => x.Uid == userId);
         if (viking is null)
             return Ok("error");
 
@@ -624,7 +953,7 @@ public class ContentController : Controller {
             foreach (var m in filterV2.MissionPair)
                 if (m.MissionID != null)
                     result.Missions.Add(missionService.GetMissionWithProgress((int)m.MissionID, viking.Id, apiKey));
-        // TODO: probably should also check for msiion based on filterV2.ProductGroupID vs mission.GroupID
+        // TODO: probably should also check for mission based on filterV2.ProductGroupID vs mission.GroupID
         } else {
             if (filterV2.GetCompletedMission ?? false) {
                 foreach (var mission in viking.MissionStates.Where(x => x.MissionStatus == MissionStatus.Completed))
@@ -635,7 +964,7 @@ public class ContentController : Controller {
             }
         }
 
-        result.UserID = Guid.Parse(viking.Id);
+        result.UserID = viking.Uid;
         return Ok(result);
     }
 
@@ -643,11 +972,11 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetTaskState")] // used by SoD 1.13
     [VikingSession(UseLock=true)]
-    public IActionResult SetTaskStatev1(Viking viking, [FromForm] string userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
-        if (viking.Id != userId)
+    public IActionResult SetTaskStatev1(Viking viking, [FromForm] Guid userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
+        if (viking.Uid != userId)
             return Unauthorized("Can't set not owned task");
 
-        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, userId, completed, xmlPayload, apiKey);
+        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, viking.Id, completed, xmlPayload, apiKey);
 
         SetTaskStateResult taskResult = new SetTaskStateResult {
             Success = true,
@@ -664,11 +993,11 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/SetTaskState")]
     [VikingSession]
-    public IActionResult SetTaskState(Viking viking, [FromForm] string userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
-        if (viking.Id != userId)
+    public IActionResult SetTaskState(Viking viking, [FromForm] Guid userId, [FromForm] int missionId, [FromForm] int taskId, [FromForm] bool completed, [FromForm] string xmlPayload, [FromForm] string apiKey) {
+        if (viking.Uid != userId)
             return Unauthorized("Can't set not owned task");
 
-        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, userId, completed, xmlPayload, apiKey);
+        List<MissionCompletedResult> results = missionService.UpdateTaskProgress(missionId, taskId, viking.Id, completed, xmlPayload, apiKey);
 
         SetTaskStateResult taskResult = new SetTaskStateResult {
             Success = true,
@@ -684,9 +1013,89 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetBuddyList")]
-    public IActionResult GetBuddyList() {
-        // TODO: this is a placeholder
-        return Ok(new BuddyList { Buddy = new Buddy[0] });
+    [VikingSession]
+    public IActionResult GetBuddyList(Viking viking) {
+        // grab all relations from database
+        List<BuddyRelation> buddies = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Uid).ToList();
+        List<Buddy> buddiesRes = new List<Buddy>();
+
+        if (buddies is null) return Ok(new BuddyList());
+
+        foreach(var buddy in buddies)
+        {
+            AvatarData? avatar = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Uid == buddy.BuddyID)?.AvatarSerialized);
+            buddiesRes.Add(new Buddy
+            {
+                BestBuddy = false,
+                CreateDate = DateTime.Now,
+                UserID = buddy.BuddyID.ToString(),
+                Status = BuddyStatus.Approved,
+                Online = true,
+                DisplayName = avatar.DisplayName,
+                OnMobile = false
+            });
+        }
+
+        return Ok(new BuddyList{ Buddy = buddiesRes.ToArray() });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/AddBuddy")]
+    [VikingSession]
+    public IActionResult AddBuddy(Viking viking, [FromForm] string buddyUserID) {
+        // create two relations for each user
+
+        BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Uid, BuddyID = Guid.Parse(buddyUserID) };
+        BuddyRelation relation2 = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = Guid.Parse(buddyUserID), BuddyID = viking.Uid };
+
+        if (ctx.BuddyRelations.Contains(relation) || ctx.BuddyRelations.Contains(relation2)) return Ok(null); // DO NOT ADD IF ALREADY ADDED
+
+        ctx.BuddyRelations.Add(relation);
+        ctx.BuddyRelations.Add(relation2);
+        ctx.SaveChanges();
+
+        // TODO - get proper response
+        return Ok(new BuddyActionResult
+        {
+            BuddyUserID = relation.BuddyID.ToString(),
+            Result = BuddyActionResultType.Success,
+            Status = BuddyStatus.Approved
+        });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/RemoveBuddy")]
+    [VikingSession]
+    public IActionResult RemoveBuddy(Viking viking, [FromForm] string buddyUserId)
+    {
+        // get buddy relation 1
+        BuddyRelation relation = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Uid)
+            .FirstOrDefault(e => e.BuddyID == Guid.Parse(buddyUserId));
+
+        // remove it
+        ctx.BuddyRelations.Remove(relation);
+
+        // get buddy relation 2
+
+        BuddyRelation relation2 = ctx.BuddyRelations.Where(e => e.OwnerID == Guid.Parse(buddyUserId))
+            .FirstOrDefault(e => e.BuddyID == viking.Uid);
+
+        // remove it
+        ctx.BuddyRelations.Remove(relation2);
+
+        ctx.SaveChanges();
+
+        // TODO - get proper response
+        return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetFriendCode")]
+    public IActionResult GetFriendCode() {
+        return Ok("SOONTM");
     }
 
     [HttpPost]
@@ -697,14 +1106,15 @@ public class ContentController : Controller {
         var req = XmlUtil.DeserializeXml<RedeemRequest>(request);
 
         // get and reduce quantity of box item
-        InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
+        InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.ItemId == req.ItemID);
         if (invItem is null || invItem.Quantity < 1) {
             return Ok(new CommonInventoryResponse{ Success = false });
         }
         --invItem.Quantity;
 
         // get real item id (from box) add it to inventory
-        itemService.OpenBox(req.ItemID, out int newItemId, out int quantity);
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
+        itemService.OpenBox(req.ItemID, gender, out int newItemId, out int quantity);
         ItemData newItem = itemService.GetItem(newItemId);
         CommonInventoryResponseItem newInvItem = inventoryService.AddItemToInventoryAndGetResponse(viking, newItem.ItemID, quantity);
 
@@ -735,6 +1145,7 @@ public class ContentController : Controller {
     public IActionResult PurchaseItems(Viking viking, [FromForm] string purchaseItemRequest) {
         PurchaseStoreItemRequest request = XmlUtil.DeserializeXml<PurchaseStoreItemRequest>(purchaseItemRequest);
         List<CommonInventoryResponseItem> items = new List<CommonInventoryResponseItem>();
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
         for (int i = 0; i < request.Items.Length; i++) {
             int itemId = request.Items[i];
             if (request.AddMysteryBoxToInventory) {
@@ -750,7 +1161,7 @@ public class ContentController : Controller {
                 }
             } else {
                 // check for mystery box ... open if need
-                itemService.CheckAndOpenBox(itemId, out itemId, out int quantity);
+                itemService.CheckAndOpenBox(itemId, gender, out itemId, out int quantity);
                 for (int j=0; j<quantity; ++j) {
                     items.Add(inventoryService.AddItemToInventoryAndGetResponse(viking, itemId, 1));
                 }
@@ -774,14 +1185,20 @@ public class ContentController : Controller {
     public IActionResult PurchaseItemsV1(Viking viking, [FromForm] string itemIDArrayXml) {
         int[] itemIdArr = XmlUtil.DeserializeXml<int[]>(itemIDArrayXml);
         List<CommonInventoryResponseItem> items = new List<CommonInventoryResponseItem>();
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
         for (int i = 0; i < itemIdArr.Length; i++) {
-            itemService.CheckAndOpenBox(itemIdArr[i], out int itemId, out int quantity);
+            itemService.CheckAndOpenBox(itemIdArr[i], gender, out int itemId, out int quantity);
             for (int j=0; j<quantity; ++j) {
                 items.Add(inventoryService.AddItemToInventoryAndGetResponse(viking, itemId, 1));
+                ItemData data = itemService.GetItem(itemId); // get item price
+                AchievementPoints? currency = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency);
+                if(currency != null) currency.Value -= data.Cost;
                 // NOTE: The quantity of purchased items is always 0 and the items are instead duplicated in both the request and the response.
                 //       Call AddItemToInventoryAndGetResponse with Quantity == 1 we get response with quantity == 0.
             }
         }
+
+        ctx.SaveChanges(); // ensure changes are saved
 
         CommonInventoryResponse response = new CommonInventoryResponse {
             Success = true,
@@ -794,9 +1211,9 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserRoomItemPositions")]
-    public IActionResult GetUserRoomItemPositions([FromForm] string userId, [FromForm] string roomID) {
+    public IActionResult GetUserRoomItemPositions([FromForm] Guid userId, [FromForm] string roomID) {
         // NOTE: this is public info (for mmo) - no session check
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userId);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
 
         if (roomID is null)
             roomID = "";
@@ -852,7 +1269,7 @@ public class ContentController : Controller {
         // NOTE: this is public info (for mmo) - no session check
         // TODO: Categories are not supported
         UserRoomGetRequest userRoomRequest = XmlUtil.DeserializeXml<UserRoomGetRequest>(request);
-        ICollection<Room>? rooms = ctx.Vikings.FirstOrDefault(x => x.Id == userRoomRequest.UserID.ToString())?.Rooms;
+        ICollection<Room>? rooms = ctx.Vikings.FirstOrDefault(x => x.Uid == userRoomRequest.UserID)?.Rooms;
         UserRoomResponse response = new UserRoomResponse { UserRoomList = new List<UserRoom>() };
         if (rooms is null)
             return Ok(response);
@@ -863,7 +1280,7 @@ public class ContentController : Controller {
             if (room.RoomId != "") {
                 // farm expansion room: RoomId is Id for expansion item
                 if (Int32.TryParse(room.RoomId, out int inventoryItemId)) {
-                    InventoryItem? item = room.Viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == inventoryItemId);
+                    InventoryItem? item = room.Viking.InventoryItems.FirstOrDefault(e => e.Id == inventoryItemId);
                     if (item != null) {
                         itemID = item.ItemId;
                     }
@@ -908,6 +1325,80 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetActiveParties")]
+    public IActionResult GetActiveParties()
+    {
+        List<Party> allParties = ctx.Parties.ToList();
+        List<UserParty> userParties = new List<UserParty>();
+
+        foreach(var party in allParties)
+        {
+            if(DateTime.UtcNow >= party.ExpirationDate)
+            {
+                ctx.Parties.Remove(party);
+                ctx.SaveChanges();
+
+                continue;
+            }
+
+            Viking viking = ctx.Vikings.FirstOrDefault(e => e.Id == party.VikingId);
+            AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+            UserParty userParty = new UserParty
+            {
+                DisplayName = avatarData.DisplayName,
+                UserName = avatarData.DisplayName,
+                ExpirationDate = party.ExpirationDate,
+                Icon = party.LocationIconAsset,
+                Location = party.Location,
+                PrivateParty = party.PrivateParty!.Value,
+                UserID = viking.Uid
+            };
+            userParties.Add(userParty);
+        }
+
+        return Ok(new UserPartyData { NonBuddyParties = userParties.ToArray() });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/PurchaseParty")]
+    [VikingSession]
+    public IActionResult PurchaseParty(Viking viking, [FromForm] int itemId)
+    {
+        // create a party based on bought itemid
+
+        Party party = new Party
+        {
+            Id = Guid.NewGuid().ToString(),
+            VikingId = viking.Id,
+            PrivateParty = false
+        };
+
+        // TODO - add other items to this if statement
+        if(itemId == 6259)
+        {
+            party.Location = "MyNeighborhood";
+            party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
+            party.ExpirationDate = DateTime.UtcNow.AddHours(1);
+
+            // check if party already exists
+
+            if (ctx.Parties.FirstOrDefault(e => e.VikingId == party.VikingId) != null) return Ok(null);
+
+            // take away coins
+            viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency)!.Value -= 60;
+
+            ctx.Parties.Add(party);
+            ctx.SaveChanges();
+
+            return Ok(true);
+        }
+
+        return Ok(null);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserActivityByUserID")]
     public IActionResult GetUserActivityByUserID() {
         // TODO: This is a placeholder
@@ -932,13 +1423,147 @@ public class ContentController : Controller {
     }
 
     [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetDisplayNames")] // used by World Of Jumpstart
+    [Route("ContentWebService.asmx/GetDisplayNamesByCategoryID")] // used by Math Blaster
+    public IActionResult GetDisplayNames() {
+        // TODO: This is a placeholder
+        return Ok(XmlUtil.ReadResourceXmlString("displaynames"));
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetDisplayNameByUserId")]
+    public IActionResult GetDisplayNameByUserId([FromForm] Guid userId)
+    {
+        Viking? idViking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+        if (idViking is null) return Ok("???");
+
+        // return display name
+        return Ok(XmlUtil.DeserializeXml<AvatarData>(idViking.AvatarSerialized!).DisplayName);
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetDisplayName")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult SetProduct(Viking viking, [FromForm] int firstNameID, [FromForm] int secondNameID, [FromForm] int thirdNameID) {
+        AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+        avatarData.DisplayName = displayNamesService.GetName(firstNameID, secondNameID, thirdNameID);
+        viking.AvatarSerialized = XmlUtil.SerializeXml(avatarData);
+        ctx.SaveChanges();
+        return Ok();
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetScene")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult GetScene(Viking viking, [FromForm] string sceneName) {
+        SceneData? scene = viking.SceneData.FirstOrDefault(e => e.SceneName == sceneName);
+
+        if (scene is not null) return Ok(scene.XmlData);
+        else return Ok("");
+    }
+
+    [HttpPost]
+    [Route("ContentWebSerivce.asmx/GetHouse")]
+    [VikingSession]
+    public IActionResult GetHouse(Viking viking) {
+        if (viking.House is not null) return Ok(viking.House.XmlData);
+        else return Ok("");
+    }
+
+    [HttpPost]
+    [Route("ContentWebService.asmx/GetHouseByUserId")]
+    public IActionResult GetHouseByUserId([FromForm] Guid userId)
+    {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+
+        if (viking is not null)
+        {
+            if (viking.House is not null) return Ok(viking.House.XmlData);
+            else return Ok("");
+        }
+
+        return Ok("");
+    }
+
+    [HttpPost]
+    //[Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetSceneByUserId")]
+    public IActionResult GetSceneByUserId([FromForm] Guid userId, [FromForm] string sceneName) {
+        SceneData? scene = ctx.Vikings.FirstOrDefault(e => e.Uid == userId)?.SceneData.FirstOrDefault(x => x.SceneName == sceneName);
+
+        if (scene is not null) return Ok(scene.XmlData);
+        else return Ok(null);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetScene")] // used by World of Jumpstart
+    [VikingSession]
+    public IActionResult SetScene(Viking viking, [FromForm] string sceneName, [FromForm] string contentXml) {
+        SceneData? existingScene = viking.SceneData.FirstOrDefault(e => e.SceneName == sceneName);
+
+        if(existingScene is not null)
+        {
+            existingScene.XmlData = contentXml;
+            ctx.SaveChanges();
+            return Ok(true);
+        }
+        else
+        {
+            SceneData sceneData = new SceneData
+            {
+                SceneName = sceneName,
+                XmlData = contentXml
+            };
+            viking.SceneData.Add(sceneData);
+            ctx.SaveChanges(); 
+            return Ok(true);
+        }
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetHouse")]
+    [VikingSession]
+    public IActionResult SetHouse(Viking viking, [FromForm] string contentXml) {
+        HouseData? house = viking.House;
+
+        if(house is null)
+        {
+            HouseData newHouse = new HouseData{ XmlData = contentXml };
+            viking.House = newHouse;
+            ctx.SaveChanges();
+            return Ok(true);
+        } else
+        {
+            house.XmlData = contentXml;
+            ctx.SaveChanges();
+            return Ok(true);
+        }
+    }
+
+    [HttpPost]
     [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/GetGameData")]
-    public IActionResult GetGameData() {
-        // TODO: This is a placeholder
-        return Ok(new GetGameDataResponse());
+    [VikingSession]
+    public IActionResult GetGameData(Viking viking, [FromForm] string gameDataRequest) {
+        GetGameDataRequest request = XmlUtil.DeserializeXml<GetGameDataRequest>(gameDataRequest);
+        return Ok(gameDataService.GetGameDataForPlayer(viking, request));
     }
-    
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetGameDataByGame")]
+    public IActionResult GetGameDataByGame()
+    {
+        // TODO: This is a placeholder
+        return Ok(new GameDataSummary());
+    }
+
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserGameCurrency")]
@@ -950,13 +1575,25 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetGameCurrency")]
+    [VikingSession]
+    public IActionResult SetUserGameCurrency(Viking viking, [FromForm] int amount)
+    {
+        achievementService.AddAchievementPoints(viking, AchievementPointTypes.GameCurrency, amount);
+
+        ctx.SaveChanges();
+        return Ok(achievementService.GetUserCurrency(viking).GameCurrency ?? 0);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("V2/ContentWebService.asmx/RerollUserItem")]
     [VikingSession]
     public IActionResult RerollUserItem(Viking viking, [FromForm] string request) {
         RollUserItemRequest req = XmlUtil.DeserializeXml<RollUserItemRequest>(request);
 
         // get item
-        InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == req.UserInventoryID);
+        InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.Id == req.UserInventoryID);
         if (invItem is null)
             return Ok(new RollUserItemResponse { Status = Status.ItemNotFound });
         
@@ -978,6 +1615,9 @@ public class ContentController : Controller {
             newStats = new List<ItemStat>();
             foreach (string name in req.ItemStatNames) {
                 ItemStat itemStat = itemStatsMap.ItemStats.FirstOrDefault(e => e.Name == name);
+
+                if (itemStat is null)
+                    return Ok(new RollUserItemResponse { Status = Status.InvalidStatsMap });
 
                 // draw new stats
                 StatRangeMap rangeMap = itemData.PossibleStatsMap.Stats.FirstOrDefault(e => e.ItemStatsID == itemStat.ItemStatID).ItemStatsRangeMaps.FirstOrDefault(e => e.ItemTierID == (int)(itemStatsMap.ItemTier));
@@ -1048,7 +1688,7 @@ public class ContentController : Controller {
         try {
             if (req.BluePrintInventoryID != null) {
                 blueprintItem = itemService.GetItem(
-                    viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == req.BluePrintInventoryID).ItemId
+                    viking.InventoryItems.FirstOrDefault(e => e.Id == req.BluePrintInventoryID).ItemId
                 );
             } else {
                 blueprintItem = itemService.GetItem(req.BluePrintItemID ?? -1);
@@ -1061,20 +1701,33 @@ public class ContentController : Controller {
         
         // remove items from DeductibleItemInventoryMaps and BluePrintFuseItemMaps
         foreach (var item in req.DeductibleItemInventoryMaps) {
-            InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
+            InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
+            if (invItem is null) {
+                invItem = viking.InventoryItems.FirstOrDefault(e => e.ItemId == item.ItemID);
+            }
+            if (invItem is null || invItem.Quantity < item.Quantity) {
+                return Ok(new FuseItemsResponse { Status = Status.ItemNotFound });
+            }
             invItem.Quantity -= item.Quantity;
         }
         foreach (var item in req.BluePrintFuseItemMaps) {
-            InventoryItem? invItem = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
-            viking.Inventory.InventoryItems.Remove(invItem);
+            if (item.UserInventoryID < 0) {
+                continue; // TODO: what we should do in this case?
+            }
+            InventoryItem? invItem = viking.InventoryItems.FirstOrDefault(e => e.Id == item.UserInventoryID);
+            if (invItem is null)
+                return Ok(new FuseItemsResponse { Status = Status.ItemNotFound });
+            viking.InventoryItems.Remove(invItem);
         }
+        // NOTE: we haven't saved any changes so far ... so we can safely interrupt "fusing" by return in loops above
         
         var resItemList = new List<InventoryItemStatsMap>();
+        Gender gender = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized).GenderType;
         foreach (BluePrintSpecification output in blueprintItem.BluePrint.Outputs) {
             if (output.ItemID is null)
                 continue;
 
-            itemService.CheckAndOpenBox((int)(output.ItemID), out int newItemId, out int quantity);
+            itemService.CheckAndOpenBox((int)(output.ItemID), gender, out int newItemId, out int quantity);
             for (int i=0; i<quantity; ++i) {
                 resItemList.Add(
                     inventoryService.AddBattleItemToInventory(viking, newItemId, (int)output.Tier)
@@ -1171,7 +1824,7 @@ public class ContentController : Controller {
                 case ActionType.MoveToInventory:
                     // item is in inventory in result of ApplyRewards ... only add to itemsAddedToInventory
                     itemsAddedToInventory.Add (new CommonInventoryResponseRewardBinItem {
-                        ItemID = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == actionMap.ID).ItemId,
+                        ItemID = viking.InventoryItems.FirstOrDefault(e => e.Id == actionMap.ID).ItemId,
                         CommonInventoryID = actionMap.ID,
                         Quantity = 0,
                         UserItemStatsMapID = actionMap.ID
@@ -1270,7 +1923,7 @@ public class ContentController : Controller {
             if (itemService.ItemHasCategory(rewardItem, 651) || rewardItem.PossibleStatsMap is null) {
                 // blueprint or no battle item (including box)
                 List<CommonInventoryResponseItem> standardItems = new List<CommonInventoryResponseItem>();
-                itemService.CheckAndOpenBox(rewardItem.ItemID, out int itemId, out int quantity);
+                itemService.CheckAndOpenBox(rewardItem.ItemID, gender, out int itemId, out int quantity);
                 for (int i=0; i<quantity; ++i) {
                     standardItems.Add(inventoryService.AddItemToInventoryAndGetResponse(viking, itemId, 1));
                     // NOTE: client require single quantity items
@@ -1303,12 +1956,57 @@ public class ContentController : Controller {
         });
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SendRawGameData")]
+    [VikingSession(UseLock = true)]
+    public IActionResult SendRawGameData(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string xmlDocumentData, bool win, bool loss) {
+        return Ok(gameDataService.SaveGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, xmlDocumentData, win, loss));
+    }
+
+    [Route("ContentWebService.asmx/GetGameDataByGame")]
+    [VikingSession(UseLock = true)]
+    public IActionResult GetGameDataByGame(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, bool buddyFilter) {
+        return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter));
+    }
+
+    [Route("V2/ContentWebService.asmx/GetGameDataByGameForDateRange")]
+    [VikingSession(UseLock = true)]
+    public IActionResult GetGameDataByGameForDateRange(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, string startDate, string endDate, bool buddyFilter) {
+        CultureInfo usCulture = new CultureInfo("en-US", false);
+        return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter, DateTime.Parse(startDate, usCulture), DateTime.Parse(endDate, usCulture)));
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetPeriodicGameDataByGame")] // used by Math Blaster
+    public IActionResult GetPeriodicGameDataByGame() {
+        // TODO: This is a placeholder
+        return Ok(new GameDataSummary());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("MissionWebService.asmx/GetTreasureChest")] // used by Math Blaster
+    public IActionResult GetTreasureChest() {
+        // TODO: This is a placeholder
+        return Ok(new TreasureChestData());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("MissionWebService.asmx/GetWorldId")] // used by Math Blaster
+    public IActionResult GetWorldId() {
+        // TODO: This is a placeholder
+        return Ok(0);
+    }
+
     private static RaisedPetData GetRaisedPetDataFromDragon (Dragon dragon, int? selectedDragonId = null) {
         if (selectedDragonId is null)
             selectedDragonId = dragon.Viking.SelectedDragonId;
         RaisedPetData data = XmlUtil.DeserializeXml<RaisedPetData>(dragon.RaisedPetData);
         data.RaisedPetID = dragon.Id;
-        data.EntityID = Guid.Parse(dragon.EntityId);
+        data.EntityID = dragon.EntityId;
         data.IsSelected = (selectedDragonId == dragon.Id);
         return data;
     }
@@ -1368,7 +2066,7 @@ public class ContentController : Controller {
             return null;
         }
 
-        string imageUrl = string.Format("{0}://{1}/RawImage/{2}/{3}/{4}.jpg", HttpContext.Request.Scheme, HttpContext.Request.Host, viking.Id, ImageType, ImageSlot);
+        string imageUrl = string.Format("{0}://{1}/RawImage/{2}/{3}/{4}.jpg", HttpContext.Request.Scheme, HttpContext.Request.Host, viking.Uid, ImageType, ImageSlot);
 
         return new ImageData {
             ImageURL = imageUrl,

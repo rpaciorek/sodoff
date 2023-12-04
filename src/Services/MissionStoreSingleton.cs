@@ -10,6 +10,8 @@ public class MissionStoreSingleton {
     private int[] upcomingMissions;
     private int[] activeMissionsV1;
     private int[] upcomingMissionsV1;
+    private int[] activeMissionsWoJS;
+    private int[] upcomingMissionsWoJS;
 
     public MissionStoreSingleton() {
         ServerMissionArray missionArray = XmlUtil.DeserializeXml<ServerMissionArray>(XmlUtil.ReadResourceXmlString("missions"));
@@ -23,6 +25,14 @@ public class MissionStoreSingleton {
         defaultMissions = XmlUtil.DeserializeXml<DefaultMissions>(XmlUtil.ReadResourceXmlString("defaultmissionlistv1"));
         activeMissionsV1 = defaultMissions.Active;
         upcomingMissionsV1 = defaultMissions.Upcoming;
+        
+        missionArray = XmlUtil.DeserializeXml<ServerMissionArray>(XmlUtil.ReadResourceXmlString("missions_wojs"));
+        defaultMissions = XmlUtil.DeserializeXml<DefaultMissions>(XmlUtil.ReadResourceXmlString("defaultmissionlist_wojs"));
+        foreach (var mission in missionArray.MissionDataArray) {
+            SetUpRecursive(mission); // TODO: use separate missions dict for WoJS (?)
+        }
+        activeMissionsWoJS = defaultMissions.Active;
+        upcomingMissionsWoJS = defaultMissions.Upcoming;
     }
 
     public Mission GetMission(int missionID) {
@@ -33,12 +43,18 @@ public class MissionStoreSingleton {
         if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
             return activeMissionsV1;
         }
+        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875") { // World Of JumpStart
+            return activeMissionsWoJS;
+        }
         return activeMissions;
     }
 
     public int[] GetUpcomingMissions(string apiKey) {
         if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
             return upcomingMissionsV1;
+        }
+        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875") { // World Of JumpStart
+            return upcomingMissionsWoJS;
         }
         return upcomingMissions;
     }

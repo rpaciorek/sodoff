@@ -15,6 +15,34 @@ public class ConfigurationController : Controller {
             // do not send MMO servers to old (incompatibility with MMO server) client
             return Ok(XmlUtil.SerializeXml(new MMOServerInformation[0]));
         }
-        return Ok(XmlUtil.ReadResourceXmlString("mmo"));
+
+        if (apiKey == "1552008F-4A95-46F5-80E2-58574DA65875") {
+            if (System.Diagnostics.Debugger.IsAttached) return Ok(XmlUtil.ReadResourceXmlString("mmo-js-dev"));
+            return Ok(XmlUtil.ReadResourceXmlString("mmo-js"));
+        }
+        else if (apiKey == "6738196D-2A2C-4EF8-9B6E-1252C6EC7325") return Ok(XmlUtil.ReadResourceXmlString("mmo-mb"));
+
+        return Ok(XmlUtil.SerializeXml(new MMOServerInformation[0]));
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ConfigurationWebService.asmx/GetContentByTypeByUser")]
+    public IActionResult GetContentByTypeByUser([FromForm] int contentType)
+    {
+        if (contentType == 1) return Ok(new ContentInfo
+        {
+            ContentInfoArray = XmlUtil.DeserializeXml<ContentInfoData[]>(XmlUtil.ReadResourceXmlString("jukeboxcnt"))
+        });
+        if (contentType == 2) return Ok(new ContentInfo
+        {
+            ContentInfoArray = XmlUtil.DeserializeXml<ContentInfoData[]>(XmlUtil.ReadResourceXmlString("moviecnt"))
+        });
+        if (contentType == 3) return Ok(new ContentInfo
+        {
+            ContentInfoArray = XmlUtil.DeserializeXml<ContentInfoData[]>(XmlUtil.ReadResourceXmlString("arcadecnt"))
+        });
+
+        return NotFound();
     }
 }

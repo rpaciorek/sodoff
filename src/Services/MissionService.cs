@@ -16,7 +16,7 @@ public class MissionService {
         this.achievementService = achievementService;
     }
 
-    public Mission GetMissionWithProgress(int missionId, string userId, string apiKey) {
+    public Mission GetMissionWithProgress(int missionId, int userId, string apiKey) {
         Mission mission;
         if (missionId == 999 && apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013") { // TODO This is not a pretty solution with hard-coded values.
             mission = missionStore.GetMission(10999);
@@ -34,7 +34,7 @@ public class MissionService {
         return mission;
     }
 
-    public List<MissionCompletedResult> UpdateTaskProgress(int missionId, int taskId, string userId, bool completed, string xmlPayload, string apiKey) {
+    public List<MissionCompletedResult> UpdateTaskProgress(int missionId, int taskId, int userId, bool completed, string xmlPayload, string apiKey) {
         SetTaskProgressDB(missionId, taskId, userId, completed, xmlPayload);
 
         // NOTE: This won't work if a mission can be completed by completing an inner mission
@@ -54,7 +54,7 @@ public class MissionService {
                 Viking viking = ctx.Vikings.FirstOrDefault(x => x.Id == userId)!;
                 MissionState? missionState = viking.MissionStates.FirstOrDefault(x => x.MissionId == missionId);
                 if (missionState != null && missionState.MissionStatus == MissionStatus.Active) {
-                    if (mission.Repeatable) {
+                    if (mission.Repeatable || mission.GroupID == 9 || mission.GroupID == 17 || mission.GroupID == 19) { // JobBoard (fish and farm) and Cauldron missions are repeatable also
                         // NOTE: This won't work if repeatable mission use sub-missions, but SoD doesn't have those repeatable mission
                         // NOTE: Repeatable missions needs re-login to work correctly (this looks like og bug)
                         //       probably due to client-side cache of task payload / status
@@ -82,7 +82,7 @@ public class MissionService {
         return result;
     }
 
-    private void UpdateMissionRecursive(Mission mission, string userId) {
+    private void UpdateMissionRecursive(Mission mission, int userId) {
         List<Model.TaskStatus> taskStatuses = ctx.TaskStatuses.Where(e => e.VikingId == userId && e.MissionId == mission.MissionID).ToList();
 
         // Update mission rules and tasks
@@ -130,7 +130,7 @@ public class MissionService {
         }
     }
 
-    private void SetTaskProgressDB(int missionId, int taskId, string userId, bool completed, string xmlPayload) {
+    private void SetTaskProgressDB(int missionId, int taskId, int userId, bool completed, string xmlPayload) {
         Model.TaskStatus? status = ctx.TaskStatuses.FirstOrDefault(task => task.Id == taskId && task.MissionId == missionId && task.VikingId == userId);
 
         if (status is null) {
@@ -150,6 +150,9 @@ public class MissionService {
     }
 
     private bool MissionCompleted(Mission mission) {
-        return mission.MissionRule.Criteria.RuleItems.All(x => x.Complete == 1);
+        if (mission.MissionRule.Criteria.Type == "some")
+            return mission.MissionRule.Criteria.RuleItems.Any(x => x.Complete == 1);
+        else
+            return mission.MissionRule.Criteria.RuleItems.All(x => x.Complete == 1);
     }
 }

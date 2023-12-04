@@ -27,13 +27,13 @@ public class RegistrationController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("v3/RegistrationWebService.asmx/DeleteProfile")]
-    public IActionResult DeleteProfile([FromForm] string apiToken, [FromForm] string userID) {
+    public IActionResult DeleteProfile([FromForm] Guid apiToken, [FromForm] Guid userID) {
         User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == apiToken)?.User;
         if (user is null) {
             return Ok(DeleteProfileStatus.OWNER_ID_NOT_FOUND);
         }
 
-        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Id == userID);
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userID);
         if (viking is null) {
             return Ok(DeleteProfileStatus.PROFILE_NOT_FOUND);
         }
@@ -53,37 +53,68 @@ public class RegistrationController : Controller {
     [Route("v3/RegistrationWebService.asmx/RegisterParent")]
     [DecryptRequest("parentRegistrationData")]
     [EncryptResponse]
-    public IActionResult RegisterParent() {
+    public IActionResult RegisterParent([FromForm] string apiKey) {
         ParentRegistrationData data = XmlUtil.DeserializeXml<ParentRegistrationData>(Request.Form["parentRegistrationData"]);
         User u = new User {
-            Id = Guid.NewGuid().ToString(),
+            Id = Guid.NewGuid(),
             Username = data.ChildList[0].ChildName,
             Password = new PasswordHasher<object>().HashPassword(null, data.Password),
             Email = data.Email
         };
 
         // Check if user exists
-        if (ctx.Users.Count(e => e.Email == u.Email) > 0) {
-            return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateEmail });
+        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875" || apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // World Of JumpStart, Math Blaster
+            if (ctx.Users.Count(e => e.Email == u.Email) > 0) {
+                return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateEmail });
+            }
         }
-        else if (ctx.Users.Count(e => e.Username== u.Username) > 0) {
+        if (ctx.Users.Count(e => e.Username== u.Username) > 0) {
             return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateUserName });
-        }  
+        }
 
         ctx.Users.Add(u);
+
+        Viking v = new Viking
+        {
+            Uid = Guid.NewGuid(),
+            Name = data.ChildList[0].ChildName,
+            User = u,
+            InventoryItems = new List<InventoryItem>(),
+            AchievementPoints = new List<AchievementPoints>(),
+            Rooms = new List<Room>()
+        };
+
+        ctx.Vikings.Add(v);
+
+        missionService.SetUpMissions(v, apiKey);
+
+        // give created viking 50 coins
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.GameCurrency,
+            Value = 50
+        });
+
+        // give created viking 50 XP
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.PlayerXP,
+            Value = 50
+        });
+
         ctx.SaveChanges();
 
         ParentLoginInfo pli = new ParentLoginInfo {
             UserName = u.Username,
             ApiToken = Guid.NewGuid().ToString(),
-            UserID = u.Id,
+            UserID = u.Id.ToString(),
             Status = MembershipUserStatus.Success,
             UnAuthorized = false
         };
 
         var response = new RegistrationResult {
             ParentLoginInfo = pli,
-            UserID = u.Id,
+            UserID = u.Id.ToString(),
             Status = MembershipUserStatus.Success,
             ApiToken = Guid.NewGuid().ToString()
         };
@@ -97,7 +128,7 @@ public class RegistrationController : Controller {
     [Route("V4/RegistrationWebService.asmx/RegisterChild")]
     [DecryptRequest("childRegistrationData")]
     [EncryptResponse]
-    public IActionResult RegisterChild([FromForm] string parentApiToken, [FromForm] string apiKey) {
+    public IActionResult RegisterChild([FromForm] Guid parentApiToken, [FromForm] string apiKey) {
         User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == parentApiToken)?.User;
         if (user is null) {
             return Ok(new RegistrationResult{
@@ -116,21 +147,38 @@ public class RegistrationController : Controller {
             return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateUserName });
         }
 
-        Inventory inv = new Inventory { InventoryItems = new List<InventoryItem>() };
-        inv.InventoryItems.Add(new InventoryItem { ItemId = 8977, Quantity = 1 }); // DragonStableINTDO - Dragons Dragon Stable
+        List<InventoryItem> items = new() {
+            new InventoryItem { ItemId = 8977, Quantity = 1 } // DragonStableINTDO - Dragons Dragon Stable
+        };
 
         Viking v = new Viking {
-            Id = Guid.NewGuid().ToString(),
+            Uid = Guid.NewGuid(),
             Name = data.ChildName,
             User = user,
-            Inventory = inv,
+            InventoryItems = items,
             AchievementPoints = new List<AchievementPoints>(),
             Rooms = new List<Room>()
         };
 
+        // give child 50 coins on register
+
         missionService.SetUpMissions(v, apiKey);
 
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.GameCurrency,
+            Value = 50
+        });
+
+        // give created viking 50 XP
+        v.AchievementPoints.Add(new AchievementPoints()
+        {
+            Type = (int)AchievementPointTypes.PlayerXP,
+            Value = 50
+        });
+
         ctx.Vikings.Add(v);
+        ctx.SaveChanges();
 
         if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
             keyValueService.SetPairData(null, v, null, 2017, new Schema.PairData {
@@ -143,12 +191,11 @@ public class RegistrationController : Controller {
                 }
             });
         }
-        ctx.SaveChanges();
 
         roomService.CreateRoom(v, "MyRoomINT");
 
         return Ok(new RegistrationResult {
-            UserID = v.Id,
+            UserID = v.Uid.ToString(),
             Status = MembershipUserStatus.Success
         });
     }

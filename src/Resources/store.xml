@@ -1,5 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ArrayOfStoreData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- 
+SoD stores:
+	* main store:
+		* Bundles, Expansions -> 102
+		* Dragon Eggs, Care, Saddles, Skins  -> 92
+		* Viking Clothes, Gear -> 91
+		* Hideout Furniture -> 145
+		* Farming -> 90
+		* Fishing -> 94
+		NOTE: main store uses item from all of the above stores and divides them by category (and some items are in wrong store), see bellow for details
+	* special:
+		* default (free, non inventory) avatar parts (eyes, hairs, ...) and clothes -> 95
+		* default (free, non inventory) free blueprints -> 161
+		* flight club "Hero Dragons" levels -> 105
+		* clans crest -> 104
+		* hidden shopping (instant hatch, maze rewards, change name, ...) -> 93
+	* unknown:
+		85 (not used for Hideout Furniture in main store)
+
+SoD 3.31 main store section and subsection filtering:
+	Farming   storeIDs=[90, 91, 92, 94, 102, 145]
+		Hot Deals   categoryIDs=[574]
+		Seeds   categoryIDs=[393]
+		Buildings   categoryIDs=[392]
+		Animal Feed   categoryIDs=[573]
+		Animals   categoryIDs=[391]
+		Farm Decorations   categoryIDs=[394]
+		Cauldrons   categoryIDs=[482]
+		Produce   categoryIDs=[416]
+		Expansion   categoryIDs=[544]
+		Plots   categoryIDs=[543]
+	Viking Gear   storeIDs=[90, 91, 92, 94, 102, 145]
+		Weapons   categoryIDs=[387]
+		Helmets   categoryIDs=[19]
+		Masks   categoryIDs=[434]
+		Shields   categoryIDs=[491]
+		Wristbands   categoryIDs=[410]
+		Shoulder Pads   categoryIDs=[418]
+		Facial War Paint   categoryIDs=[421]
+		Blueprints   categoryIDs=[651]
+	Viking Clothes   storeIDs=[90, 91, 92, 94, 102, 145]
+		Hot Deals   categoryIDs=[577]
+		Shirts   categoryIDs=[12]
+		Pants   categoryIDs=[13]
+		Shoes   categoryIDs=[14]
+		Hair   categoryIDs=[18]
+		Flight Suits   categoryIDs=[464]
+		Facial Decals   categoryIDs=[420]
+	Dragon Care   storeIDs=[90, 91, 92, 94, 102, 145]
+		Stables   categoryIDs=[455]
+		Consumables   categoryIDs=[458, 643]
+		Dragon Age Up   categoryIDs=[435]
+	Dragon Eggs   storeIDs=[90, 91, 92, 94, 102, 145]
+		Hot Deals   categoryIDs=[552]
+		Sharp   categoryIDs=[545]
+		Mystery   categoryIDs=[546]
+		Boulder   categoryIDs=[547]
+		Stoker   categoryIDs=[548]
+		Tracker   categoryIDs=[549]
+		Strike   categoryIDs=[550]
+		Tidal   categoryIDs=[551]
+	Bundles   storeIDs=[90, 91, 92, 94, 102, 145]
+		Buy Coins   categoryIDs=[425]
+		Dragon Age Up   categoryIDs=[435]
+		Dragons Bundle   categoryIDs=[436]
+		New User Bundles   categoryIDs=[575]
+		Mystery Boxes   categoryIDs=[462]
+	Membership   storeIDs=[90, 91, 92, 94, 102, 145]
+		Membership   categoryIDs=[2, 542]
+	Fishing   storeIDs=[90, 91, 92, 94, 102, 145]
+		Bait   categoryIDs=[407]
+		Rods   categoryIDs=[406]
+		Fish   categoryIDs=[408]
+	Hideout Furniture   storeIDs=[90, 91, 92, 94, 102, 145]
+		Hot Deals   categoryIDs=[569]
+		Beds   categoryIDs=[531]
+		Tables   categoryIDs=[532]
+		Chairs   categoryIDs=[533]
+		Wall Lighting   categoryIDs=[570]
+		Wall Hangings   categoryIDs=[534]
+		Lighting   categoryIDs=[572]
+		Statues   categoryIDs=[571]
+		Decor   categoryIDs=[535]
+	Dragon Skins   storeIDs=[90, 91, 92, 94, 102, 145]
+		Hot Deals   categoryIDs=[567]
+		Sharp Class   categoryIDs=[553]
+		Mystery Class   categoryIDs=[554]
+		Boulder Class   categoryIDs=[555]
+		Stoker Class   categoryIDs=[556]
+		Tracker Class   categoryIDs=[557]
+		Strike Class   categoryIDs=[558]
+		Tidal Class   categoryIDs=[559]
+	Dragon Saddles   storeIDs=[90, 91, 92, 94, 102, 145]
+		Hot Deals   categoryIDs=[568]
+		Sharp Class   categoryIDs=[560]
+		Mystery Class   categoryIDs=[561]
+		Boulder Class   categoryIDs=[562]
+		Stoker Class   categoryIDs=[563]
+		Tracker Class   categoryIDs=[564]
+		Strike Class   categoryIDs=[565]
+		Tidal Class   categoryIDs=[566]
+	Deals and Sales   storeIDs=[90, 91, 94, 102, 145, 92]
+		New   categoryIDs=[]
+		On Sale   categoryIDs=[]
+		Limited Availability   categoryIDs=[]
+		Popular   categoryIDs=[12, 13, 14, 18, 19, 434, 410, 418, 420, 421, 380, 424, 406, 407, 408, 393, 392, 391, 394, 416, 1, 425, 2, 435]
+	Expansions   storeIDs=[90, 91, 92, 94, 102, 145]
+		Expansions   categoryIDs=[514, 435]
+	Gems and Coins   storeIDs=[90, 91, 92, 94, 102, 145]
+		Buy Gems   categoryIDs=[1]
+		Buy Coins   categoryIDs=[425]
+		Buy Special Items   categoryIDs=[3]
+-->
 	<StoreData>
 		<i>1</i>
 		<s>House Depot</s>
@@ -1184,6 +1297,27 @@
 		<ii>2520</ii>
 		<ii>7179</ii>
 		<ii>7180</ii>
+		<ii>1959</ii>
+		<ii>1664</ii>
+		<ii>1666</ii>
+		<ii>1667</ii>
+		<ii>1669</ii>
+		<ii>1670</ii>
+		<ii>1686</ii>
+		<ii>1687</ii>
+		<ii>1874</ii>
+		<ii>1875</ii>
+		<ii>1876</ii>
+		<ii>1877</ii>
+		<ii>1902</ii>
+		<ii>1903</ii>
+		<ii>1904</ii>
+		<ii>1905</ii>
+		<ii>1906</ii>
+		<ii>1907</ii>
+		<ii>1908</ii>
+		<ii>1909</ii>
+		<ii>1910</ii>
 	</StoreData>
 	<StoreData>
 		<i>7</i>
@@ -1271,7 +1405,6 @@
 		<ii>1234</ii>
 		<ii>1240</ii>
 		<ii>1256</ii>
-		<ii>1275</ii>
 		<ii>1362</ii>
 		<ii>1379</ii>
 		<ii>1380</ii>
@@ -1288,11 +1421,6 @@
 		<ii>1514</ii>
 		<ii>1528</ii>
 		<ii>1567</ii>
-		<ii>1738</ii>
-		<ii>1755</ii>
-		<ii>1767</ii>
-		<ii>1781</ii>
-		<ii>1802</ii>
 		<ii>2052</ii>
 		<ii>2056</ii>
 		<ii>2093</ii>
@@ -1343,19 +1471,12 @@
 		<ii>1217</ii>
 		<ii>1220</ii>
 		<ii>1255</ii>
-		<ii>1307</ii>
-		<ii>1320</ii>
 		<ii>1436</ii>
 		<ii>1468</ii>
 		<ii>1504</ii>
 		<ii>1539</ii>
 		<ii>1549</ii>
 		<ii>1566</ii>
-		<ii>1779</ii>
-		<ii>1815</ii>
-		<ii>1818</ii>
-		<ii>1839</ii>
-		<ii>1842</ii>
 		<ii>2036</ii>
 		<ii>2039</ii>
 		<ii>2100</ii>
@@ -1378,7 +1499,6 @@
 		<ii>1452</ii>
 		<ii>1459</ii>
 		<ii>1483</ii>
-		<ii>1692</ii>
 		<ii>2092</ii>
 		<ii>2630</ii>
 		<ii>2645</ii>
@@ -1388,7 +1508,6 @@
 		<ii>1236</ii>
 		<ii>1245</ii>
 		<ii>1248</ii>
-		<ii>1331</ii>
 		<ii>1357</ii>
 		<ii>1376</ii>
 		<ii>1404</ii>
@@ -1407,7 +1526,6 @@
 		<ii>2033</ii>
 		<ii>3177</ii>
 		<ii>1222</ii>
-		<ii>1291</ii>
 		<ii>1373</ii>
 		<ii>1377</ii>
 		<ii>1388</ii>
@@ -1430,7 +1548,6 @@
 		<ii>2479</ii>
 		<ii>1244</ii>
 		<ii>1246</ii>
-		<ii>1322</ii>
 		<ii>1358</ii>
 		<ii>1410</ii>
 		<ii>1518</ii>
@@ -1465,8 +1582,6 @@
 		<ii>2784</ii>
 		<ii>1235</ii>
 		<ii>1249</ii>
-		<ii>1281</ii>
-		<ii>1327</ii>
 		<ii>1465</ii>
 		<ii>1519</ii>
 		<ii>1985</ii>
@@ -1477,11 +1592,9 @@
 		<ii>1641</ii>
 		<ii>1970</ii>
 		<ii>1223</ii>
-		<ii>1284</ii>
 		<ii>1360</ii>
 		<ii>1525</ii>
 		<ii>1529</ii>
-		<ii>1786</ii>
 		<ii>1971</ii>
 		<ii>2035</ii>
 		<ii>2060</ii>
@@ -1490,12 +1603,10 @@
 		<ii>2445</ii>
 		<ii>1225</ii>
 		<ii>1243</ii>
-		<ii>1335</ii>
 		<ii>1385</ii>
 		<ii>1390</ii>
 		<ii>1396</ii>
 		<ii>1541</ii>
-		<ii>2074</ii>
 		<ii>2110</ii>
 		<ii>2112</ii>
 		<ii>2441</ii>
@@ -1701,6 +1812,528 @@
 		<ii>7045</ii>
 		<ii>7250</ii>
 		<ii>7251</ii>
+		<ii>1627</ii>
+		<ii>1355</ii>
+		<ii>1664</ii>
+		<ii>1665</ii>
+		<ii>1666</ii>
+		<ii>1667</ii>
+		<ii>1668</ii>
+		<ii>1669</ii>
+		<ii>1670</ii>
+		<ii>1671</ii>
+		<ii>1672</ii>
+		<ii>1673</ii>
+		<ii>1674</ii>
+		<ii>1675</ii>
+		<ii>1676</ii>
+		<ii>1677</ii>
+		<ii>1678</ii>
+		<ii>1679</ii>
+		<ii>1680</ii>
+		<ii>1681</ii>
+		<ii>1682</ii>
+		<ii>1683</ii>
+		<ii>1684</ii>
+		<ii>1685</ii>
+		<ii>1686</ii>
+		<ii>1687</ii>
+		<ii>1688</ii>
+		<ii>2077</ii>
+		<ii>2078</ii>
+		<ii>2079</ii>
+		<ii>2080</ii>
+		<ii>2081</ii>
+		<ii>2082</ii>
+		<ii>2083</ii>
+		<ii>2084</ii>
+		<ii>2085</ii>
+		<ii>2086</ii>
+		<ii>2087</ii>
+		<ii>2088</ii>
+		<ii>2089</ii>
+		<ii>2090</ii>
+		<ii>1186</ii>
+		<ii>1187</ii>
+		<ii>1188</ii>
+		<ii>1189</ii>
+		<ii>1190</ii>
+		<ii>1191</ii>
+		<ii>1192</ii>
+		<ii>1193</ii>
+		<ii>1194</ii>
+		<ii>1195</ii>
+		<ii>1196</ii>
+		<ii>1197</ii>
+		<ii>1198</ii>
+		<ii>1199</ii>
+		<ii>1200</ii>
+		<ii>1201</ii>
+		<ii>1202</ii>
+		<ii>1203</ii>
+		<ii>1204</ii>
+		<ii>1205</ii>
+		<ii>1206</ii>
+		<ii>1207</ii>
+		<ii>1208</ii>
+		<ii>1209</ii>
+		<ii>1210</ii>
+		<ii>1959</ii>
+		<ii>1960</ii>
+		<ii>1961</ii>
+		<ii>1859</ii>
+		<ii>1860</ii>
+		<ii>1861</ii>
+		<ii>1862</ii>
+		<ii>1863</ii>
+		<ii>1864</ii>
+		<ii>1865</ii>
+		<ii>1866</ii>
+		<ii>1867</ii>
+		<ii>1868</ii>
+		<ii>1869</ii>
+		<ii>1870</ii>
+		<ii>1871</ii>
+		<ii>1872</ii>
+		<ii>1873</ii>
+		<ii>1874</ii>
+		<ii>1875</ii>
+		<ii>1876</ii>
+		<ii>1877</ii>
+		<ii>1878</ii>
+		<ii>1879</ii>
+		<ii>1880</ii>
+		<ii>1881</ii>
+		<ii>1882</ii>
+		<ii>1883</ii>
+		<ii>1884</ii>
+		<ii>1885</ii>
+		<ii>1886</ii>
+		<ii>1887</ii>
+		<ii>1888</ii>
+		<ii>1889</ii>
+		<ii>1890</ii>
+		<ii>1891</ii>
+		<ii>1892</ii>
+		<ii>1893</ii>
+		<ii>1894</ii>
+		<ii>1895</ii>
+		<ii>1896</ii>
+		<ii>1897</ii>
+		<ii>1898</ii>
+		<ii>1899</ii>
+		<ii>1900</ii>
+		<ii>1901</ii>
+		<ii>1902</ii>
+		<ii>1903</ii>
+		<ii>1904</ii>
+		<ii>1905</ii>
+		<ii>1906</ii>
+		<ii>1907</ii>
+		<ii>1908</ii>
+		<ii>1909</ii>
+		<ii>1910</ii>
+		<ii>1911</ii>
+		<ii>1912</ii>
+		<ii>1913</ii>
+		<ii>1914</ii>
+		<ii>1915</ii>
+		<ii>1916</ii>
+		<ii>1917</ii>
+		<ii>1918</ii>
+		<ii>1919</ii>
+		<ii>1920</ii>
+		<ii>1921</ii>
+		<ii>1922</ii>
+		<ii>1923</ii>
+		<ii>1924</ii>
+		<ii>1925</ii>
+		<ii>1926</ii>
+		<ii>1927</ii>
+		<ii>1928</ii>
+		<ii>1929</ii>
+		<ii>1930</ii>
+		<ii>1931</ii>
+		<ii>1932</ii>
+		<ii>1933</ii>
+		<ii>1934</ii>
+		<ii>1935</ii>
+		<ii>1936</ii>
+		<ii>1937</ii>
+		<ii>1938</ii>
+		<ii>1939</ii>
+		<ii>1940</ii>
+		<ii>1941</ii>
+		<ii>1942</ii>
+		<ii>1943</ii>
+		<ii>1944</ii>
+		<ii>1945</ii>
+		<ii>1946</ii>
+		<ii>1947</ii>
+		<ii>1948</ii>
+		<ii>1949</ii>
+		<ii>1950</ii>
+		<ii>1951</ii>
+		<ii>1952</ii>
+		<ii>1953</ii>
+		<ii>1954</ii>
+		<ii>1955</ii>
+		<ii>1956</ii>
+		<ii>1957</ii>
+		<ii>1958</ii>
+		<ii>19700</ii>
+		<ii>19701</ii>
+		<ii>19702</ii>
+		<ii>19703</ii>
+		<ii>19704</ii>
+		<ii>19705</ii>
+		<ii>19706</ii>
+		<ii>19707</ii>
+		<ii>19708</ii>
+		<ii>19709</ii>
+		<ii>19710</ii>
+		<ii>19711</ii>
+		<ii>19712</ii>
+		<ii>19713</ii>
+		<ii>19714</ii>
+		<ii>19715</ii>
+		<ii>19716</ii>
+		<ii>19717</ii>
+		<ii>19718</ii>
+		<ii>19719</ii>
+		<ii>19720</ii>
+		<ii>19721</ii>
+		<ii>19722</ii>
+		<ii>19723</ii>
+		<ii>19724</ii>
+		<ii>19725</ii>
+		<ii>19726</ii>
+		<ii>19727</ii>
+		<ii>19728</ii>
+		<ii>19729</ii>
+		<ii>19730</ii>
+		<ii>19731</ii>
+		<ii>19732</ii>
+		<ii>19733</ii>
+		<ii>19734</ii>
+		<ii>19735</ii>
+		<ii>19736</ii>
+		<ii>19737</ii>
+		<ii>19738</ii>
+		<ii>19739</ii>
+		<ii>19740</ii>
+		<ii>19741</ii>
+		<ii>19742</ii>
+		<ii>19743</ii>
+		<ii>19744</ii>
+		<ii>19745</ii>
+		<ii>19746</ii>
+		<ii>19747</ii>
+		<ii>19748</ii>
+		<ii>19749</ii>
+		<ii>19750</ii>
+		<ii>19751</ii>
+		<ii>19752</ii>
+		<ii>19753</ii>
+		<ii>19754</ii>
+		<ii>19755</ii>
+		<ii>19756</ii>
+		<ii>19757</ii>
+		<ii>19758</ii>
+		<ii>19759</ii>
+		<ii>19760</ii>
+		<ii>19761</ii>
+		<ii>19762</ii>
+		<ii>19763</ii>
+		<ii>19764</ii>
+		<ii>19765</ii>
+		<ii>19766</ii>
+		<ii>19767</ii>
+		<ii>19768</ii>
+		<ii>19769</ii>
+		<ii>19770</ii>
+		<ii>19771</ii>
+		<ii>19772</ii>
+		<ii>19773</ii>
+		<ii>19774</ii>
+		<ii>19775</ii>
+		<ii>19776</ii>
+		<ii>19777</ii>
+		<ii>19778</ii>
+		<ii>19779</ii>
+		<ii>19780</ii>
+		<ii>19781</ii>
+		<ii>19782</ii>
+		<ii>19783</ii>
+		<ii>19784</ii>
+		<ii>19785</ii>
+		<ii>19786</ii>
+		<ii>19787</ii>
+		<ii>19788</ii>
+		<ii>19789</ii>
+		<ii>19790</ii>
+		<ii>19791</ii>
+		<ii>19792</ii>
+		<ii>19793</ii>
+		<ii>19794</ii>
+		<ii>19795</ii>
+		<ii>19796</ii>
+		<ii>19797</ii>
+		<ii>1269</ii>
+		<ii>1270</ii>
+		<ii>1271</ii>
+		<ii>1272</ii>
+		<ii>1273</ii>
+		<ii>1274</ii>
+		<ii>1275</ii>
+		<ii>1276</ii>
+		<ii>1277</ii>
+		<ii>1278</ii>
+		<ii>1279</ii>
+		<ii>1280</ii>
+		<ii>1281</ii>
+		<ii>1282</ii>
+		<ii>1283</ii>
+		<ii>1284</ii>
+		<ii>1285</ii>
+		<ii>1286</ii>
+		<ii>1287</ii>
+		<ii>1288</ii>
+		<ii>1289</ii>
+		<ii>1290</ii>
+		<ii>1291</ii>
+		<ii>1292</ii>
+		<ii>1293</ii>
+		<ii>1294</ii>
+		<ii>1295</ii>
+		<ii>1296</ii>
+		<ii>1297</ii>
+		<ii>1298</ii>
+		<ii>1299</ii>
+		<ii>1300</ii>
+		<ii>1301</ii>
+		<ii>1302</ii>
+		<ii>1303</ii>
+		<ii>1304</ii>
+		<ii>1305</ii>
+		<ii>1306</ii>
+		<ii>1307</ii>
+		<ii>1308</ii>
+		<ii>1309</ii>
+		<ii>1310</ii>
+		<ii>1311</ii>
+		<ii>1312</ii>
+		<ii>1313</ii>
+		<ii>1314</ii>
+		<ii>1315</ii>
+		<ii>1316</ii>
+		<ii>1317</ii>
+		<ii>1318</ii>
+		<ii>1319</ii>
+		<ii>1320</ii>
+		<ii>1321</ii>
+		<ii>1322</ii>
+		<ii>1323</ii>
+		<ii>1324</ii>
+		<ii>1325</ii>
+		<ii>1326</ii>
+		<ii>1327</ii>
+		<ii>1328</ii>
+		<ii>1329</ii>
+		<ii>1330</ii>
+		<ii>1331</ii>
+		<ii>1332</ii>
+		<ii>1333</ii>
+		<ii>1334</ii>
+		<ii>1335</ii>
+		<ii>1336</ii>
+		<ii>1337</ii>
+		<ii>1338</ii>
+		<ii>1339</ii>
+		<ii>1340</ii>
+		<ii>1341</ii>
+		<ii>2065</ii>
+		<ii>2066</ii>
+		<ii>2067</ii>
+		<ii>2068</ii>
+		<ii>2069</ii>
+		<ii>2070</ii>
+		<ii>2071</ii>
+		<ii>2072</ii>
+		<ii>2073</ii>
+		<ii>2074</ii>
+		<ii>2075</ii>
+		<ii>2076</ii>
+		<ii>1689</ii>
+		<ii>1690</ii>
+		<ii>1691</ii>
+		<ii>1692</ii>
+		<ii>1693</ii>
+		<ii>1694</ii>
+		<ii>1695</ii>
+		<ii>1696</ii>
+		<ii>1697</ii>
+		<ii>1698</ii>
+		<ii>1699</ii>
+		<ii>1700</ii>
+		<ii>1701</ii>
+		<ii>1702</ii>
+		<ii>1703</ii>
+		<ii>1704</ii>
+		<ii>1705</ii>
+		<ii>1706</ii>
+		<ii>1707</ii>
+		<ii>1708</ii>
+		<ii>1709</ii>
+		<ii>1710</ii>
+		<ii>1711</ii>
+		<ii>1712</ii>
+		<ii>1713</ii>
+		<ii>1714</ii>
+		<ii>1715</ii>
+		<ii>1716</ii>
+		<ii>1717</ii>
+		<ii>1718</ii>
+		<ii>1719</ii>
+		<ii>1720</ii>
+		<ii>1721</ii>
+		<ii>1722</ii>
+		<ii>1723</ii>
+		<ii>1724</ii>
+		<ii>1725</ii>
+		<ii>1726</ii>
+		<ii>1727</ii>
+		<ii>1728</ii>
+		<ii>1729</ii>
+		<ii>1730</ii>
+		<ii>1731</ii>
+		<ii>1732</ii>
+		<ii>1733</ii>
+		<ii>1734</ii>
+		<ii>1735</ii>
+		<ii>1736</ii>
+		<ii>1737</ii>
+		<ii>1738</ii>
+		<ii>1739</ii>
+		<ii>1740</ii>
+		<ii>1741</ii>
+		<ii>1742</ii>
+		<ii>1743</ii>
+		<ii>1744</ii>
+		<ii>1745</ii>
+		<ii>1746</ii>
+		<ii>1747</ii>
+		<ii>1748</ii>
+		<ii>1749</ii>
+		<ii>1750</ii>
+		<ii>1751</ii>
+		<ii>1752</ii>
+		<ii>1753</ii>
+		<ii>1754</ii>
+		<ii>1755</ii>
+		<ii>1756</ii>
+		<ii>1757</ii>
+		<ii>1758</ii>
+		<ii>1759</ii>
+		<ii>1760</ii>
+		<ii>1761</ii>
+		<ii>1762</ii>
+		<ii>1763</ii>
+		<ii>1764</ii>
+		<ii>1765</ii>
+		<ii>1766</ii>
+		<ii>1767</ii>
+		<ii>1768</ii>
+		<ii>1769</ii>
+		<ii>1770</ii>
+		<ii>1771</ii>
+		<ii>1772</ii>
+		<ii>1773</ii>
+		<ii>1774</ii>
+		<ii>1775</ii>
+		<ii>1776</ii>
+		<ii>1777</ii>
+		<ii>1778</ii>
+		<ii>1779</ii>
+		<ii>1780</ii>
+		<ii>1781</ii>
+		<ii>1782</ii>
+		<ii>1783</ii>
+		<ii>1784</ii>
+		<ii>1785</ii>
+		<ii>1786</ii>
+		<ii>1787</ii>
+		<ii>1788</ii>
+		<ii>1789</ii>
+		<ii>1790</ii>
+		<ii>1791</ii>
+		<ii>1792</ii>
+		<ii>1793</ii>
+		<ii>1794</ii>
+		<ii>1795</ii>
+		<ii>1796</ii>
+		<ii>1797</ii>
+		<ii>1798</ii>
+		<ii>1799</ii>
+		<ii>1800</ii>
+		<ii>1801</ii>
+		<ii>1802</ii>
+		<ii>1803</ii>
+		<ii>1804</ii>
+		<ii>1805</ii>
+		<ii>1806</ii>
+		<ii>1807</ii>
+		<ii>1808</ii>
+		<ii>1809</ii>
+		<ii>1810</ii>
+		<ii>1811</ii>
+		<ii>1812</ii>
+		<ii>1813</ii>
+		<ii>1814</ii>
+		<ii>1815</ii>
+		<ii>1816</ii>
+		<ii>1817</ii>
+		<ii>1818</ii>
+		<ii>1819</ii>
+		<ii>1820</ii>
+		<ii>1821</ii>
+		<ii>1822</ii>
+		<ii>1823</ii>
+		<ii>1824</ii>
+		<ii>1825</ii>
+		<ii>1826</ii>
+		<ii>1827</ii>
+		<ii>1828</ii>
+		<ii>1829</ii>
+		<ii>1830</ii>
+		<ii>1831</ii>
+		<ii>1832</ii>
+		<ii>1833</ii>
+		<ii>1834</ii>
+		<ii>1835</ii>
+		<ii>1836</ii>
+		<ii>1837</ii>
+		<ii>1838</ii>
+		<ii>1839</ii>
+		<ii>1840</ii>
+		<ii>1841</ii>
+		<ii>1842</ii>
+		<ii>1843</ii>
+		<ii>1844</ii>
+		<ii>1845</ii>
+		<ii>1846</ii>
+		<ii>1847</ii>
+		<ii>1848</ii>
+		<ii>1849</ii>
+		<ii>1850</ii>
+		<ii>1851</ii>
+		<ii>1852</ii>
+		<ii>1853</ii>
+		<ii>1854</ii>
+		<ii>1855</ii>
+		<ii>1856</ii>
+		<ii>1857</ii>
+		<ii>1858</ii>
 	</StoreData>
 	<StoreData>
 		<i>10</i>
@@ -3788,6 +4421,16 @@
 		<ii>3165</ii>
 		<ii>3166</ii>
 		<ii>3190</ii>
+		<ii>2721</ii>
+		<ii>2724</ii>
+		<ii>2725</ii>
+		<ii>2726</ii>
+		<ii>2729</ii>
+		<ii>2731</ii>
+		<ii>2747</ii>
+		<ii>3143</ii>
+		<ii>3163</ii>
+		<ii>3214</ii>
 	</StoreData>
 	<StoreData>
 		<i>28</i>
@@ -5522,6 +6165,11 @@
 		<s>Hallows_FunZone_Brooms</s>
 		<d>Hallows_FunZone_Brooms</d>
 		<ii>3469</ii>
+		<ii>3468</ii>
+		<ii>3480</ii>
+		<ii>3473</ii>
+		<ii>3474</ii>
+		<ii>3479</ii>
 	</StoreData>
 	<StoreData>
 		<i>44</i>
@@ -9066,6 +9714,7 @@
 		<ii>18968</ii>
 		<ii>19086</ii>
 		<ii>19141</ii>
+		<ii>19179</ii>
 		<ii>20312</ii>
 		<ii>20420</ii>
 		<ii>20421</ii>
@@ -9725,6 +10374,7 @@
 			<id>8378</id>
 			<c>10</c>
 		</pitem>
+		<ii>13368</ii>
 		<ii>8527</ii>
 		<ii>8557</ii>
 		<ii>8558</ii>
@@ -11871,6 +12521,7 @@
 		<ii>20396</ii>
 		<ii>20398</ii>
 		<ii>20401</ii>
+		<ii>20403</ii>
 		<ii>20404</ii>
 		<ii>20406</ii>
 		<ii>20408</ii>

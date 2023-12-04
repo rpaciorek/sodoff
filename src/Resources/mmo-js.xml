@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfMMOServerInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://api.jumpstart.com/">
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadPenguinHQINT</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">UncleMilton</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">EnemyValley</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">LoungeIntUpper</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">UncleMiltonBounceHouse</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">Boardwalk</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MyRoomsInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadEuropeAlps</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">SpeedDrome</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">WinterWonderland</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">GemMineInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">Beach</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">TrainingIsland</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">*</ZN>
+		<RZN xmlns="" />
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">IslandX</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">SanctuaryBaby</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadEuropeParis</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AdventureCanyon</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadNYHarbor</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">JumpStartBowlInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">TownCenter</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">SanctuaryFlying</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MultiplayerSystem</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadNYCentralParkFunZone</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MainStreet</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">LearningInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">HomeBase</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">Hollows</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">FreeFallMtn</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">ArcadeInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">ShipWreckLagoon</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadEuropeItaly</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MummyMazeInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">EnchantedSanctuary</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MyVIPRoomInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DownTown</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadNYCentralPark</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MyNeighborhood</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MountainJetpack</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DWMadNYTimesSquare</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MainStreetFunZone</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DuneBuggyZone</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">LoungeInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">JSStadiumInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">SanctuaryAdult</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">BroomStickArena</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">RabbitHoleInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+</ArrayOfMMOServerInfo>

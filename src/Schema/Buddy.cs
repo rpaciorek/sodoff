@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using sodoff.Model;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Serialization;
 
 namespace sodoff.Schema;
 

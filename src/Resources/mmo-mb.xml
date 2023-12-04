@@ -1,0 +1,843 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfMMOServerInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://api.jumpstart.com/">
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">DNAMorph</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienWorldJungle</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">GauntletShooter</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienRace</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">Spaceport</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">ReadyRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienBattleGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">TrainingRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">FaceOffGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienWorldIce</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienAdult</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">SnatchItMB</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienRiderGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienBaby</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienBattleArena</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">SpaceRacing</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">Academy</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienRider</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">Hangar</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">AlienLarvaRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">MyPodInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">DNAMorph</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldJungle</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">GauntletShooter</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRace</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Spaceport</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">ReadyRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">TrainingRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">FaceOffGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldIce</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienAdult</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SnatchItMB</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRiderGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBaby</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleArena</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SpaceRacing</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Academy</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRider</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Hangar</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienLarvaRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">MyPodInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">DNAMorph</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldJungle</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">GauntletShooter</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRace</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Spaceport</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">ReadyRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">TrainingRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">FaceOffGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldIce</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienAdult</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SnatchItMB</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRiderGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBaby</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleArena</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SpaceRacing</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Academy</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRider</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Hangar</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienLarvaRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">MyPodInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">DNAMorph</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldJungle</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">GauntletShooter</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRace</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Spaceport</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">ReadyRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">TrainingRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">FaceOffGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldIce</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienAdult</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SnatchItMB</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRiderGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBaby</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleArena</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SpaceRacing</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Academy</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRider</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Hangar</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienLarvaRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">MyPodInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">DNAMorph</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldJungle</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">GauntletShooter</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRace</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Spaceport</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">ReadyRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">TrainingRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">FaceOffGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienWorldIce</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienAdult</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SnatchItMB</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRiderGame</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBaby</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienBattleArena</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">SpaceRacing</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Academy</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienRider</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">Hangar</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">AlienLarvaRoom</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">jsmmo.alanmoon.net</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">false</DF>
+		<ZN xmlns="">MyPodInt</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+</ArrayOfMMOServerInfo>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using sodoff.Schema;
 
 namespace sodoff.Model;
 public class DBContext : DbContext {
@@ -10,11 +11,17 @@ public class DBContext : DbContext {
     public DbSet<Pair> Pairs { get; set; } = null!;
     public DbSet<PairData> PairData { get; set; } = null!;
     public DbSet<TaskStatus> TaskStatuses { get; set; } = null!;
-    public DbSet<Inventory> Inventories { get; set; } = null!;
     public DbSet<InventoryItem> InventoryItems { get; set; } = null!;
     public DbSet<MissionState> MissionStates { get; set; } = null!;
     public DbSet<Room> Rooms { get; set; } = null!;
+    public DbSet<SceneData> SceneData { get; set; } = null!;
+    public DbSet<HouseData> Houses { get; set; } = null!;
     public DbSet<RoomItem> RoomItems { get; set; } = null!;
+    public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
+    public DbSet<Party> Parties { get; set; } = null!;
+    public DbSet<GameData> GameData { get; set; } = null!;
+    public DbSet<GameDataPair> GameDataPairs { get; set; } = null!;
+    public DbSet<AchievementPoints> AchievementPoints { get; set; } = null!;
 
     public string DbPath { get; }
 
@@ -23,7 +30,14 @@ public class DBContext : DbContext {
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlite($"Data Source={DbPath}").UseLazyLoadingProxies();
+    {
+        if (System.Diagnostics.Debugger.IsAttached) optionsBuilder.UseSqlite($"Data Source={DbPath}").UseLazyLoadingProxies();
+        else
+        {
+            string dbPasswd = File.ReadAllText("./dbpasswd.txt");
+            optionsBuilder.UseMySQL($"Server=10.14.69.120;Database=jsdb;Uid=root;Pwd={dbPasswd};Allow User Variables=True").UseLazyLoadingProxies();
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder builder) {
         // Sessions
@@ -64,21 +78,30 @@ public class DBContext : DbContext {
         builder.Entity<Viking>().HasMany(v => v.Rooms)
             .WithOne(e => e.Viking);
 
+        builder.Entity<Viking>().HasMany(v => v.SceneData)
+            .WithOne(e => e.Viking);
+
+        builder.Entity<Viking>().HasOne(v => v.House)
+            .WithOne(e => e.Viking);
+
         builder.Entity<Viking>().HasMany(v => v.AchievementPoints)
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasMany(v => v.PairData)
             .WithOne(e => e.Viking);
 
-        builder.Entity<Viking>().HasOne(v => v.Inventory)
+        builder.Entity<Viking>().HasMany(v => v.Images)
             .WithOne(e => e.Viking);
 
-        builder.Entity<Viking>().HasMany(v => v.Images)
+        builder.Entity<Viking>().HasMany(v => v.TaskStatuses)
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasOne(v => v.SelectedDragon)
             .WithOne()
             .HasForeignKey<Viking>(e => e.SelectedDragonId);
+
+        builder.Entity<Viking>().HasMany(v => v.GameData)
+            .WithOne(e => e.Viking);
 
         // Dragons
         builder.Entity<Dragon>().HasOne(d => d.Viking)
@@ -114,19 +137,14 @@ public class DBContext : DbContext {
             .HasPrincipalKey(e => e.Id);
 
         // Inventory & InventoryItem
-        builder.Entity<Inventory>()
-            .HasOne(i => i.Viking)
-            .WithOne(e => e.Inventory)
-            .HasForeignKey<Inventory>(e => e.VikingId);
-
-        builder.Entity<Inventory>()
-            .HasMany(i => i.InventoryItems)
-            .WithOne(e => e.Inventory);
+        builder.Entity<Viking>()
+            .HasMany(v => v.InventoryItems)
+            .WithOne(i => i.Viking);
 
         builder.Entity<InventoryItem>()
-            .HasOne(e => e.Inventory)
+            .HasOne(e => e.Viking)
             .WithMany(e => e.InventoryItems)
-            .HasForeignKey(e => e.InventoryId);
+            .HasForeignKey(e => e.VikingId);
 
         // Room & RoomItem
         builder.Entity<Room>().HasOne(r => r.Viking)
@@ -140,6 +158,17 @@ public class DBContext : DbContext {
             .WithMany(r => r.Items)
             .HasForeignKey(e => e.RoomId);
 
+        // GameData
+
+        builder.Entity<GameData>().HasOne(e => e.Viking)
+            .WithMany(e => e.GameData);
+
+        builder.Entity<GameData>().HasMany(e => e.GameDataPairs)
+            .WithOne(e => e.GameData);
+
+        builder.Entity<GameDataPair>().HasOne(e => e.GameData)
+            .WithMany(e => e.GameDataPairs);
+
         // Others ..
         builder.Entity<Image>().HasOne(s => s.Viking)
             .WithMany(e => e.Images)
@@ -149,7 +178,8 @@ public class DBContext : DbContext {
 
         builder.Entity<TaskStatus>()
             .HasOne(t => t.Viking)
-            .WithMany();
+            .WithMany(v => v.TaskStatuses)
+            .HasForeignKey(t => t.VikingId);
 
         builder.Entity<MissionState>().HasOne(m => m.Viking)
             .WithMany(e => e.MissionStates)
@@ -161,5 +191,12 @@ public class DBContext : DbContext {
             .HasOne(e => e.Viking)
             .WithMany(e => e.AchievementPoints)
             .HasForeignKey(e => e.VikingId);
+
+        builder.Entity<SceneData>().HasOne(i => i.Viking)
+            .WithMany(i => i.SceneData)
+            .HasForeignKey(e => e.VikingId);
+
+        builder.Entity<HouseData>().HasOne(i => i.Viking)
+            .WithOne(i => i.House);
     }
 }

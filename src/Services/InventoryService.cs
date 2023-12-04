@@ -19,13 +19,24 @@ namespace sodoff.Services {
         public InventoryItem AddItemToInventory(Viking viking, int itemID, int quantity) {
             InventoryItem? item = null;
             if (!ItemNeedUniqueInventorySlot(itemID))
-                item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.ItemId == itemID);
+                item = viking.InventoryItems.FirstOrDefault(e => e.ItemId == itemID);
             if (item is null) {
+                ItemData itemData = itemService.GetItem(itemID);
                 item = new InventoryItem {
                     ItemId = itemID,
                     Quantity = 0
                 };
-                viking.Inventory.InventoryItems.Add(item);
+                if (itemData.ItemStatsMap is null && itemData.PossibleStatsMap != null) {
+                    // battle item without default stats
+                    Random random = new Random();
+                    int itemTier = random.Next(1, 3);
+                    item.StatsSerialized = XmlUtil.SerializeXml(new ItemStatsMap {
+                        ItemID = itemID,
+                        ItemTier = (ItemTier)itemTier,
+                        ItemStats = itemService.CreateItemStats(itemData.PossibleStatsMap, (int)itemData.ItemRarity, itemTier).ToArray()
+                    });
+                }
+                viking.InventoryItems.Add(item);
             }
             item.Quantity += quantity;
             return item;
@@ -60,7 +71,7 @@ namespace sodoff.Services {
             item.StatsSerialized = XmlUtil.SerializeXml(itemStatsMap);
 
             // add to viking
-            viking.Inventory.InventoryItems.Add(item);
+            viking.InventoryItems.Add(item);
             ctx.SaveChanges(); // We need to get the ID of the newly created item
 
             // return item with stats
@@ -73,7 +84,7 @@ namespace sodoff.Services {
 
         public void SellInventoryItem(Viking viking, int invItemID, ref int gold, ref int shard) {
             // get item from inventory
-            InventoryItem? item = viking.Inventory.InventoryItems.FirstOrDefault(e => e.Id == invItemID);
+            InventoryItem? item = viking.InventoryItems.FirstOrDefault(e => e.Id == invItemID);
             if (item is null)
                 return;
 
@@ -99,11 +110,11 @@ namespace sodoff.Services {
             // TODO: calculate cash (gold) rewards
 
             // remove item
-            viking.Inventory.InventoryItems.Remove(item);
+            viking.InventoryItems.Remove(item);
         }
 
         public CommonInventoryData GetCommonInventoryData(Viking viking) {
-            List<InventoryItem> items = viking.Inventory.InventoryItems.ToList();
+            List<InventoryItem> items = viking.InventoryItems.ToList();
 
             List<UserItemData> userItemData = new();
             foreach (InventoryItem item in items) {
@@ -129,18 +140,18 @@ namespace sodoff.Services {
             }
 
             return new CommonInventoryData {
-                UserID = Guid.Parse(viking.Id),
+                UserID = viking.Uid,
                 Item = userItemData.ToArray()
             };
         }
 
         public bool ItemNeedUniqueInventorySlot(int itemId) {
-            return itemService.ItemHasCategory(
-                itemService.GetItem(itemId), new int[] {
-                    541, // farm expansion
-                    511, // dragons tactics (battle) items
-                }
-            );
+            ItemData itemData = itemService.GetItem(itemId);
+            if (itemData.PossibleStatsMap != null) // dragons tactics (battle) items
+                return true;
+            if (itemService.ItemHasCategory(itemData, 541)) // farm expansion
+                return true;
+            return false;
         }
     }
 }
