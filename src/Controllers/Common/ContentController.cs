@@ -1369,7 +1369,6 @@ public class ContentController : Controller {
 
         Party party = new Party
         {
-            Id = Guid.NewGuid().ToString(),
             VikingId = viking.Id,
             PrivateParty = false
         };
