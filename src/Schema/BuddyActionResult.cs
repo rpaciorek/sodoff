@@ -1,7 +1,7 @@
 ﻿using sodoff.Schema;
 using System.Xml.Serialization;
 
-namespace sodoff.Model
+namespace sodoff.Schema
 {
     [XmlRoot(ElementName = "BuddyActionResult", Namespace = "")]
     [Serializable]
