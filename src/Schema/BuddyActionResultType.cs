@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace sodoff.Model
+namespace sodoff.Schema
 {
     [Flags]
     public enum BuddyActionResultType

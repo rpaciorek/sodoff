@@ -12,5 +12,6 @@ namespace sodoff.Model
         public DateTime ExpirationDate { get; set; } = DateTime.UtcNow;
         public bool? PrivateParty { get; set; }
         public string LocationIconAsset { get; set; } = null!;
+        public virtual Viking? Viking { get; set; }
     }
 }
