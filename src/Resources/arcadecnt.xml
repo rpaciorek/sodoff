@@ -2,9 +2,9 @@
 	<ContentInfoData>
 		<DisplayName>Punk Punk Drop</DisplayName>
 		<Description>Punk Punk Drop</Description>
-		<ThumbnailUrl>http://jsmedia.alanmoon.net/Content/MSArcade/Arcade_PunkPunkDrop_screen_01.png</ThumbnailUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MSArcade/Arcade_PunkPunkDrop_screen_01.png</ThumbnailUrl>
 		<LinkUrl>Bejeweled</LinkUrl>
-		<TextureUrl>http://jsmedia.alanmoon.net/Content/MSArcade/Arcade_PunkPunkDrop_01.png</TextureUrl>
+		<TextureUrl>https://jsmedia.alanmoon.net/Content/MSArcade/Arcade_PunkPunkDrop_01.png</TextureUrl>
 		<RolloverUrl />
 		<CategoryUrl />
 		<ContentType>3</ContentType>
@@ -14,9 +14,9 @@
 	<ContentInfoData>
 		<DisplayName>Buggy Racer</DisplayName>
 		<Description>Buggy Racer game inside Main Street.</Description>
-		<ThumbnailUrl>http://jsmedia.alanmoon.net/Content/MSArcade/Arcade_BuggyRacer_screen_01.png</ThumbnailUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MSArcade/Arcade_BuggyRacer_screen_01.png</ThumbnailUrl>
 		<LinkUrl>DuneBuggyMenu</LinkUrl>
-		<TextureUrl>http://jsmedia.alanmoon.net/Content/MSArcade/ArcadeBuggyRacer256.png</TextureUrl>
+		<TextureUrl>https://jsmedia.alanmoon.net/Content/MSArcade/ArcadeBuggyRacer256.png</TextureUrl>
 		<RolloverUrl />
 		<CategoryUrl />
 		<ContentType>3</ContentType>
@@ -26,9 +26,9 @@
 	<ContentInfoData>
 		<DisplayName>GhostTown Grab</DisplayName>
 		<Description>GhostTown Grab game inside Main Street.</Description>
-		<ThumbnailUrl>http://jsmedia.alanmoon.net/Content/MSArcade/Arcade_GhostGrab_screen_01.png</ThumbnailUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MSArcade/Arcade_GhostGrab_screen_01.png</ThumbnailUrl>
 		<LinkUrl>WesternWorldMain</LinkUrl>
-		<TextureUrl>http://jsmedia.alanmoon.net/Content/MSArcade/ArcadeGhostGrab256.png</TextureUrl>
+		<TextureUrl>https://jsmedia.alanmoon.net/Content/MSArcade/ArcadeGhostGrab256.png</TextureUrl>
 		<RolloverUrl />
 		<CategoryUrl />
 		<ContentType>3</ContentType>
@@ -38,9 +38,9 @@
 	<ContentInfoData>
 		<DisplayName>Dodge n Dash</DisplayName>
 		<Description>Dodge Bot game inside Main Street.</Description>
-		<ThumbnailUrl>http://jsmedia.alanmoon.net/Content/MSArcade/Arcade_DodgeBot_screen_01.png</ThumbnailUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MSArcade/Arcade_DodgeBot_screen_01.png</ThumbnailUrl>
 		<LinkUrl>DgDodge</LinkUrl>
-		<TextureUrl>http://jsmedia.alanmoon.net/Content/MSArcade/ArcadeDodgeBot256.png</TextureUrl>
+		<TextureUrl>https://jsmedia.alanmoon.net/Content/MSArcade/ArcadeDodgeBot256.png</TextureUrl>
 		<RolloverUrl />
 		<CategoryUrl />
 		<ContentType>3</ContentType>
@@ -50,9 +50,9 @@
 	<ContentInfoData>
 		<DisplayName>Sound Bop</DisplayName>
 		<Description>Sound Bop game inside Main Street.</Description>
-		<ThumbnailUrl>http://jsmedia.alanmoon.net/Content/MSArcade/Arcade_SoundBop_screen_01.png</ThumbnailUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MSArcade/Arcade_SoundBop_screen_01.png</ThumbnailUrl>
 		<LinkUrl>SsSimon</LinkUrl>
-		<TextureUrl>http://jsmedia.alanmoon.net/Content/MSArcade/ArcadeSoundBop256.png</TextureUrl>
+		<TextureUrl>https://jsmedia.alanmoon.net/Content/MSArcade/ArcadeSoundBop256.png</TextureUrl>
 		<RolloverUrl />
 		<CategoryUrl />
 		<ContentType>3</ContentType>

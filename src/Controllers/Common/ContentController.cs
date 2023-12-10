@@ -1353,6 +1353,10 @@ public class ContentController : Controller {
                 PrivateParty = party.PrivateParty!.Value,
                 UserID = viking.Uid
             };
+
+            if (party.Location == "MyNeighborhood") userParty.DisplayName = $"{userParty.UserName}'s Block Party";
+            if (party.Location == "MyVIPLoungeInt") userParty.DisplayName = $"{userParty.UserName}'s VIP Party";
+
             userParties.Add(userParty);
         }
 
@@ -1373,27 +1377,71 @@ public class ContentController : Controller {
             PrivateParty = false
         };
 
-        // TODO - add other items to this if statement
-        if(itemId == 6259)
+        int coinTakeaway = 0;
+
+        switch (itemId)
         {
-            party.Location = "MyNeighborhood";
-            party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
-            party.ExpirationDate = DateTime.UtcNow.AddHours(1);
-
-            // check if party already exists
-
-            if (ctx.Parties.FirstOrDefault(e => e.VikingId == party.VikingId) != null) return Ok(null);
-
-            // take away coins
-            viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency)!.Value -= 60;
-
-            ctx.Parties.Add(party);
-            ctx.SaveChanges();
-
-            return Ok(true);
+            case 2761:
+                party.Location = "MyNeighborhood";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
+                party.ExpirationDate = DateTime.UtcNow.AddMinutes(30);
+                coinTakeaway = 30;
+                break;
+            case 6259:
+                party.Location = "MyNeighborhood";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
+                party.ExpirationDate = DateTime.UtcNow.AddHours(1);
+                coinTakeaway = 60;
+                break;
+            case 6260:
+                party.Location = "MyNeighborhood";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
+                party.ExpirationDate = DateTime.UtcNow.AddHours(4);
+                coinTakeaway = 80;
+                break;
+            case 6261:
+                party.Location = "MyNeighborhood";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
+                party.ExpirationDate = DateTime.UtcNow.AddHours(8);
+                coinTakeaway = 100;
+                break;
+            case 6263:
+                party.Location = "MyVIPRoomInt";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyDefault";
+                party.ExpirationDate = DateTime.UtcNow.AddMinutes(30);
+                coinTakeaway = 30;
+                break;
+            case 6264:
+                party.Location = "MyVIPRoomInt";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyDefault";
+                party.ExpirationDate = DateTime.UtcNow.AddHours(1);
+                coinTakeaway = 60;
+                break;
+            case 6265:
+                party.Location = "MyVIPRoomInt";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyDefault";
+                party.ExpirationDate = DateTime.UtcNow.AddHours(4);
+                coinTakeaway = 80;
+                break;
+            case 6266:
+                party.Location = "MyVIPRoomInt";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyDefault";
+                party.ExpirationDate = DateTime.UtcNow.AddHours(8);
+                coinTakeaway = 100;
+                break;
         }
 
-        return Ok(null);
+        // check if party already exists
+
+        if (ctx.Parties.Where(e => e.Location == party.Location).FirstOrDefault(e => e.VikingId == viking.Id) != null) return Ok(null);
+
+        // take away coins
+        viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency)!.Value -= coinTakeaway;
+
+        ctx.Parties.Add(party);
+        ctx.SaveChanges();
+
+        return Ok(true);
     }
 
     [HttpPost]

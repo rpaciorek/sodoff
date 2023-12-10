@@ -1,7 +1,7 @@
 ﻿<ArrayOfContentInfoData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ContentInfoData>
 		<DisplayName>The Troll Song</DisplayName>
-		<LinkUrl>http://jsmedia.alanmoon.net/Content/JukeboxContent/trolled.ogg</LinkUrl>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/trolled.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl/>
 		<ContentType>1</ContentType>
@@ -10,7 +10,7 @@
 	</ContentInfoData>
 	<ContentInfoData>
 		<DisplayName>Rick Astley - Never Gonna Give You Up</DisplayName>
-		<LinkUrl>http://jsmedia.alanmoon.net/Content/JukeboxContent/nggyu.ogg</LinkUrl>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/nggyu.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl/>
 		<ContentType>1</ContentType>
