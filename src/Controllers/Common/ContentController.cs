@@ -1955,6 +1955,7 @@ public class ContentController : Controller {
     }
 
     [Route("ContentWebService.asmx/GetGameDataByGame")]
+    [Produces("application/xml")]
     [VikingSession(UseLock = true)]
     public IActionResult GetGameDataByGame(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, bool buddyFilter) {
         return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter));
