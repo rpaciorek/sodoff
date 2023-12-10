@@ -1954,6 +1954,7 @@ public class ContentController : Controller {
         return Ok(gameDataService.SaveGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, xmlDocumentData, win, loss));
     }
 
+    [HttpPost]
     [Route("ContentWebService.asmx/GetGameDataByGame")]
     [Produces("application/xml")]
     [VikingSession(UseLock = true)]
@@ -1961,6 +1962,7 @@ public class ContentController : Controller {
         return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter));
     }
 
+    [HttpPost]
     [Route("V2/ContentWebService.asmx/GetGameDataByGameForDateRange")]
     [VikingSession(UseLock = true)]
     public IActionResult GetGameDataByGameForDateRange(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, string startDate, string endDate, bool buddyFilter) {
