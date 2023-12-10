@@ -1355,7 +1355,7 @@ public class ContentController : Controller {
             };
 
             if (party.Location == "MyNeighborhood") userParty.DisplayName = $"{userParty.UserName}'s Block Party";
-            if (party.Location == "MyVIPLoungeInt") userParty.DisplayName = $"{userParty.UserName}'s VIP Party";
+            if (party.Location == "MyVIPRoomInt") userParty.DisplayName = $"{userParty.UserName}'s VIP Party";
 
             userParties.Add(userParty);
         }
