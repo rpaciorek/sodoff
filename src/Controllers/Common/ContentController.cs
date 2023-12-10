@@ -1556,15 +1556,6 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.asmx/GetGameDataByGame")]
-    public IActionResult GetGameDataByGame()
-    {
-        // TODO: This is a placeholder
-        return Ok(new GameDataSummary());
-    }
-
-    [HttpPost]
-    [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUserGameCurrency")]
     [VikingSession]
     public IActionResult GetUserGameCurrency(Viking viking) {
