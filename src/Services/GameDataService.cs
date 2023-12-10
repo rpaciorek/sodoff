@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using sodoff.Model;
 using sodoff.Schema;
+using sodoff.Util;
 using System.Text.RegularExpressions;
 
 namespace sodoff.Services;
@@ -47,7 +48,13 @@ public class GameDataService {
         if (AscendingOrder)
             selectedData = query2.OrderBy(e => e.Value).Select(e => new GameDataResponse(e.GameData.Viking.Name, e.GameData.Viking.Uid, e.GameData.DatePlayed, e.GameData.Win, e.GameData.Loss, e.Value)).Take(count).ToList();
         else
-            selectedData = query2.OrderByDescending(e => e.Value).Select(e => new GameDataResponse(e.GameData.Viking.Name, e.GameData.Viking.Uid, e.GameData.DatePlayed, e.GameData.Win, e.GameData.Loss, e.Value)).Take(count).ToList();
+            selectedData = query2.OrderByDescending(e => e.Value).Select(e => new GameDataResponse(e.GameData.Viking.AvatarSerialized, e.GameData.Viking.Uid, e.GameData.DatePlayed, e.GameData.Win, e.GameData.Loss, e.Value)).Take(count).ToList();
+
+        foreach (var i in selectedData)
+        {
+            AvatarData ad = XmlUtil.DeserializeXml<AvatarData>(i.Name);
+            i.Name = ad.DisplayName;
+        }
 
         return GetSummaryFromResponse(viking, isMultiplayer, difficulty, gameLevel, key, selectedData);
     }
@@ -131,7 +138,7 @@ public class GameDataService {
         return pairs;
     }
 
-    struct GameDataResponse {
+    class GameDataResponse {
         public GameDataResponse(string Name, Guid Uid, DateTime DatePlayed, bool Win, bool Loss, int Value) {
             this.Name = Name;
             this.Uid = Uid;
