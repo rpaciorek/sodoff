@@ -1,7 +1,7 @@
 ﻿<ArrayOfContentInfoData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ContentInfoData>
-		<DisplayName>The Troll Song</DisplayName>
-		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/trolled.ogg</LinkUrl>
+		<DisplayName>im sorry</DisplayName>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/hopelessness.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl/>
 		<ContentType>1</ContentType>
@@ -9,8 +9,44 @@
 		<LinkType>1</LinkType>
 	</ContentInfoData>
 	<ContentInfoData>
-		<DisplayName>Rick Astley - Never Gonna Give You Up</DisplayName>
-		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/nggyu.ogg</LinkUrl>
+		<DisplayName>i cant do this project anymore</DisplayName>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/hopelessness.ogg</LinkUrl>
+		<RolloverUrl/>
+		<CategoryUrl/>
+		<ContentType>1</ContentType>
+		<MemberOnly>false</MemberOnly>
+		<LinkType>1</LinkType>
+	</ContentInfoData>
+	<ContentInfoData>
+		<DisplayName>its time i move on</DisplayName>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/hopelessness.ogg</LinkUrl>
+		<RolloverUrl/>
+		<CategoryUrl/>
+		<ContentType>1</ContentType>
+		<MemberOnly>false</MemberOnly>
+		<LinkType>1</LinkType>
+	</ContentInfoData>
+	<ContentInfoData>
+		<DisplayName>announcement soon</DisplayName>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/hopelessness.ogg</LinkUrl>
+		<RolloverUrl/>
+		<CategoryUrl/>
+		<ContentType>1</ContentType>
+		<MemberOnly>false</MemberOnly>
+		<LinkType>1</LinkType>
+	</ContentInfoData>
+	<ContentInfoData>
+		<DisplayName>discord and source code will remain up</DisplayName>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/hopelessness.ogg</LinkUrl>
+		<RolloverUrl/>
+		<CategoryUrl/>
+		<ContentType>1</ContentType>
+		<MemberOnly>false</MemberOnly>
+		<LinkType>1</LinkType>
+	</ContentInfoData>
+	<ContentInfoData>
+		<DisplayName>might give out mmo extension aswell</DisplayName>
+		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/hopelessness.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl/>
 		<ContentType>1</ContentType>
