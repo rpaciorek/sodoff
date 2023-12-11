@@ -3,6 +3,7 @@ version: '3.4'
 services:
   sodoff:
     image: ${DOCKER_REGISTRY-}sodoff
+    restart: unless-stopped
     build:
       context: .
       dockerfile: src/Dockerfile
