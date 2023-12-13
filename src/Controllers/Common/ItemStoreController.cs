@@ -71,7 +71,7 @@ public class ItemStoreController : Controller {
         Announcement testAnnouncement = new Announcement
         {
             AnnouncementID = 1,
-            AnnouncementText = "Message",
+            AnnouncementText = @"Message\fungus",
             Description = "fungus amogus",
             StartDate = new DateTime(2023, 12, 11),
             EndDate = new DateTime(2023, 12, 25),
