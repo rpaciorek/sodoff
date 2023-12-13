@@ -66,30 +66,7 @@ public class ItemStoreController : Controller {
     [Route("ItemStoreWebService.asmx/GetAnnouncementsByUser")]
     //[VikingSession(UseLock=false)]
     public IActionResult GetAnnouncements([FromForm] int worldObjectID) {
-        List<Announcement> annList = new List<Announcement>();
-
-        Announcement testAnnouncement = new Announcement
-        {
-            AnnouncementID = 1,
-            AnnouncementText = "fungus",
-            Description = "fungus amogus",
-            StartDate = new DateTime(2023, 12, 11),
-            EndDate = new DateTime(2023, 12, 25),
-            Type = AnnouncementType.GeneralText
-        };
-        Announcement testAnnouncement2 = new Announcement
-        {
-            AnnouncementID = 2,
-            AnnouncementText = "fungus",
-            Description = "fungus amogus",
-            StartDate = new DateTime(2023, 12, 11),
-            EndDate = new DateTime(2023, 12, 25),
-            Type = AnnouncementType.GeneralText
-        };
-
-        annList.Add(testAnnouncement);
-        annList.Add(testAnnouncement2);
-
-        return Ok(new AnnouncementList { Announcements = annList.ToArray() });
+        // TODO - figure out format for announcements
+        return Ok(new AnnouncementList());
     }
 }
