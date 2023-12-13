@@ -70,6 +70,7 @@ public class ItemStoreController : Controller {
 
         Announcement testAnnouncement = new Announcement
         {
+            AnnouncementID = worldObjectID,
             AnnouncementText = @"Message\\fungus",
             Description = "fungus amogus",
             StartDate = new DateTime(2023, 12, 11),
