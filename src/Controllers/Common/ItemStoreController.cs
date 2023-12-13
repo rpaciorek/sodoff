@@ -70,11 +70,11 @@ public class ItemStoreController : Controller {
 
         Announcement testAnnouncement = new Announcement
         {
-            AnnouncementID = 3,
-            AnnouncementText = "Test",
-            Description = "Test",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Today.AddDays(1),
+            AnnouncementID = 2,
+            AnnouncementText = "fungus",
+            Description = "fungus amogus",
+            StartDate = new DateTime(2023, 12, 11),
+            EndDate = new DateTime(2023, 12, 25),
             Type = AnnouncementType.GeneralText
         };
 
