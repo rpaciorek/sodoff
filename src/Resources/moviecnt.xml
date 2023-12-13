@@ -4,6 +4,7 @@
 		<LinkUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/jscom01.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsshield.jpg</CategoryUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsshield.jpg</ThumbnailUrl>
 		<ContentType>2</ContentType>
 		<MemberOnly>false</MemberOnly>
 		<LinkType>2</LinkType>
@@ -13,6 +14,7 @@
 		<LinkUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/jscom02.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsshield.jpg</CategoryUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsshield.jpg</ThumbnailUrl>
 		<ContentType>2</ContentType>
 		<MemberOnly>false</MemberOnly>
 		<LinkType>2</LinkType>
@@ -22,6 +24,7 @@
 		<LinkUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/jsintro.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsshield.jpg</CategoryUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsshield.jpg</ThumbnailUrl>
 		<ContentType>2</ContentType>
 		<MemberOnly>false</MemberOnly>
 		<LinkType>2</LinkType>
@@ -31,6 +34,7 @@
 		<LinkUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/bigcat.ogg</LinkUrl>
 		<RolloverUrl/>
 		<CategoryUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsrlogo.png</CategoryUrl>
+		<ThumbnailUrl>https://jsmedia.alanmoon.net/Content/MovieTheaterContent/Thumbnails/jsrlogo.png</ThumbnailUrl>
 		<ContentType>2</ContentType>
 		<MemberOnly>false</MemberOnly>
 		<LinkType>2</LinkType>
