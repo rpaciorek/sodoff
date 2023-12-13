@@ -70,8 +70,17 @@ public class ItemStoreController : Controller {
 
         Announcement testAnnouncement = new Announcement
         {
-            AnnouncementID = worldObjectID,
-            AnnouncementText = "{Message}(fungus)",
+            AnnouncementID = 1,
+            AnnouncementText = "fungus",
+            Description = "fungus amogus",
+            StartDate = new DateTime(2023, 12, 11),
+            EndDate = new DateTime(2023, 12, 25),
+            Type = AnnouncementType.GeneralText
+        };
+        Announcement testAnnouncement2 = new Announcement
+        {
+            AnnouncementID = 2,
+            AnnouncementText = "fungus",
             Description = "fungus amogus",
             StartDate = new DateTime(2023, 12, 11),
             EndDate = new DateTime(2023, 12, 25),
@@ -79,6 +88,7 @@ public class ItemStoreController : Controller {
         };
 
         annList.Add(testAnnouncement);
+        annList.Add(testAnnouncement2);
 
         return Ok(new AnnouncementList { Announcements = annList.ToArray() });
     }
