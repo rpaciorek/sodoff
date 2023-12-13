@@ -70,7 +70,7 @@ public class ItemStoreController : Controller {
 
         Announcement testAnnouncement = new Announcement
         {
-            AnnouncementID = 2,
+            AnnouncementID = 0,
             AnnouncementText = "fungus",
             Description = "fungus amogus",
             StartDate = new DateTime(2023, 12, 11),
