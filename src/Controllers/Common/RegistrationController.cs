@@ -169,6 +169,10 @@ public class RegistrationController : Controller {
             BirthDate = data.BirthDate
         };
 
+        if (data.Gender == "Boy") v.Gender = Gender.Male;
+        else if (data.Gender == "Girl") v.Gender = Gender.Female;
+        else v.Gender = Gender.Unknown;
+
         // give child 50 coins on register
 
         missionService.SetUpMissions(v, apiKey);

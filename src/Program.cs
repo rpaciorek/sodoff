@@ -31,6 +31,7 @@ builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<InventoryService>();
 builder.Services.AddScoped<AchievementService>();
 builder.Services.AddScoped<GameDataService>();
+builder.Services.AddScoped<ProfileService>();
 
 bool assetServer = builder.Configuration.GetSection("AssetServer").GetValue<bool>("Enabled");
 int assetPort = builder.Configuration.GetSection("AssetServer").GetValue<int>("Port");

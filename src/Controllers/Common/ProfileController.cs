@@ -11,9 +11,11 @@ public class ProfileController : Controller {
 
     private readonly DBContext ctx;
     private AchievementService achievementService;
-    public ProfileController(DBContext ctx, AchievementService achievementService) {
+    private ProfileService profileService;
+    public ProfileController(DBContext ctx, AchievementService achievementService, ProfileService profileService) {
         this.ctx = ctx;
         this.achievementService = achievementService;
+        this.profileService = profileService;
     }
 
     [HttpPost]
@@ -101,6 +103,16 @@ public class ProfileController : Controller {
   //          }
   //      });
     }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ProfileWebService.asmx/SetUserProfileAnswers")]
+    [VikingSession]
+    public IActionResult SetUserProfileAnswers(Viking viking, [FromForm] int profileAnswerIDs)
+    {
+        ProfileQuestion questionFromaId = profileService.GetQuestionFromAnswerId(profileAnswerIDs);
+        return Ok(profileService.SetAnswer(viking, questionFromaId.ID, profileAnswerIDs));
+    }
     
     [HttpPost]
     //[Produces("application/xml")]
@@ -157,7 +169,7 @@ public class ProfileController : Controller {
                 FirstName = viking.Name,
                 MultiplayerEnabled = (apiKey != "a1a13a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a2a09a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a3a12a0a-7c6e-4e9b-b0f7-22034d799013"),
                 Locale = "en-US", // placeholder
-                GenderID = Gender.Male, // placeholder
+                GenderID = viking.Gender,
                 OpenChatEnabled = true,
                 IsApproved = true,
                 RegistrationDate = viking.CreationDate,
@@ -191,7 +203,7 @@ public class ProfileController : Controller {
             AvatarInfo = avatar,
             AchievementCount = 0,
             MythieCount = 0,
-            AnswerData = new UserAnswerData { UserID = viking.Uid.ToString() },
+            AnswerData = new UserAnswerData { UserID = viking.Uid.ToString(), Answers = profileService.GetUserAnswers(viking)},
             GameCurrency = currencyValue ?? 0,
             CashCurrency = 65536,
             ActivityCount = 0,

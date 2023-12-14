@@ -1,4 +1,5 @@
 ﻿﻿using Microsoft.EntityFrameworkCore;
+using sodoff.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace sodoff.Model;
@@ -34,6 +35,7 @@ public class Viking {
     public virtual ICollection<InventoryItem> InventoryItems { get; set; } = null!;
     public virtual ICollection<GameData> GameData { get; set; } = null!;
     public virtual ICollection<Party> Parties { get; set; } = null!;
+    public virtual ICollection<ProfileAnswer> ProfileAnswers { get; set; } = null!;
     public virtual Dragon? SelectedDragon { get; set; }
 
     public string? ProductData { get; set; }
@@ -41,4 +43,5 @@ public class Viking {
 
     public DateTime? CreationDate { get; set; }
     public DateTime? BirthDate { get; set; }
+    public Gender Gender { get; set; }
 }

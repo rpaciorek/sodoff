@@ -22,6 +22,7 @@ public class DBContext : DbContext {
     public DbSet<GameData> GameData { get; set; } = null!;
     public DbSet<GameDataPair> GameDataPairs { get; set; } = null!;
     public DbSet<AchievementPoints> AchievementPoints { get; set; } = null!;
+    public DbSet<ProfileAnswer> ProfileAnswers { get; set; } = null!;
 
     public string DbPath { get; }
 
@@ -204,5 +205,9 @@ public class DBContext : DbContext {
 
         builder.Entity<HouseData>().HasOne(i => i.Viking)
             .WithOne(i => i.House);
+
+        builder.Entity<ProfileAnswer>().HasOne(i => i.Viking)
+            .WithMany(i => i.ProfileAnswers)
+            .HasForeignKey(e => e.VikingId);
     }
 }
