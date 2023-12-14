@@ -39,7 +39,10 @@ public class AchievementController : Controller {
     [HttpPost]
     //[Produces("application/xml")]
     [Route("AchievementWebService.asmx/GetAllRanks")]
-    public IActionResult GetAllRanks() {
+    public IActionResult GetAllRanks([FromForm] string apiKey) {
+
+        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875") return Ok(XmlUtil.ReadResourceXmlString("allranks_wojs"));
+
         // TODO, this is a placeholder
         return Ok(XmlUtil.ReadResourceXmlString("allranks"));
     }

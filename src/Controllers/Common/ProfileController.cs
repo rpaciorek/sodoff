@@ -160,9 +160,10 @@ public class ProfileController : Controller {
                 GenderID = Gender.Male, // placeholder
                 OpenChatEnabled = true,
                 IsApproved = true,
-                RegistrationDate = new DateTime(DateTime.Now.Ticks), // placeholder
-                CreationDate = new DateTime(DateTime.Now.Ticks), // placeholder
-                FacebookUserID = 0
+                RegistrationDate = viking.CreationDate,
+                CreationDate = viking.CreationDate,
+                FacebookUserID = 0,
+                BirthDate = viking.BirthDate
             },
             UserSubscriptionInfo = new UserSubscriptionInfo {
                 UserID = viking.UserId.ToString(),

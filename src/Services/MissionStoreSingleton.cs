@@ -26,8 +26,8 @@ public class MissionStoreSingleton {
         activeMissionsV1 = defaultMissions.Active;
         upcomingMissionsV1 = defaultMissions.Upcoming;
         
-        missionArray = XmlUtil.DeserializeXml<ServerMissionArray>(XmlUtil.ReadResourceXmlString("missions_wojs"));
-        defaultMissions = XmlUtil.DeserializeXml<DefaultMissions>(XmlUtil.ReadResourceXmlString("defaultmissionlist_wojs"));
+        missionArray = XmlUtil.DeserializeXml<ServerMissionArray>(XmlUtil.ReadResourceXmlString("missions_wojs_new"));
+        defaultMissions = XmlUtil.DeserializeXml<DefaultMissions>(XmlUtil.ReadResourceXmlString("defaultmissionlist_wojs_new"));
         foreach (var mission in missionArray.MissionDataArray) {
             SetUpRecursive(mission); // TODO: use separate missions dict for WoJS (?)
         }

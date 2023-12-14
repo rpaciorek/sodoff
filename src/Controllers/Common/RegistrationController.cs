@@ -74,33 +74,40 @@ public class RegistrationController : Controller {
 
         ctx.Users.Add(u);
 
-        Viking v = new Viking
+        if(apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") // Bath Master
         {
-            Uid = Guid.NewGuid(),
-            Name = data.ChildList[0].ChildName,
-            User = u,
-            InventoryItems = new List<InventoryItem>(),
-            AchievementPoints = new List<AchievementPoints>(),
-            Rooms = new List<Room>()
-        };
+            // create a viking for math blaster
 
-        ctx.Vikings.Add(v);
+            Viking v = new Viking
+            {
+                Uid = Guid.NewGuid(),
+                Name = data.ChildList[0].ChildName,
+                User = u,
+                InventoryItems = new List<InventoryItem>(),
+                AchievementPoints = new List<AchievementPoints>(),
+                Rooms = new List<Room>(),
+                CreationDate = DateTime.UtcNow,
+                BirthDate = data.BirthDate
+            };
 
-        missionService.SetUpMissions(v, apiKey);
+            ctx.Vikings.Add(v);
 
-        // give created viking 50 coins
-        v.AchievementPoints.Add(new AchievementPoints()
-        {
-            Type = (int)AchievementPointTypes.GameCurrency,
-            Value = 50
-        });
+            missionService.SetUpMissions(v, apiKey);
 
-        // give created viking 50 XP
-        v.AchievementPoints.Add(new AchievementPoints()
-        {
-            Type = (int)AchievementPointTypes.PlayerXP,
-            Value = 50
-        });
+            // give created viking 50 coins
+            v.AchievementPoints.Add(new AchievementPoints()
+            {
+                Type = (int)AchievementPointTypes.GameCurrency,
+                Value = 50
+            });
+
+            // give created viking 50 XP
+            v.AchievementPoints.Add(new AchievementPoints()
+            {
+                Type = (int)AchievementPointTypes.PlayerXP,
+                Value = 50
+            });
+        }
 
         ctx.SaveChanges();
 
@@ -157,7 +164,9 @@ public class RegistrationController : Controller {
             User = user,
             InventoryItems = items,
             AchievementPoints = new List<AchievementPoints>(),
-            Rooms = new List<Room>()
+            Rooms = new List<Room>(),
+            CreationDate = DateTime.Now,
+            BirthDate = data.BirthDate
         };
 
         // give child 50 coins on register

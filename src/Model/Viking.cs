@@ -38,4 +38,7 @@ public class Viking {
 
     public string? ProductData { get; set; }
     public string? PetSerialized { get; set; }
+
+    public DateTime? CreationDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 }
