@@ -1365,6 +1365,64 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetPartiesByUserID")]
+    public IActionResult GetPartiesByUserID([FromForm] Guid userId)
+    {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+        List<UserPartyComplete> parties = new List<UserPartyComplete>();
+        if(viking != null)
+        {
+            foreach(var party in ctx.Parties)
+            {
+                if (DateTime.UtcNow >= party.ExpirationDate)
+                {
+                    ctx.Parties.Remove(party);
+                    ctx.SaveChanges();
+
+                    continue;
+                }
+
+                AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+                if(party.Location == "MyNeighborhood")
+                {
+                    UserPartyComplete userPartyComplete = new UserPartyComplete
+                    {
+                        DisplayName = avatarData.DisplayName,
+                        UserName = avatarData.DisplayName,
+                        ExpirationDate = party.ExpirationDate,
+                        Icon = party.LocationIconAsset,
+                        Location = party.Location,
+                        PrivateParty = party.PrivateParty!.Value,
+                        UserID = viking.Uid,
+                        AssetBundle = "RS_DATA/PfMyNeighborhoodParty.unity3d/PfMyNeighborhoodParty"
+                    };
+                    parties.Add(userPartyComplete);
+                } else if (party.Location == "MyVIPRoomInt")
+                {
+                    UserPartyComplete userPartyComplete = new UserPartyComplete
+                    {
+                        DisplayName = avatarData.DisplayName,
+                        UserName = avatarData.DisplayName,
+                        ExpirationDate = party.ExpirationDate,
+                        Icon = party.LocationIconAsset,
+                        Location = party.Location,
+                        PrivateParty = party.PrivateParty!.Value,
+                        UserID = viking.Uid,
+                        AssetBundle = "RS_DATA/PfMyVIPRoomIntPartyGroup.unity3d/PfMyVIPRoomIntPartyGroup"
+                    };
+                    parties.Add(userPartyComplete);
+                }
+            }
+
+            return Ok(new ArrayOfUserPartyComplete { UserPartyComplete = parties.ToArray() });
+        } else
+        {
+            return Ok(new ArrayOfUserPartyComplete());
+        }
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/PurchaseParty")]
     [VikingSession]
     public IActionResult PurchaseParty(Viking viking, [FromForm] int itemId)
