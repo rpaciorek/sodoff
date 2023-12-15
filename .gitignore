@@ -14,3 +14,4 @@ __pycache__/
 /obj/Debug
 /src/sodoff.db-shm
 /src/sodoff.db-wal
+/src/announcements.xml
