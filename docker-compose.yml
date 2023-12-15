@@ -11,3 +11,4 @@ services:
       - 5000:5000
     volumes:
       - ./dbpasswd.txt:/app/dbpasswd.txt
+      - ./announcements.xml:/app/announcements.xml

@@ -2293,6 +2293,14 @@
 				<O>22</O>
 				<QID>34</QID>
 			</Answers>
+			<Answers>
+				<ID>310</ID>
+				<T>Pain</T>
+				<Img>https://jsmedia.alanmoon.net/Content/PlayerData/Mood/IcoPain.png</Img>
+				<L>en-US</L>
+				<O>23</O>
+				<QID>34</QID>
+			</Answers>
 		</Qs>
 	</QL>
 	<QL>

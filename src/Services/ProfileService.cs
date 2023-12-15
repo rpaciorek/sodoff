@@ -15,9 +15,14 @@ namespace sodoff.Services
 
         public bool SetAnswer(Viking viking, int qId, int aId)
         {
-            // check if answer is in the database already, remove it if it already is
-            Model.ProfileAnswer? existingAnswer = ctx.ProfileAnswers.Where(a => a.AnswerID == aId).FirstOrDefault(q => q.QuestionID == qId);
-            if(existingAnswer != null) ctx.ProfileAnswers.Remove(existingAnswer);
+            // check if answer is in the database already, edit it with new answer id if it does
+            Model.ProfileAnswer? existingAnswer = viking.ProfileAnswers.FirstOrDefault(e => e.QuestionID == qId);
+            if(existingAnswer != null)
+            {
+                existingAnswer.AnswerID = aId;
+                ctx.SaveChanges();
+                return true;
+            }
 
             // create an answer and store it in database
 

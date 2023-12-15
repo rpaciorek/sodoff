@@ -67,6 +67,9 @@ public class ItemStoreController : Controller {
     //[VikingSession(UseLock=false)]
     public IActionResult GetAnnouncements([FromForm] int worldObjectID) {
         // TODO - figure out format for announcements
-        return Ok(new AnnouncementList());
+
+        if(!System.IO.File.Exists("announcements.xml")) return Ok(new AnnouncementList());
+
+        return Ok(XmlUtil.DeserializeXml<AnnouncementList>(System.IO.File.ReadAllText("announcements.xml")));
     }
 }
