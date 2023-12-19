@@ -36,7 +36,7 @@ public class DBContext : DbContext {
         else
         {
             string dbPasswd = File.ReadAllText("./dbpasswd.txt");
-            optionsBuilder.UseMySQL($"Server=127.0.0.1;Database=jumpstartdb;Uid=root;Pwd={dbPasswd};Allow User Variables=True").UseLazyLoadingProxies();
+            optionsBuilder.UseMySQL($"Server=127.0.0.1;Database=jumpstartdb;Uid=jumpstart;Pwd={dbPasswd};Allow User Variables=True").UseLazyLoadingProxies();
         }
     }
 
