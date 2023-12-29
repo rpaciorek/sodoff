@@ -1,11 +1,2 @@
 ﻿<ArrayOfContentInfoData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<ContentInfoData>
-		<DisplayName>Porter Robinson - Goodbye To A World</DisplayName>
-		<LinkUrl>https://jsmedia.alanmoon.net/Content/JukeboxContent/goodbye.ogg</LinkUrl>
-		<RolloverUrl/>
-		<CategoryUrl/>
-		<ContentType>1</ContentType>
-		<MemberOnly>false</MemberOnly>
-		<LinkType>1</LinkType>
-	</ContentInfoData>
 </ArrayOfContentInfoData>
