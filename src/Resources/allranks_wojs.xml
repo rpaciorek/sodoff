@@ -4,7 +4,7 @@
 		<RankID xmlns="">1</RankID>
 		<Name xmlns="">JumpStar Level 1</Name>
 		<Description xmlns="">JumpStar Level 1</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank01.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank01.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">0</Value>
 		<IsMember xmlns="">false</IsMember>
@@ -15,7 +15,7 @@
 		<RankID xmlns="">2</RankID>
 		<Name xmlns="">JumpStar Level 2</Name>
 		<Description xmlns="">JumpStar Level 2</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank02.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank02.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">5</Value>
 		<IsMember xmlns="">false</IsMember>
@@ -26,7 +26,7 @@
 		<RankID xmlns="">3</RankID>
 		<Name xmlns="">JumpStar Level 3</Name>
 		<Description xmlns="">JumpStar Level 3</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank03.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank03.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">20</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -37,7 +37,7 @@
 		<RankID xmlns="">4</RankID>
 		<Name xmlns="">JumpStar Level 4</Name>
 		<Description xmlns="">JumpStar Level 4</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank04.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank04.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">40</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -48,7 +48,7 @@
 		<RankID xmlns="">5</RankID>
 		<Name xmlns="">JumpStar Level 5</Name>
 		<Description xmlns="">JumpStar Level 5</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank05.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank05.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">80</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -59,7 +59,7 @@
 		<RankID xmlns="">6</RankID>
 		<Name xmlns="">JumpStar Level 6</Name>
 		<Description xmlns="">JumpStar Level 6</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank06.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank06.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">150</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -70,7 +70,7 @@
 		<RankID xmlns="">7</RankID>
 		<Name xmlns="">JumpStar Level 7</Name>
 		<Description xmlns="">JumpStar Level 7</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank07.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank07.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">300</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -81,7 +81,7 @@
 		<RankID xmlns="">8</RankID>
 		<Name xmlns="">JumpStar Level 8</Name>
 		<Description xmlns="">JumpStar Level 8</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank08.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank08.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">600</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -92,7 +92,7 @@
 		<RankID xmlns="">9</RankID>
 		<Name xmlns="">JumpStar Level 9</Name>
 		<Description xmlns="">JumpStar Level 9</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank09.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank09.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">1200</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -103,7 +103,7 @@
 		<RankID xmlns="">10</RankID>
 		<Name xmlns="">JumpStar Level 10</Name>
 		<Description xmlns="">JumpStar Level 10</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank10.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank10.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">1600</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -114,7 +114,7 @@
 		<RankID xmlns="">12</RankID>
 		<Name xmlns="">JumpStar Level 11</Name>
 		<Description xmlns="">JumpStar Level 11</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank11.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank11.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">1800</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -125,7 +125,7 @@
 		<RankID xmlns="">13</RankID>
 		<Name xmlns="">JumpStar Level 12</Name>
 		<Description xmlns="">JumpStar Level 12</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank12.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank12.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">2000</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -136,7 +136,7 @@
 		<RankID xmlns="">14</RankID>
 		<Name xmlns="">JumpStar Level 13</Name>
 		<Description xmlns="">JumpStar Level 13</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank13.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank13.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">2200</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -147,7 +147,7 @@
 		<RankID xmlns="">15</RankID>
 		<Name xmlns="">JumpStar Level 14</Name>
 		<Description xmlns="">JumpStar Level 14</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank14.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank14.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">2400</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -158,7 +158,7 @@
 		<RankID xmlns="">16</RankID>
 		<Name xmlns="">JumpStar Level 15</Name>
 		<Description xmlns="">JumpStar Level 15</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank15.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank15.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">2600</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -169,7 +169,7 @@
 		<RankID xmlns="">17</RankID>
 		<Name xmlns="">JumpStar Level 16</Name>
 		<Description xmlns="">JumpStar Level 16</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank16.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank16.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">2800</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -180,7 +180,7 @@
 		<RankID xmlns="">18</RankID>
 		<Name xmlns="">JumpStar Level 17</Name>
 		<Description xmlns="">JumpStar Level 17</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank17.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank17.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">3000</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -191,7 +191,7 @@
 		<RankID xmlns="">19</RankID>
 		<Name xmlns="">JumpStar Level 18</Name>
 		<Description xmlns="">JumpStar Level 18</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank18.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank18.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">3200</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -202,7 +202,7 @@
 		<RankID xmlns="">20</RankID>
 		<Name xmlns="">JumpStar Level 19</Name>
 		<Description xmlns="">JumpStar Level 19</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank19.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank19.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">3400</Value>
 		<IsMember xmlns="">true</IsMember>
@@ -213,7 +213,7 @@
 		<RankID xmlns="">21</RankID>
 		<Name xmlns="">JumpStar Level 20</Name>
 		<Description xmlns="">JumpStar Level 20</Description>
-		<Image xmlns="">https://jsmedia.alanmoon.net/Content/Ranks/AniJumpStarRank20.png</Image>
+		<Image xmlns="">http://restarted.jumpingcrab.com/Content/Ranks/AniJumpStarRank20.png</Image>
 		<Audio xmlns="" />
 		<Value xmlns="">3600</Value>
 		<IsMember xmlns="">true</IsMember>
