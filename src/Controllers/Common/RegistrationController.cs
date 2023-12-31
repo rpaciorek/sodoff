@@ -92,7 +92,8 @@ public class RegistrationController : Controller {
 
             ctx.Vikings.Add(v);
 
-            missionService.SetUpMissions(v, apiKey);
+            // do not setup missions for math blaster to prevent internet error
+            // missionService.SetUpMissions(v, apiKey);
 
             // give created viking 50 coins
             v.AchievementPoints.Add(new AchievementPoints()
