@@ -71,8 +71,31 @@ public class ItemStoreController : Controller {
     [Produces("application/xml")]
     [Route("ItemStoreWebService.asmx/GetAnnouncementsByUser")]
     //[VikingSession(UseLock=false)]
-    public IActionResult GetAnnouncements([FromForm] int worldObjectID) {
+    public IActionResult GetAnnouncements([FromForm] string apiKey, [FromForm] int worldObjectID) {
         // TODO: This is a placeholder, although this endpoint seems to be only used to send announcements to the user (such as the server shutdown), so this might be sufficient.
-        return Ok(new AnnouncementList());
+
+        if(apiKey == "873E8F68-FCE1-44EB-96A2-2EFD62DF3AF2" && worldObjectID == 6) // send static announcement to SuperSecret when burger guy is clicked
+        {
+            return Ok(new AnnouncementList
+            {
+                Announcements = new[]
+                {
+                    new Announcement
+                    {
+                        AnnouncementID = 1,
+                        AnnouncementText = "[[Message]]=[[Wanna Raise And Train A Dragon? Go To The Enchanted Sanctuary Today!]]" +
+                        "[[SceneName]]=[[SanctuaryBabySS]]",
+                        Description = "SanctuaryBabySS",
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now.AddDays(9999),
+                        Type = AnnouncementType.GeneralText
+                    }
+                }
+            });
+        }
+
+        if(!System.IO.File.Exists("announcements.xml")) return Ok(new AnnouncementList());
+
+        return Ok(XmlUtil.DeserializeXml<AnnouncementList>(System.IO.File.ReadAllText("announcements.xml")));
     }
 }
