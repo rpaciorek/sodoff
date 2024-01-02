@@ -39,6 +39,7 @@
 	<None Remove="Resources\jukeboxcnt.xml" />
 	<None Remove="Resources\moviecnt.xml" />
 	<None Remove="Resources\arcadecnt.xml" />
+	<None Remove="Resources\learningcnt.xml" />
 	<None Remove="Resources\profiletags.xml" />
 	<None Remove="Resources\questiondata.xml" />
   </ItemGroup>
@@ -136,6 +137,9 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\arcadecnt.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\learningcnt.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\profiletags.xml">
