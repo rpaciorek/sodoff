@@ -76,9 +76,9 @@ public class ItemStoreController : Controller {
                     new Announcement
                     {
                         AnnouncementID = 1,
-                        AnnouncementText = "[[Message]]=[[SanctuaryBabySS]]" +
+                        AnnouncementText = "[[Message]]=[[Go To Enchanted Sanctuary?]]" +
                         "[[SceneName]]=[[SanctuaryBabySS]]",
-                        Description = "Go To Enchanted Sanctuary?",
+                        Description = "SanctuaryBabySS",
                         StartDate = DateTime.Now,
                         EndDate = DateTime.Now.AddDays(9999),
                         Type = AnnouncementType.GeneralText
