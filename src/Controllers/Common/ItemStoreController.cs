@@ -76,7 +76,7 @@ public class ItemStoreController : Controller {
                     new Announcement
                     {
                         AnnouncementID = 1,
-                        AnnouncementText = "[[Message]]=[[Go To Enchanted Sanctuary?]]" +
+                        AnnouncementText = "[[Message]]=[[Wanna Raise And Train A Dragon? Go To The Enchanted Sanctuary Today!]]" +
                         "[[SceneName]]=[[SanctuaryBabySS]]",
                         Description = "SanctuaryBabySS",
                         StartDate = DateTime.Now,
