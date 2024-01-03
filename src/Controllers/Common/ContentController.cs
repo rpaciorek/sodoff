@@ -2100,6 +2100,15 @@ public class ContentController : Controller {
         return Ok(0);
     }
 
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetRevealIndex")]
+    public IActionResult GetRevealIndex()
+    {
+        // TODO - figure out proper way of doing this, if any
+        return Ok(random.Next(1, 15));
+    }
+
     private static RaisedPetData GetRaisedPetDataFromDragon (Dragon dragon, int? selectedDragonId = null) {
         if (selectedDragonId is null)
             selectedDragonId = dragon.Viking.SelectedDragonId;
