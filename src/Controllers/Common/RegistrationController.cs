@@ -87,7 +87,7 @@ public class RegistrationController : Controller {
                 AchievementPoints = new List<AchievementPoints>(),
                 Rooms = new List<Room>(),
                 CreationDate = DateTime.UtcNow,
-                BirthDate = data.BirthDate
+                BirthDate = data.ChildList[0].BirthDate
             };
 
             ctx.Vikings.Add(v);
