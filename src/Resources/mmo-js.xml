@@ -376,4 +376,20 @@
 		<ZN xmlns="">RabbitHoleInt</ZN>
 		<RZN xmlns="">JumpStart</RZN>
 	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">144.126.132.245</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">CoconutMall</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
+	<MMOServerInfo>
+		<IP xmlns="">144.126.132.245</IP>
+		<PN xmlns="">9933</PN>
+		<VR xmlns="">S2X</VR>
+		<DF xmlns="">true</DF>
+		<ZN xmlns="">Lobby</ZN>
+		<RZN xmlns="">JumpStart</RZN>
+	</MMOServerInfo>
 </ArrayOfMMOServerInfo>
