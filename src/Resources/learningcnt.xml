@@ -36,30 +36,6 @@
 		<LinkType>4</LinkType>
 	</ContentInfoData>
 	<ContentInfoData>
-		<DisplayName>Blast Off Math</DisplayName>
-		<Description>Blast Off Math</Description>
-		<ThumbnailUrl>http://restarted.jumpingcrab.com/Content/MSArcade/JS_Blastoff_Math.png</ThumbnailUrl>
-		<LinkUrl>BlastOffMS</LinkUrl>
-		<TextureUrl>http://restarted.jumpingcrab.com/Content/MSArcade/LearnJetPack256.png</TextureUrl>
-		<RolloverUrl />
-		<CategoryUrl>http://restarted.jumpingcrab.com/Content/MSArcade/IcoAge5_8.png</CategoryUrl>
-		<ContentType>4</ContentType>
-		<MemberOnly>false</MemberOnly>
-		<LinkType>4</LinkType>
-	</ContentInfoData>
-	<ContentInfoData>
-		<DisplayName>Blast Off Reading</DisplayName>
-		<Description>Blast Off Reading</Description>
-		<ThumbnailUrl>http://restarted.jumpingcrab.com/Content/MSArcade/JS_Blastoff_Reading.png</ThumbnailUrl>
-		<LinkUrl>BlastOffMS</LinkUrl>
-		<TextureUrl>http://restarted.jumpingcrab.com/Content/MSArcade/LearnJetPack256.png</TextureUrl>
-		<RolloverUrl />
-		<CategoryUrl>http://restarted.jumpingcrab.com/Content/MSArcade/IcoAge5_8.png</CategoryUrl>
-		<ContentType>4</ContentType>
-		<MemberOnly>false</MemberOnly>
-		<LinkType>4</LinkType>
-	</ContentInfoData>
-	<ContentInfoData>
 		<DisplayName>Bubble Trouble</DisplayName>
 		<Description>Bubble Trouble MS</Description>
 		<ThumbnailUrl>http://restarted.jumpingcrab.com/Content/MSArcade/Learning_Bubble_screen_01.png</ThumbnailUrl>
@@ -117,6 +93,30 @@
 		<CategoryUrl>http://restarted.jumpingcrab.com/Content/MSArcade/IcoAge3_5.png</CategoryUrl>
 		<ContentType>4</ContentType>
 		<MemberOnly>True</MemberOnly>
+		<LinkType>4</LinkType>
+	</ContentInfoData>
+	<ContentInfoData>
+		<DisplayName>Blast Off Math</DisplayName>
+		<Description>Blast Off Math</Description>
+		<ThumbnailUrl>http://restarted.jumpingcrab.com/Content/MSArcade/JS_Blastoff_Math.png</ThumbnailUrl>
+		<LinkUrl>BlastOffMS</LinkUrl>
+		<TextureUrl>http://restarted.jumpingcrab.com/Content/MSArcade/BlastOffMath.png</TextureUrl>
+		<RolloverUrl />
+		<CategoryUrl>http://restarted.jumpingcrab.com/Content/MSArcade/IcoAge5_8.png</CategoryUrl>
+		<ContentType>4</ContentType>
+		<MemberOnly>false</MemberOnly>
+		<LinkType>4</LinkType>
+	</ContentInfoData>
+	<ContentInfoData>
+		<DisplayName>Blast Off Reading</DisplayName>
+		<Description>Blast Off Reading</Description>
+		<ThumbnailUrl>http://restarted.jumpingcrab.com/Content/MSArcade/JS_Blastoff_Reading.png</ThumbnailUrl>
+		<LinkUrl>BlastOffMS</LinkUrl>
+		<TextureUrl>http://restarted.jumpingcrab.com/Content/MSArcade/BlastOffReading.png</TextureUrl>
+		<RolloverUrl />
+		<CategoryUrl>http://restarted.jumpingcrab.com/Content/MSArcade/IcoAge5_8.png</CategoryUrl>
+		<ContentType>4</ContentType>
+		<MemberOnly>false</MemberOnly>
 		<LinkType>4</LinkType>
 	</ContentInfoData>
 </ArrayOfContentInfoData>
