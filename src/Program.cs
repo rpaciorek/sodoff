@@ -19,7 +19,6 @@ builder.Services.AddControllers(options => {
 });
 builder.Services.AddDbContext<DBContext>();
 
-builder.Services.AddSingleton<ModdingService>();
 builder.Services.AddSingleton<MissionStoreSingleton>();
 builder.Services.AddSingleton<AchievementStoreSingleton>();
 builder.Services.AddSingleton<ItemService>();
@@ -46,10 +45,6 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 
 scope.ServiceProvider.GetRequiredService<DBContext>().Database.EnsureCreated();
-
-// create Modding Service singleton ... do this before start http server to avoid serve invalid assets list
-
-new ModdingService();
 
 // Configure the HTTP request pipeline.
 

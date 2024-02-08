@@ -90,8 +90,6 @@ namespace sodoff.Services {
                     value = 0;
                 }
 
-                ctx.SaveChanges();
-
                 return new AchievementReward{
                     EntityID = viking.Uid,
                     PointTypeID = type,
@@ -160,21 +158,12 @@ namespace sodoff.Services {
         }
         
         public UserGameCurrency GetUserCurrency(Viking viking) {
-            // TODO: return real values (after implement currency collecting methods)
-            int? coins = viking.AchievementPoints.FirstOrDefault(x => x.Type == (int)AchievementPointTypes.GameCurrency)?.Value;
-            int? gems = viking.AchievementPoints.FirstOrDefault(x => x.Type == (int)AchievementPointTypes.CashCurrency)?.Value;
-            if (coins is null) {
-                coins = 300;
-                AddAchievementPoints(viking, AchievementPointTypes.GameCurrency, coins);
-            }
-            if (gems is null) {
-                gems = 75;
-                AddAchievementPoints(viking, AchievementPointTypes.CashCurrency, gems);
-            }
+            AchievementPoints? currency = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency);
+
             return new UserGameCurrency {
-                CashCurrency = gems,
-                GameCurrency = coins,
-                UserGameCurrencyID = viking.Id,
+                CashCurrency = 65536,
+                GameCurrency = currency.Value,
+                UserGameCurrencyID = 1, // TODO: user's wallet ID?
                 UserID = viking.Uid
             };
         }
