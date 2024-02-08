@@ -90,7 +90,6 @@ Then run School of Dragons.
 - SetAchievementByEntityIDs
 - SetAvatar
 - SetCommonInventory
-- SetDisplayName (V2)
 - SetDragonXP (used by account import tools)
 - SetImage
 - SetKeyValuePair

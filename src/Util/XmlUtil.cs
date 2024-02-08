@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Xml.Serialization;
-using System.Text;
 
 namespace sodoff.Util;
 public class XmlUtil {
@@ -10,13 +9,9 @@ public class XmlUtil {
             return (T)serializer.Deserialize(reader);
     }
 
-    private class Utf8StringWriter : StringWriter {
-        public override Encoding Encoding => Encoding.UTF8;
-    }
-
     public static string SerializeXml<T>(T xmlObject) {
         var serializer = new XmlSerializer(typeof(T));
-        using (var writer = new Utf8StringWriter()) {
+        using (var writer = new StringWriter()) {
             serializer.Serialize(writer, xmlObject);
             return writer.ToString();
         }

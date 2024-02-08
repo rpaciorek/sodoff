@@ -122,9 +122,7 @@ public class GameDataService {
             GameDataPair? dbPair = gameData.GameDataPairs.FirstOrDefault(x => x.Name == pair.Name);
             if (dbPair == null)
                 gameData.GameDataPairs.Add(pair);
-            else if (pair.Name == "time" && dbPair.Value > pair.Value)
-                dbPair.Value = pair.Value;
-            else if (pair.Name != "time" && dbPair.Value <= pair.Value)
+            else if (dbPair.Value <= pair.Value)
                 dbPair.Value = pair.Value;
         }
     }

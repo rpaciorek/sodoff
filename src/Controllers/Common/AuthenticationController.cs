@@ -38,7 +38,7 @@ public class AuthenticationController : Controller {
 
         // Authenticate the user
         User? user = null;
-        if (ClientVersion.IsWoJS(apiKey) || ClientVersion.IsMB(apiKey)) {
+        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875" || apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // World Of JumpStart, Math Blaster
             user = ctx.Users.FirstOrDefault(e => e.Email == data.UserName);
         } else {
             user = ctx.Users.FirstOrDefault(e => e.Username == data.UserName);
@@ -65,7 +65,7 @@ public class AuthenticationController : Controller {
 
         var response = new ParentLoginInfo {
             UserName = user.Username,
-            //Email = user.Email, /* disabled to avoid put email in client debug logs */
+            Email = user.Email,
             ApiToken = session.ApiToken.ToString(),
             UserID = user.Id.ToString(),
             Status = MembershipUserStatus.Success,
@@ -107,7 +107,7 @@ public class AuthenticationController : Controller {
                 Username = user.Username,
                 MembershipID = "ef84db9-59c6-4950-b8ea-bbc1521f899b", // placeholder
                 FacebookUserID = 0,
-                MultiplayerEnabled = !ClientVersion.IsOldSoD(apiKey),
+                MultiplayerEnabled = (apiKey != "a1a13a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a2a09a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a3a12a0a-7c6e-4e9b-b0f7-22034d799013"),
                 IsApproved = true,
                 Age = 24,
                 OpenChatEnabled = true
@@ -122,7 +122,7 @@ public class AuthenticationController : Controller {
                 UserID = viking.Uid.ToString(),
                 Username = viking.Name,
                 FacebookUserID = 0,
-                MultiplayerEnabled = !ClientVersion.IsOldSoD(apiKey),
+                MultiplayerEnabled = (apiKey != "a1a13a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a2a09a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a3a12a0a-7c6e-4e9b-b0f7-22034d799013"),
                 IsApproved = true,
                 Age = 24,
                 OpenChatEnabled = true

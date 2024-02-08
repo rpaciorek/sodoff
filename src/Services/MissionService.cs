@@ -1,6 +1,5 @@
 ﻿using sodoff.Model;
 using sodoff.Schema;
-using sodoff.Util;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
@@ -18,29 +17,19 @@ public class MissionService {
     }
 
     public Mission GetMissionWithProgress(int missionId, int userId, string apiKey) {
-        Mission mission = null;
-
-        if (missionId == 999) { // TODO This is not a pretty solution with hard-coded values.
-            if (ClientVersion.Use2013SoDTutorial(apiKey)) {
-                mission = missionStore.GetMission(30999);
-            } else if (ClientVersion.Use2016SoDTutorial(apiKey)) {
-                mission = missionStore.GetMission(20999);
-            } else if (ClientVersion.Use2019SoDTutorial(apiKey)) {
-                mission = missionStore.GetMission(10999);
-            }
-        } else if (missionId == 1044 && ClientVersion.IsMaM(apiKey)) {
-            mission = missionStore.GetMission(11044);
-        } else if (missionId == 1074 && ClientVersion.IsMaM(apiKey)) {
-            mission = missionStore.GetMission(11074);
-        }
-
-        if (mission is null) {
-            mission = missionStore.GetMission(missionId);
+        Mission mission;
+        if (missionId == 999 && apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013") { // TODO This is not a pretty solution with hard-coded values.
+            mission = missionStore.GetMission(10999);
+            mission.MissionID = 999;
+        } else if (missionId == 999 && apiKey == "a2a09a0a-7c6e-4e9b-b0f7-22034d799013") {
+            mission = missionStore.GetMission(20999);
+            mission.MissionID = 999;
+        } else if (missionId == 999 && apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
+            mission = missionStore.GetMission(30999);
+            mission.MissionID = 999;
         } else {
-            // mission use overwrite variant ... so we need fix MissionID
-            mission.MissionID = missionId;
+            mission = missionStore.GetMission(missionId);
         }
-
         UpdateMissionRecursive(mission, userId);
         return mission;
     }
@@ -74,10 +63,7 @@ public class MissionService {
                             task.Payload = null;
                             task.Completed = false;
                         }
-                        if (missionStore.GetActiveMissions(apiKey).Contains(missionId))
-                            missionState.MissionStatus = MissionStatus.Active;
-                        else
-                            missionState.MissionStatus = MissionStatus.Upcoming;
+                        missionState.MissionStatus = MissionStatus.Upcoming;
                     } else {
                         missionState.MissionStatus = MissionStatus.Completed;
                     }

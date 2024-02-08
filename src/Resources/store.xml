@@ -13370,10 +13370,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>20214</ii>
 		<ii>20215</ii>
 		<ii>20216</ii>
-		<ii>20229</ii>
-		<ii>20814</ii>
-		<ii>8741</ii>
-		<ii>14908</ii>
 		<ii>20239</ii>
 		<ii>20242</ii>
 		<ii>20249</ii>
@@ -13819,7 +13815,6 @@ SoD 3.31 main store section and subsection filtering:
 		<ii>20860</ii>
 		<ii>20861</ii>
 		<ii>20862</ii>
-		<ii>21003</ii>
 		<ii>13167</ii>
 		<ii>9662</ii>
 		<ii>10760</ii>
@@ -18505,8 +18500,6 @@ SoD 3.31 main store section and subsection filtering:
 			<sd>2013-01-01T00:00:00</sd>
 			<ed>2030-12-31T00:00:00</ed>
 		</ss>
-		<ii>12732</ii>
-		<ii>12721</ii>
 		<ii>12238</ii>
 		<ii>12239</ii>
 		<ii>12016</ii>
