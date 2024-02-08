@@ -11,17 +11,23 @@ namespace sodoff.Services {
         int[] itemsRewardForDT;
         Random random = new Random();
 
-        public ItemService() {
+        public ItemService(ModdingService moddingService) {
             ServerItemArray itemArray = XmlUtil.DeserializeXml<ServerItemArray>(XmlUtil.ReadResourceXmlString("items"));
             foreach (var item in itemArray.ItemDataArray) {
                 items.Add(item.ItemID, item);
             }
 
             itemsRewardForDT = XmlUtil.DeserializeXml<int[]>(XmlUtil.ReadResourceXmlString("dtrewards"));
+
+            moddingService.UpdateItems(ref items);
         }
 
         public ItemData GetItem(int id) {
-            return items[id];
+            try {
+                return items[id];
+            } catch {
+                return null;
+            }
         }
 
         public ItemData GetDTReward(Gender gender) {
@@ -88,6 +94,22 @@ namespace sodoff.Services {
 
         public bool IsBundleItem(int itemId) {
             return items[itemId].Relationship?.FirstOrDefault(e => e.Type == "Bundle") != null;
+        }
+
+        public bool IsGemBundle(int itemId, out int value) {
+            value = 0;
+            ItemAttribute? attribute = items[itemId].Attribute?.FirstOrDefault(e => e.Key == "VCashRedemptionValue");
+            if (attribute != null && int.TryParse(attribute.Value, out int result))
+                value = result;
+            return attribute != null;
+        }
+
+        public bool IsCoinBundle(int itemId, out int value) {
+            value = 0;
+            ItemAttribute? attribute = items[itemId].Attribute?.FirstOrDefault(e => e.Key == "CoinRedemptionValue");
+            if (attribute != null && int.TryParse(attribute.Value, out int result))
+                value = result;
+            return attribute != null;
         }
 
         public bool CheckItemGender(ItemData itemData, Gender gender) {

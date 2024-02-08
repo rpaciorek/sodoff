@@ -116,7 +116,7 @@ public class ProfileController : Controller {
             avatarData.Id = viking.Id;
         }
 
-        if (avatarData != null && (apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013")) {
+        if (avatarData != null && ClientVersion.Use2019SoDTutorial(apiKey)) {
             if (avatarData.Part.FirstOrDefault(e => e.PartType == "Sword") is null) {
                 var extraParts = new AvatarDataPart[] {
                     new AvatarDataPart {
@@ -153,7 +153,7 @@ public class ProfileController : Controller {
                 ParentUserID = viking.UserId.ToString(),
                 Username = viking.Name,
                 FirstName = viking.Name,
-                MultiplayerEnabled = (apiKey != "a1a13a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a2a09a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a3a12a0a-7c6e-4e9b-b0f7-22034d799013"),
+                MultiplayerEnabled = !ClientVersion.IsOldSoD(apiKey),
                 Locale = "en-US", // placeholder
                 GenderID = Gender.Male, // placeholder
                 OpenChatEnabled = true,
@@ -181,14 +181,16 @@ public class ProfileController : Controller {
             }
         };
 
+        UserGameCurrency currency = achievementService.GetUserCurrency(viking);
+
         return new UserProfileData {
             ID = viking.Uid.ToString(),
             AvatarInfo = avatar,
             AchievementCount = 0,
             MythieCount = 0,
             AnswerData = new UserAnswerData { UserID = viking.Uid.ToString() },
-            GameCurrency = 65536,
-            CashCurrency = 65536,
+            GameCurrency = currency.GameCurrency,
+            CashCurrency = currency.CashCurrency,
             ActivityCount = 0,
             BuddyCount = 0,
             UserGradeData = new UserGrade { UserGradeID = 0 }
