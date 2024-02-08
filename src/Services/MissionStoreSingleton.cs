@@ -12,6 +12,8 @@ public class MissionStoreSingleton {
     private int[] upcomingMissionsV1;
     private int[] activeMissionsWoJS;
     private int[] upcomingMissionsWoJS;
+    private int[] activeMissionsMaM;
+    private int[] upcomingMissionsMaM;
 
     public MissionStoreSingleton() {
         ServerMissionArray missionArray = XmlUtil.DeserializeXml<ServerMissionArray>(XmlUtil.ReadResourceXmlString("missions"));
@@ -21,11 +23,15 @@ public class MissionStoreSingleton {
         }
         activeMissions = defaultMissions.Active;
         upcomingMissions = defaultMissions.Upcoming;
-        
+
         defaultMissions = XmlUtil.DeserializeXml<DefaultMissions>(XmlUtil.ReadResourceXmlString("defaultmissionlistv1"));
         activeMissionsV1 = defaultMissions.Active;
         upcomingMissionsV1 = defaultMissions.Upcoming;
         
+        defaultMissions = XmlUtil.DeserializeXml<DefaultMissions>(XmlUtil.ReadResourceXmlString("defaultmissionlistmam"));
+        activeMissionsMaM = defaultMissions.Active;
+        upcomingMissionsMaM = defaultMissions.Upcoming;
+
         missionArray = XmlUtil.DeserializeXml<ServerMissionArray>(XmlUtil.ReadResourceXmlString("missions_wojs_new"));
         defaultMissions = XmlUtil.DeserializeXml<DefaultMissions>(XmlUtil.ReadResourceXmlString("defaultmissionlist_wojs_new"));
         foreach (var mission in missionArray.MissionDataArray) {
@@ -40,20 +46,26 @@ public class MissionStoreSingleton {
     }
 
     public int[] GetActiveMissions(string apiKey) {
-        if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
+        if (ClientVersion.Use2013SoDTutorial(apiKey)) {
             return activeMissionsV1;
         }
-        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875") { // World Of JumpStart
+        if (ClientVersion.IsMaM(apiKey)) {
+            return activeMissionsMaM;
+        }
+        if (ClientVersion.IsWoJS(apiKey)) {
             return activeMissionsWoJS;
         }
         return activeMissions;
     }
 
     public int[] GetUpcomingMissions(string apiKey) {
-        if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
+        if (ClientVersion.Use2013SoDTutorial(apiKey)) {
             return upcomingMissionsV1;
         }
-        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875") { // World Of JumpStart
+        if (ClientVersion.IsMaM(apiKey)) {
+            return upcomingMissionsMaM;
+        }
+        if (ClientVersion.IsWoJS(apiKey)) {
             return upcomingMissionsWoJS;
         }
         return upcomingMissions;
