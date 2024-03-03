@@ -26,8 +26,8 @@ namespace sodoff.Services {
                     ItemId = itemID,
                     Quantity = 0
                 };
-                if (itemData.ItemStatsMap is null && itemData.PossibleStatsMap != null) {
-                    // battle item without default stats
+                if (itemData.ItemStatsMap is null && itemData.PossibleStatsMap != null && !itemService.ItemHasCategory(itemData, 651)) {
+                    // battle item without default stats, but not blueprints
                     Random random = new Random();
                     int itemTier = random.Next(1, 3);
                     item.StatsSerialized = XmlUtil.SerializeXml(new ItemStatsMap {
@@ -120,6 +120,7 @@ namespace sodoff.Services {
             foreach (InventoryItem item in items) {
                 if (item.Quantity == 0) continue; // Don't include an item that the viking doesn't have
                 ItemData itemData = itemService.GetItem(item.ItemId);
+                if (itemData is null) continue; // Don't include items removed from item database
                 UserItemData uid = new UserItemData {
                     UserInventoryID = item.Id,
                     ItemID = itemData.ItemID,
@@ -136,6 +137,9 @@ namespace sodoff.Services {
                     uid.ItemStats = itemData.ItemStatsMap?.ItemStats;
                     uid.ItemTier = itemData.ItemStatsMap?.ItemTier;
                 }
+                if (item.AttributesSerialized != null) {
+                    uid.UserItemAttributes = XmlUtil.DeserializeXml<Schema.PairData>(item.AttributesSerialized);
+                }
                 userItemData.Add(uid);
             }
 
@@ -149,7 +153,7 @@ namespace sodoff.Services {
             ItemData itemData = itemService.GetItem(itemId);
             if (itemData.PossibleStatsMap != null) // dragons tactics (battle) items
                 return true;
-            if (itemService.ItemHasCategory(itemData, 541)) // farm expansion
+            if (itemService.ItemHasCategory(itemData, new int[] {541, 657})) // farm expansion or customizable items
                 return true;
             return false;
         }

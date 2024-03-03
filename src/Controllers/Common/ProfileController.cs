@@ -130,21 +130,7 @@ public class ProfileController : Controller {
             avatarData.Id = viking.Id;
         }
 
-        if (avatarData != null && (apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013")) {
-            if (avatarData.Part.FirstOrDefault(e => e.PartType == "Sword") is null) {
-                var extraParts = new AvatarDataPart[] {
-                    new AvatarDataPart {
-                        PartType = "Sword",
-                        Geometries = new string[] {"NULL"},
-                        Textures = new string[] {"__EMPTY__"},
-                        UserInventoryId = null,
-                    }
-                };
-                avatarData.Part = extraParts.Concat(avatarData.Part).ToArray();
-            }
-        }
-
-        if (avatarData != null && (apiKey == "a3a12a0a-7c6e-4e9b-b0f7-22034d799013")) {
+        if (avatarData != null && ClientVersion.GetVersion(apiKey) == 0xa3a12a0a) { // TODO adjust version number: we don't know for which versions it is required (for 3.12 it is, for 3.19 and 3.0 it's not)
             if (avatarData.Part.FirstOrDefault(e => e.PartType == "Sword") is null) {
                 var extraParts = new AvatarDataPart[] {
                     new AvatarDataPart {
@@ -167,7 +153,7 @@ public class ProfileController : Controller {
                 ParentUserID = viking.UserId.ToString(),
                 Username = viking.Name,
                 FirstName = viking.Name,
-                MultiplayerEnabled = (apiKey != "a1a13a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a2a09a0a-7c6e-4e9b-b0f7-22034d799013" && apiKey != "a3a12a0a-7c6e-4e9b-b0f7-22034d799013"),
+                MultiplayerEnabled = ClientVersion.IsMultiplayerSupported(apiKey),
                 Locale = "en-US", // placeholder
                 GenderID = viking.Gender,
                 OpenChatEnabled = true,
@@ -196,16 +182,16 @@ public class ProfileController : Controller {
             }
         };
 
-        int? currencyValue = viking.AchievementPoints.FirstOrDefault(e => e.Type == (int)AchievementPointTypes.GameCurrency)?.Value;
+        UserGameCurrency currency = achievementService.GetUserCurrency(viking);
 
         return new UserProfileData {
             ID = viking.Uid.ToString(),
             AvatarInfo = avatar,
             AchievementCount = 0,
             MythieCount = 0,
-            AnswerData = new UserAnswerData { UserID = viking.Uid.ToString(), Answers = profileService.GetUserAnswers(viking)},
-            GameCurrency = currencyValue ?? 0,
-            CashCurrency = 65536,
+            AnswerData = new UserAnswerData { UserID = viking.Uid.ToString(), Answers = profileService.GetUserAnswers(viking) },
+            GameCurrency = currency.GameCurrency,
+            CashCurrency = currency.CashCurrency,
             ActivityCount = 0,
             BuddyCount = 0,
             UserGradeData = new UserGrade { UserGradeID = 0 },

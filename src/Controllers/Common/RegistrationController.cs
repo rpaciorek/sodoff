@@ -63,7 +63,8 @@ public class RegistrationController : Controller {
         };
 
         // Check if user exists
-        if (apiKey == "1552008f-4a95-46f5-80e2-58574da65875" || apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") { // World Of JumpStart, Math Blaster
+        uint gameVersion = ClientVersion.GetVersion(apiKey);
+        if (gameVersion == ClientVersion.WoJS || gameVersion == ClientVersion.MB) {
             if (ctx.Users.Count(e => e.Email == u.Email) > 0) {
                 return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateEmail });
             }
@@ -74,12 +75,8 @@ public class RegistrationController : Controller {
 
         ctx.Users.Add(u);
 
-        if(apiKey == "6738196d-2a2c-4ef8-9b6e-1252c6ec7325") // Bath Master
-        {
-            // create a viking for math blaster
-
-            Viking v = new Viking
-            {
+        if(gameVersion == ClientVersion.MB) {
+            Viking v = new Viking {
                 Uid = Guid.NewGuid(),
                 Name = data.ChildList[0].ChildName,
                 User = u,
@@ -176,7 +173,8 @@ public class RegistrationController : Controller {
 
         // give child 50 coins on register
 
-        missionService.SetUpMissions(v, apiKey);
+        uint gameVersion = ClientVersion.GetVersion(apiKey);
+        missionService.SetUpMissions(v, gameVersion);
 
         v.AchievementPoints.Add(new AchievementPoints()
         {
@@ -194,7 +192,7 @@ public class RegistrationController : Controller {
         ctx.Vikings.Add(v);
         ctx.SaveChanges();
 
-        if (apiKey == "a1a13a0a-7c6e-4e9b-b0f7-22034d799013") {
+        if (gameVersion < 0xa2a09a0a) {
             keyValueService.SetPairData(null, v, null, 2017, new Schema.PairData {
                 Pairs = new Schema.Pair[]{
                     new Schema.Pair {

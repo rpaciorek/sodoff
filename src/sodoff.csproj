@@ -4,18 +4,42 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+
 	<UserSecretsId>fae10659-21e6-4733-ae61-9f2a2675a9ae</UserSecretsId>
 	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+
+    <DefineConstants>USE_SQLITE;$(DefineConstants)</DefineConstants>
+    <DefineConstants>USE_POSTGRESQL;$(DefineConstants)</DefineConstants>
+    <DefineConstants>USE_MYSQL;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.7" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.5" />
   </ItemGroup>
+  <Choose>
+    <When Condition="$(DefineConstants.Contains('USE_SQLITE'))">
+        <ItemGroup>
+            <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.7" />
+        </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(DefineConstants.Contains('USE_POSTGRESQL'))">
+        <ItemGroup>
+            <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+        </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(DefineConstants.Contains('USE_MYSQL'))">
+        <ItemGroup>
+            <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.5" />
+        </ItemGroup>
+    </When>
+  </Choose>
 
   <ItemGroup>
     <None Remove="Resources\achievementtaskinfo.xml" />
@@ -24,6 +48,7 @@
     <None Remove="Resources\mmo-js.xml" />
 	<None Remove="Resources\mmo-js-dev.xml" />
 	<None Remove="Resources\mmo-mb.xml" />
+    <None Remove="Resources\mmo.xml" />
     <None Remove="Resources\displaynames.xml" />
     <None Remove="Resources\rankattrib.xml" />
     <None Remove="Resources\rewardmultiplier.xml" />
@@ -34,6 +59,7 @@
     <None Remove="Resources\achievementstasks.xml" />
     <None Remove="Resources\defaultmissionlist.xml" />
     <None Remove="Resources\defaultmissionlistv1.xml" />
+    <None Remove="Resources\defaultmissionlistmam.xml" />
     <None Remove="Resources\defaultmissionlist_wojs.xml" />
 	<None Remove="Resources\defaultmissionlist_wojs_new.xml" />
 	<None Remove="Resources\jukeboxcnt.xml" />
@@ -50,12 +76,12 @@
     <None Update="Resources\store.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-	  <None Update="Resources\items.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\tutorialmission.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+    <None Update="Resources\items.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\tutorialmission.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\achievementsids.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -109,21 +135,21 @@
     <EmbeddedResource Include="Resources\items.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\missions.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\missions_wojs.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\missions_wojs_new.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
+    <EmbeddedResource Include="Resources\missions.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\missions_wojs_new.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\defaultmissionlist.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\defaultmissionlistv1.xml">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\defaultmissionlistmam.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\defaultmissionlist_wojs.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>

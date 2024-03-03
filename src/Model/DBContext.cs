@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using sodoff.Schema;
+using Microsoft.Extensions.Options;
+using sodoff.Configuration;
 
 namespace sodoff.Model;
 public class DBContext : DbContext {
@@ -23,21 +24,38 @@ public class DBContext : DbContext {
     public DbSet<GameDataPair> GameDataPairs { get; set; } = null!;
     public DbSet<AchievementPoints> AchievementPoints { get; set; } = null!;
     public DbSet<ProfileAnswer> ProfileAnswers { get; set; } = null!;
+    private readonly IOptions<ApiServerConfig> config;
 
-    public string DbPath { get; }
-
-    public DBContext() {
-        DbPath = Path.Join(Directory.GetCurrentDirectory(), "sodoff.db");
+    public DBContext(IOptions<ApiServerConfig> config) {
+        this.config = config;
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (System.Diagnostics.Debugger.IsAttached) optionsBuilder.UseSqlite($"Data Source={DbPath}").UseLazyLoadingProxies();
-        else
-        {
-            string dbPasswd = File.ReadAllText("./dbpasswd.txt");
-            optionsBuilder.UseMySQL($"Server=127.0.0.1;Database=jumpstartdb;Uid=jumpstart;Pwd={dbPasswd};Allow User Variables=True").UseLazyLoadingProxies();
-        }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        #if USE_POSTGRESQL
+            if (config.Value.DbProvider == DbProviders.PostgreSQL) {
+                optionsBuilder.UseNpgsql(config.Value.DbConnection).UseLazyLoadingProxies();
+                return;
+            }
+        #endif
+        #if USE_MYSQL
+            if (config.Value.DbProvider == DbProviders.MySQL) {
+                optionsBuilder.UseMySQL(config.Value.DbConnection).UseLazyLoadingProxies();
+                return;
+            }
+        #endif
+        #if USE_SQLITE
+            if (config.Value.DbProvider == DbProviders.SQLite) {
+                string DbPath;
+                if (String.IsNullOrEmpty(config.Value.DbPath)) {
+                    DbPath = Path.Join(Directory.GetCurrentDirectory(), "sodoff.db");
+                } else {
+                    DbPath = config.Value.DbPath;
+                }
+                optionsBuilder.UseSqlite($"Data Source={DbPath}").UseLazyLoadingProxies();
+                return;
+            }
+        #endif
+        throw new Exception($"Unsupported DbProvider {config.Value.DbProvider}");
     }
 
     protected override void OnModelCreating(ModelBuilder builder) {
@@ -105,6 +123,12 @@ public class DBContext : DbContext {
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasMany(v => v.Parties)
+            .WithOne(e => e.Viking);
+
+        builder.Entity<Viking>().HasMany(v => v.SavedData)
+            .WithOne(e => e.Viking);
+
+        builder.Entity<Viking>().HasMany(v => v.ProfileAnswers)
             .WithOne(e => e.Viking);
 
         // Dragons
@@ -205,6 +229,13 @@ public class DBContext : DbContext {
 
         builder.Entity<HouseData>().HasOne(i => i.Viking)
             .WithOne(i => i.House);
+
+        builder.Entity<SavedData>().HasKey(e => new { e.VikingId, e.SaveId });
+
+        builder.Entity<SavedData>()
+            .HasOne(e => e.Viking)
+            .WithMany(v => v.SavedData)
+            .HasForeignKey(e => e.VikingId);
 
         builder.Entity<ProfileAnswer>().HasOne(i => i.Viking)
             .WithMany(i => i.ProfileAnswers)
