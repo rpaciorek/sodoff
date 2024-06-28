@@ -23,7 +23,9 @@ public class DBContext : DbContext {
     public DbSet<ProfileAnswer> ProfileAnswers { get; set; } = null!;
     public DbSet<MMORole> MMORoles { get; set; } = null!;
     public DbSet<Party> Parties { get; set; } = null!;
-    public DbSet<BuddyRelation> BuddyRelations { get; set; } = null!;
+    public DbSet<Buddy> Buddies { get; set; } = null!;
+    public DbSet<Message> Messages { get; set; } = null!;
+
     private readonly IOptions<ApiServerConfig> config;
 
     public DBContext(IOptions<ApiServerConfig> config) {
@@ -129,6 +131,9 @@ public class DBContext : DbContext {
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasMany(v => v.MMORoles)
+            .WithOne(e => e.Viking);
+
+        builder.Entity<Viking>().HasMany(v => v.Messages)
             .WithOne(e => e.Viking);
 
         // Dragons
@@ -241,6 +246,11 @@ public class DBContext : DbContext {
         // MMO Roles
         builder.Entity<MMORole>().HasOne(r => r.Viking)
             .WithMany(e => e.MMORoles)
+            .HasForeignKey(e => e.VikingId);
+
+        // Messages
+        builder.Entity<Message>().HasOne(r => r.Viking)
+            .WithMany(e => e.Messages)
             .HasForeignKey(e => e.VikingId);
     }
 }

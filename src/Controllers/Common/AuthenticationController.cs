@@ -168,7 +168,7 @@ public class AuthenticationController : Controller {
     [Route("AuthenticationWebService.asmx/LoginChild")]
     [DecryptRequest("childUserID")]
     [EncryptResponse]
-    public IActionResult LoginChild([FromForm] Guid parentApiToken) {
+    public IActionResult LoginChild([FromForm] Guid parentApiToken, [FromForm] string apiKey) {
         User? user = ctx.Sessions.FirstOrDefault(e => e.ApiToken == parentApiToken)?.User;
         if (user is null) {
             return Unauthorized();
@@ -180,6 +180,9 @@ public class AuthenticationController : Controller {
         if (viking is null) {
             return Unauthorized();
         }
+
+        if (viking.GameKey is null) viking.GameKey = apiKey;
+        if (viking.GameKey != apiKey) return Unauthorized(); // do not let players log into users from other games
 
         // Check if user is viking parent
         if (user != viking.User) {

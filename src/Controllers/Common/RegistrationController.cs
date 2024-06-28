@@ -15,13 +15,16 @@ public class RegistrationController : Controller {
     private MissionService missionService;
     private RoomService roomService;
     private KeyValueService keyValueService;
+    private MessageService messageService;
 
-    public RegistrationController(DBContext ctx, ItemService itemService, MissionService missionService, RoomService roomService, KeyValueService keyValueService) {
+    public RegistrationController(DBContext ctx, ItemService itemService, MissionService missionService, RoomService roomService, KeyValueService keyValueService, MessageService messageService = null)
+    {
         this.ctx = ctx;
         this.itemService = itemService;
         this.missionService = missionService;
         this.roomService = roomService;
         this.keyValueService = keyValueService;
+        this.messageService = messageService;
     }
 
     [HttpPost]
@@ -77,7 +80,7 @@ public class RegistrationController : Controller {
         ctx.SaveChanges();
 
         if (gameVersion <= ClientVersion.Max_OldJS) {
-            CreateViking(u, data.ChildList[0], gameVersion);
+            CreateViking(u, data.ChildList[0], gameVersion, apiKey);
         }
 
         ParentLoginInfo pli = new ParentLoginInfo {
@@ -123,7 +126,7 @@ public class RegistrationController : Controller {
             return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateUserName });
         }
 
-        Viking v = CreateViking(user, data, ClientVersion.GetVersion(apiKey));
+        Viking v = CreateViking(user, data, ClientVersion.GetVersion(apiKey), apiKey);
 
         return Ok(new RegistrationResult {
             UserID = v.Uid.ToString(),
@@ -131,7 +134,7 @@ public class RegistrationController : Controller {
         });
     }
 
-    private Viking CreateViking(User user, ChildRegistrationData data, uint gameVersion) {
+    private Viking CreateViking(User user, ChildRegistrationData data, uint gameVersion, string apiKey) {
         List<InventoryItem> items = new();
         if (gameVersion >= ClientVersion.Min_SoD) {
             items.Add( new InventoryItem { ItemId = 8977, Quantity = 1 } ); // DragonStableINTDO - Dragons Dragon Stable
@@ -145,7 +148,8 @@ public class RegistrationController : Controller {
             AchievementPoints = new List<AchievementPoints>(),
             Rooms = new List<Room>(),
             CreationDate = DateTime.UtcNow,
-            BirthDate = data.BirthDate
+            BirthDate = data.BirthDate,
+            GameKey = apiKey,
         };
 
         missionService.SetUpMissions(v, gameVersion);

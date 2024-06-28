@@ -23,10 +23,11 @@ public class ContentController : Controller {
     private InventoryService inventoryService;
     private GameDataService gameDataService;
     private DisplayNamesService displayNamesService;
+    private BuddyService buddyService;
     private Random random = new Random();
     private readonly IOptions<ApiServerConfig> config;
     
-    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, GameDataService gameDataService, DisplayNamesService displayNamesService, IOptions<ApiServerConfig> config) {
+    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, GameDataService gameDataService, DisplayNamesService displayNamesService, BuddyService buddyService, IOptions<ApiServerConfig> config) {
         this.ctx = ctx;
         this.keyValueService = keyValueService;
         this.itemService = itemService;
@@ -36,6 +37,7 @@ public class ContentController : Controller {
         this.inventoryService = inventoryService;
         this.gameDataService = gameDataService;
         this.displayNamesService = displayNamesService;
+        this.buddyService = buddyService;
         this.config = config;
     }
 
@@ -1088,90 +1090,103 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetBuddyList")]
     [VikingSession]
     public IActionResult GetBuddyList(Viking viking) {
-        // grab all relations from database
-        List<BuddyRelation> buddies = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Uid).ToList();
-        List<Buddy> buddiesRes = new List<Buddy>();
-
-        if (buddies is null) return Ok(new BuddyList());
-
-        foreach(var buddy in buddies)
-        {
-            AvatarData? avatar = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Uid == buddy.BuddyID)?.AvatarSerialized);
-            buddiesRes.Add(new Buddy
-            {
-                BestBuddy = false,
-                CreateDate = DateTime.Now,
-                UserID = buddy.BuddyID.ToString(),
-                Status = BuddyStatus.Approved,
-                Online = true,
-                DisplayName = avatar.DisplayName,
-                OnMobile = false
-            });
-        }
-
-        return Ok(new BuddyList{ Buddy = buddiesRes.ToArray() });
+        return Ok(buddyService.GetBuddyList(viking));
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/AddBuddy")]
     [VikingSession]
-    public IActionResult AddBuddy(Viking viking, [FromForm] string buddyUserID) {
-        // TODO: this still is a placeholder
+    public IActionResult AddBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] string apiKey) {
+        Viking? receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
-        // create two relations for each user
+        if (receivingViking != null)
+            return Ok(buddyService.AddBuddy(viking, receivingViking, ClientVersion.GetVersion(apiKey)));
+        else 
+            return Ok(new BuddyActionResult { Result = BuddyActionResultType.InvalidFriendCode });
+    }
 
-        BuddyRelation relation = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = viking.Uid, BuddyID = Guid.Parse(buddyUserID) };
-        BuddyRelation relation2 = new BuddyRelation { Id = Guid.NewGuid().ToString(), OwnerID = Guid.Parse(buddyUserID), BuddyID = viking.Uid };
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/AddBuddyByFriendCode")]
+    [VikingSession]
+    public IActionResult AddBuddyByFriendCode(Viking viking, [FromForm] string friendCode, [FromForm] string apiKey)
+    {
+        Viking? receivingViking = ctx.Vikings.FirstOrDefault(e => e.BuddyCode == friendCode);
 
-        if (ctx.BuddyRelations.Contains(relation) || ctx.BuddyRelations.Contains(relation2)) return Ok(null); // DO NOT ADD IF ALREADY ADDED
+        if (receivingViking != null)
+            return Ok(buddyService.AddBuddy(viking, receivingViking, ClientVersion.GetVersion(apiKey)));
+        else
+            return Ok(new BuddyActionResult { Result = BuddyActionResultType.InvalidFriendCode });
+    }
 
-        ctx.BuddyRelations.Add(relation);
-        ctx.BuddyRelations.Add(relation2);
-        ctx.SaveChanges();
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/ApproveBuddy")]
+    [VikingSession]
+    public IActionResult ApproveBuddy(Viking viking, [FromForm] Guid buddyUserId)
+    {
+        Viking buddyViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserId);
 
-        // TODO - get proper response
-        return Ok(new BuddyActionResult
+        if (buddyViking != null)
         {
-            BuddyUserID = relation.BuddyID.ToString(),
-            Result = BuddyActionResultType.Success,
-            Status = BuddyStatus.Approved
-        });
+            return Ok(buddyService.AcceptBuddyRequest(viking, buddyViking));
+        }
+        else return Ok(new BuddyActionResult { Result = BuddyActionResultType.Unknown });
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/RemoveBuddy")]
     [VikingSession]
-    public IActionResult RemoveBuddy(Viking viking, [FromForm] string buddyUserId)
+    public IActionResult RemoveBuddy(Viking viking, [FromForm] Guid buddyUserId)
     {
-        // get buddy relation 1
-        BuddyRelation relation = ctx.BuddyRelations.Where(e => e.OwnerID == viking.Uid)
-            .FirstOrDefault(e => e.BuddyID == Guid.Parse(buddyUserId));
+        Viking receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserId);
 
-        // remove it
-        ctx.BuddyRelations.Remove(relation);
+        if (receivingViking != null)
+        {
+            return Ok(buddyService.RemoveBuddy(viking, receivingViking));
+        }
+        else return Ok(false);
+    }
 
-        // get buddy relation 2
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/UpdateBestBuddy")]
+    [VikingSession]
+    public IActionResult UpdateBestBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] bool bestBuddy)
+    {
+        Viking receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
-        BuddyRelation relation2 = ctx.BuddyRelations.Where(e => e.OwnerID == Guid.Parse(buddyUserId))
-            .FirstOrDefault(e => e.BuddyID == viking.Uid);
+        if (receivingViking != null)
+        {
+            return Ok(buddyService.SetBuddyAsBest(viking, receivingViking, bestBuddy));
+        }
+        else return Ok(new BuddyActionResult { Result = BuddyActionResultType.Unknown });
+    }
 
-        // remove it
-        ctx.BuddyRelations.Remove(relation2);
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetBuddyLocation")]
+    public IActionResult GetBuddyLocation([FromForm] Guid buddyUserID)
+    {
+        Viking viking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
-        ctx.SaveChanges();
-
-        // TODO - get proper response
-        return Ok(true);
+        if (viking != null)
+        {
+            return Ok(buddyService.GetBuddyLocation(viking));
+        }
+        else return Ok(new BuddyLocation());
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetFriendCode")]
-    public IActionResult GetFriendCode() {
-        // TODO: this is a placeholder
-        return Ok("SOONTM");
+    public IActionResult GetFriendCode([FromForm] Guid userId) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+
+        if (viking == null) return Ok("?????");
+        else return Ok(buddyService.GetOrSetBuddyCode(viking));
     }
 
     [HttpPost]

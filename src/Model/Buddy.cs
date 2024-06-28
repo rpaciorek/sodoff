@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using sodoff.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 
 namespace sodoff.Model
 {
-    public class BuddyRelation
+    public class Buddy
     {
         [Key]
         public string Id { get; set; } = null!;
@@ -13,5 +15,8 @@ namespace sodoff.Model
 
         public Guid BuddyID { get; set; }
 
+        public bool BestBuddy { get; set; }
+
+        public BuddyStatus Status { get; set; }
     }
 }
