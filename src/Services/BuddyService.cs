@@ -161,12 +161,13 @@ namespace sodoff.Services
 
             if (viking.BuddyCode == null)
             {
+            generationStart:
                 string generatedCode = "";
                 for(var i = 0; i < 5; i++)
                 {
                     generatedCode = generatedCode + BuddyCodeCharList[rnd.Next(0, BuddyCodeCharList.Length)];
-                    if (ctx.Vikings.FirstOrDefault(e => e.BuddyCode == generatedCode) != null) continue;
                 }
+                if (ctx.Vikings.FirstOrDefault(e => e.BuddyCode == generatedCode) != null) goto generationStart; // redefine string and generate again
                 viking.BuddyCode = generatedCode;
             }
 
