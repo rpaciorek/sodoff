@@ -12,6 +12,9 @@ namespace sodoff.Services
         private readonly DBContext ctx;
         private readonly IOptions<ApiServerConfig> config;
         private readonly MessageService messageService;
+        private char[] BuddyCodeCharList = {
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
+        };
         public BuddyService(DBContext ctx, IOptions<ApiServerConfig> config, MessageService messageService)
         {
             this.ctx = ctx;
@@ -51,7 +54,7 @@ namespace sodoff.Services
             Model.Buddy relation2 = new Model.Buddy { Id = Guid.NewGuid().ToString(), OwnerID = receiver.Uid, BuddyID = owner.Uid, Status = BuddyStatus.PendingApprovalFromSelf };
 
             // prevent receiver from receiving request if versions don't match
-            if (ClientVersion.GetVersion(receiver.GameKey) != ClientVersion.GetVersion(owner.GameKey)) return new BuddyActionResult { Result = BuddyActionResultType.InvalidFriendCode };
+            if (receiver.GameVersion != owner.GameVersion) return new BuddyActionResult { Result = BuddyActionResultType.InvalidFriendCode };
 
 
             if (receiver == owner) return new BuddyActionResult { Result = BuddyActionResultType.CannotAddSelf };
@@ -152,45 +155,6 @@ namespace sodoff.Services
 
         public string GetOrSetBuddyCode(Viking viking, string codeOverride = "")
         {
-            char[] charList = { 
-                'A', 
-                'B', 
-                'C', 
-                'D', 
-                'E', 
-                'F', 
-                'G', 
-                'H', 
-                'I', 
-                'J', 
-                'K', 
-                'L', 
-                'M', 
-                'N', 
-                'O', 
-                'P', 
-                'Q', 
-                'R', 
-                'S', 
-                'T', 
-                'U', 
-                'V', 
-                'W', 
-                'X', 
-                'Y', 
-                'Z', 
-                '1',
-                '2', 
-                '3', 
-                '4', 
-                '5', 
-                '6', 
-                '7', 
-                '8', 
-                '9', 
-                '0'
-            };
-
             Random rnd = new Random();
 
             if (!string.IsNullOrEmpty(codeOverride) && ctx.Vikings.FirstOrDefault(e => e.BuddyCode == codeOverride) == null) viking.BuddyCode = codeOverride;
@@ -200,7 +164,8 @@ namespace sodoff.Services
                 string generatedCode = "";
                 for(var i = 0; i < 5; i++)
                 {
-                    generatedCode = generatedCode + charList[rnd.Next(0, charList.Length)];
+                    generatedCode = generatedCode + BuddyCodeCharList[rnd.Next(0, BuddyCodeCharList.Length)];
+                    if (ctx.Vikings.FirstOrDefault(e => e.BuddyCode == generatedCode) != null) continue;
                 }
                 viking.BuddyCode = generatedCode;
             }
