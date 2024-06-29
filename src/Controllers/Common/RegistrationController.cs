@@ -149,7 +149,7 @@ public class RegistrationController : Controller {
             Rooms = new List<Room>(),
             CreationDate = DateTime.UtcNow,
             BirthDate = data.BirthDate,
-            GameKey = apiKey,
+            GameVersion = ClientVersion.GetVersion(apiKey).ToString(),
         };
 
         missionService.SetUpMissions(v, gameVersion);
