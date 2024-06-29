@@ -47,5 +47,5 @@ public class Viking {
     public string? BuddyCode { get; set; }
     public bool? Online {  get; set; }
     public string? CurrentRoom {  get; set; }
-    public string? GameVersion { get; set; }
+    public uint? GameVersion { get; set; }
 }

@@ -1170,13 +1170,15 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/GetBuddyLocation")]
     public IActionResult GetBuddyLocation([FromForm] Guid buddyUserID)
     {
-        Viking viking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
+        //Viking viking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
-        if (viking != null)
-        {
-            return Ok(buddyService.GetBuddyLocation(viking));
-        }
-        else return Ok(new BuddyLocation());
+        //if (viking != null)
+        //{
+        //    return Ok(buddyService.GetBuddyLocation(viking));
+        //}
+        //else return Ok(new BuddyLocation());
+
+        return NotFound(); // GetBuddyLocation at the moment is causing softlocks, prevent usage for now
     }
 
     [HttpPost]

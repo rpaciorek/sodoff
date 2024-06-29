@@ -181,8 +181,8 @@ public class AuthenticationController : Controller {
             return Unauthorized();
         }
 
-        if (viking.GameVersion is null) viking.GameVersion = ClientVersion.GetVersion(apiKey).ToString();
-        if (viking.GameVersion != ClientVersion.GetVersion(apiKey).ToString()) return Unauthorized(); // do not let players log into users from other games
+        if (viking.GameVersion is null) viking.GameVersion = ClientVersion.GetVersion(apiKey);
+        if (viking.GameVersion < ClientVersion.GetVersion(apiKey)) return Unauthorized(); // do not let players log into users from other games
 
         // Check if user is viking parent
         if (user != viking.User) {

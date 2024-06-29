@@ -135,23 +135,23 @@ namespace sodoff.Services
             return new BuddyActionResult { Result = BuddyActionResultType.Success };
         }
 
-        public BuddyLocation GetBuddyLocation(Viking viking)
-        {
-            Model.Buddy buddy = ctx.Buddies.FirstOrDefault(e => e.BuddyID == viking.Id);
+        //public BuddyLocation GetBuddyLocation(Viking viking)
+        //{
+        //    Model.Buddy buddy = ctx.Buddies.FirstOrDefault(e => e.BuddyID == viking.Id);
 
-            if (viking.CurrentRoom != null) return new BuddyLocation
-            {
-                Server = config.Value.MMOAdress,
-                ServerPort = config.Value.MMOPort,
-                ServerVersion = "S2X", // always use SmartFox 2X Protocol
-                Zone = "JumpStart", // TODO - put this in config
-                Room = viking.CurrentRoom,
-                UserID = buddy.BuddyID.ToString(),
-                MultiplayerID = 1, // TODO - what the fuck is this
-                AppName = "JSMain" // TODO - figure out how to detect this
-            };
-            else return new BuddyLocation();
-        }
+        //    if (viking.CurrentRoom != null) return new BuddyLocation
+        //    {
+        //        Server = config.Value.MMOAdress,
+        //        ServerPort = config.Value.MMOPort,
+        //        ServerVersion = "S2X", // always use SmartFox 2X Protocol
+        //        Zone = "JumpStart", // TODO - put this in config
+        //        Room = viking.CurrentRoom,
+        //        UserID = buddy.BuddyID.ToString(),
+        //        MultiplayerID = 1, // TODO - what the fuck is this
+        //        AppName = "JSMain" // TODO - figure out how to detect this
+        //    };
+        //    else return new BuddyLocation();
+        //}
 
         public string GetOrSetBuddyCode(Viking viking, string codeOverride = "")
         {
@@ -161,13 +161,15 @@ namespace sodoff.Services
 
             if (viking.BuddyCode == null)
             {
-            generationStart:
                 string generatedCode = "";
-                for(var i = 0; i < 5; i++)
+                while ( true ) // keep generating codes until a unique one is generated
                 {
-                    generatedCode = generatedCode + BuddyCodeCharList[rnd.Next(0, BuddyCodeCharList.Length)];
+                    for (var i = 0; i < 5; i++)
+                    {
+                        generatedCode = generatedCode + BuddyCodeCharList[rnd.Next(0, BuddyCodeCharList.Length)];
+                    }
+                    if (ctx.Vikings.FirstOrDefault(e => e.BuddyCode == generatedCode) == null) break;
                 }
-                if (ctx.Vikings.FirstOrDefault(e => e.BuddyCode == generatedCode) != null) goto generationStart; // redefine string and generate again
                 viking.BuddyCode = generatedCode;
             }
 

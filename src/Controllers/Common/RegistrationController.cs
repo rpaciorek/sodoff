@@ -80,7 +80,7 @@ public class RegistrationController : Controller {
         ctx.SaveChanges();
 
         if (gameVersion <= ClientVersion.Max_OldJS) {
-            CreateViking(u, data.ChildList[0], gameVersion, apiKey);
+            CreateViking(u, data.ChildList[0], gameVersion);
         }
 
         ParentLoginInfo pli = new ParentLoginInfo {
@@ -126,7 +126,7 @@ public class RegistrationController : Controller {
             return Ok(new RegistrationResult { Status = MembershipUserStatus.DuplicateUserName });
         }
 
-        Viking v = CreateViking(user, data, ClientVersion.GetVersion(apiKey), apiKey);
+        Viking v = CreateViking(user, data, ClientVersion.GetVersion(apiKey));
 
         return Ok(new RegistrationResult {
             UserID = v.Uid.ToString(),
@@ -134,7 +134,7 @@ public class RegistrationController : Controller {
         });
     }
 
-    private Viking CreateViking(User user, ChildRegistrationData data, uint gameVersion, string apiKey) {
+    private Viking CreateViking(User user, ChildRegistrationData data, uint gameVersion) {
         List<InventoryItem> items = new();
         if (gameVersion >= ClientVersion.Min_SoD) {
             items.Add( new InventoryItem { ItemId = 8977, Quantity = 1 } ); // DragonStableINTDO - Dragons Dragon Stable
@@ -150,7 +150,7 @@ public class RegistrationController : Controller {
             Messages = new List<Model.Message>(),
             CreationDate = DateTime.UtcNow,
             BirthDate = data.BirthDate,
-            GameVersion = ClientVersion.GetVersion(apiKey).ToString(),
+            GameVersion = gameVersion,
         };
 
         missionService.SetUpMissions(v, gameVersion);
