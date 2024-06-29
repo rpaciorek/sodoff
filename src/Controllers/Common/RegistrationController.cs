@@ -147,6 +147,7 @@ public class RegistrationController : Controller {
             InventoryItems = items,
             AchievementPoints = new List<AchievementPoints>(),
             Rooms = new List<Room>(),
+            Messages = new List<Model.Message>(),
             CreationDate = DateTime.UtcNow,
             BirthDate = data.BirthDate,
             GameVersion = ClientVersion.GetVersion(apiKey).ToString(),
@@ -171,6 +172,11 @@ public class RegistrationController : Controller {
                 }
             });
         }
+
+        // post message notifying user of coins
+        if (gameVersion >= ClientVersion.WoJS) messageService.PostDataMessage(v, v, "", MessageType.Data, MessageLevel.WhiteList, MessageTypeID.Achievement, 
+            "[[Line1]]=[[Welcome To ReStarted! Here's 300 Coins To Get You Started. Remember To Also Play The Missions To Earn JumpStars!]]",
+            "[[Line1]]=[[Welcome To ReStarted! Here's 300 Coins To Get You Started. Remember To Also Play The Missions To Earn JumpStars!]]");
 
         roomService.CreateRoom(v, "MyRoomINT");
 

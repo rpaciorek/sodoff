@@ -7,13 +7,15 @@ namespace sodoff.Model
 {
     public class Buddy
     {
+        public virtual Viking? Viking { get; set; }
+
         [Key]
         public string Id { get; set; } = null!;
 
         [Required]
-        public Guid OwnerID { get; set; }
+        public int OwnerID { get; set; }
 
-        public Guid BuddyID { get; set; }
+        public int BuddyID { get; set; }
 
         public bool BestBuddy { get; set; }
 

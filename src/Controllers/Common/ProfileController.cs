@@ -156,12 +156,12 @@ public class ProfileController : Controller {
             ID = viking.Uid.ToString(),
             AvatarInfo = avatar,
             AchievementCount = 0,
-            MythieCount = 0,
+            MythieCount = viking.Dragons.Count, // why this wasn't set to begin with is beyond me
             AnswerData = new UserAnswerData { UserID = viking.Uid.ToString(), Answers = profileService.GetUserAnswers(viking) },
             GameCurrency = currency.GameCurrency,
             CashCurrency = currency.CashCurrency,
             ActivityCount = 0,
-            BuddyCount = 0,
+            BuddyCount = viking.Buddies.Count,
             UserGradeData = new UserGrade { UserGradeID = 0 },
             UserProfileTag = new UserProfileTag()  {
                 CreateDate = new DateTime(DateTime.Now.Ticks),

@@ -136,6 +136,9 @@ public class DBContext : DbContext {
         builder.Entity<Viking>().HasMany(v => v.Messages)
             .WithOne(e => e.Viking);
 
+        builder.Entity<Viking>().HasMany(v => v.Buddies)
+            .WithOne(e => e.Viking);
+
         // Dragons
         builder.Entity<Dragon>().HasOne(d => d.Viking)
             .WithMany(e => e.Dragons)
@@ -252,5 +255,11 @@ public class DBContext : DbContext {
         builder.Entity<Message>().HasOne(r => r.Viking)
             .WithMany(e => e.Messages)
             .HasForeignKey(e => e.VikingId);
+
+        // Buddies
+        builder.Entity<Buddy>().HasOne(r => r.Viking)
+            .WithMany(e => e.Buddies)
+            .HasForeignKey(e => e.OwnerID)
+            .HasForeignKey(e => e.BuddyID);
     }
 }

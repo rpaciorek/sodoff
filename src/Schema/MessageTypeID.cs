@@ -9,6 +9,7 @@
         Rank = 4,
         BuddyList = 5,
         Jumpstar = 6,
+        SpaAdventureGift = 7,
         PrizeCode = 8,
         Achievement = 9,
         Messaging = 10,

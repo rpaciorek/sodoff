@@ -24,14 +24,14 @@ namespace sodoff.Services
 
         public BuddyList GetBuddyList(Viking viking)
         {
-            List<Model.Buddy> buddies = ctx.Buddies.Where(e => e.OwnerID == viking.Uid).ToList();
+            List<Model.Buddy> buddies = ctx.Buddies.Where(e => e.OwnerID == viking.Id).ToList();
             List<Schema.Buddy> buddiesRes = new List<Schema.Buddy>();
 
             if (buddies is null) return new BuddyList();
 
             foreach (var buddy in buddies)
             {
-                AvatarData? avatar = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Uid == buddy.BuddyID)?.AvatarSerialized);
+                AvatarData? avatar = XmlUtil.DeserializeXml<AvatarData>(ctx.Vikings.FirstOrDefault(e => e.Id == buddy.BuddyID)?.AvatarSerialized);
                 buddiesRes.Add(new Schema.Buddy
                 {
                     BestBuddy = buddy.BestBuddy,
@@ -40,7 +40,7 @@ namespace sodoff.Services
                     Status = buddy.Status,
                     DisplayName = avatar.DisplayName,
                     OnMobile = false,
-                    Online = ctx.Vikings.FirstOrDefault(e => e.Uid == buddy.BuddyID)?.Online ?? false,
+                    Online = ctx.Vikings.FirstOrDefault(e => e.Id == buddy.BuddyID)?.Online ?? false,
                 });
             }
 
@@ -50,8 +50,8 @@ namespace sodoff.Services
         public BuddyActionResult AddBuddy(Viking owner, Viking receiver, uint gameVersion)
         {
             // create two relations
-            Model.Buddy relation = new Model.Buddy { Id = Guid.NewGuid().ToString(), OwnerID = owner.Uid, BuddyID = receiver.Uid, Status = BuddyStatus.PendingApprovalFromOther };
-            Model.Buddy relation2 = new Model.Buddy { Id = Guid.NewGuid().ToString(), OwnerID = receiver.Uid, BuddyID = owner.Uid, Status = BuddyStatus.PendingApprovalFromSelf };
+            Model.Buddy relation = new Model.Buddy { Id = Guid.NewGuid().ToString(), OwnerID = owner.Id, BuddyID = receiver.Id, Status = BuddyStatus.PendingApprovalFromOther };
+            Model.Buddy relation2 = new Model.Buddy { Id = Guid.NewGuid().ToString(), OwnerID = receiver.Id, BuddyID = owner.Id, Status = BuddyStatus.PendingApprovalFromSelf };
 
             // prevent receiver from receiving request if versions don't match
             if (receiver.GameVersion != owner.GameVersion) return new BuddyActionResult { Result = BuddyActionResultType.InvalidFriendCode };
@@ -81,16 +81,16 @@ namespace sodoff.Services
         public bool RemoveBuddy(Viking owner, Viking receiver)
         {
             // get buddy relation 1
-            Model.Buddy relation = ctx.Buddies.Where(e => e.OwnerID == owner.Uid)
-                .FirstOrDefault(e => e.BuddyID == receiver.Uid);
+            Model.Buddy relation = ctx.Buddies.Where(e => e.OwnerID == owner.Id)
+                .FirstOrDefault(e => e.BuddyID == receiver.Id);
 
             // remove it
             ctx.Buddies.Remove(relation);
 
             // get buddy relation 2
 
-            Model.Buddy relation2 = ctx.Buddies.Where(e => e.OwnerID == receiver.Uid)
-                .FirstOrDefault(e => e.BuddyID == owner.Uid);
+            Model.Buddy relation2 = ctx.Buddies.Where(e => e.OwnerID == receiver.Id)
+                .FirstOrDefault(e => e.BuddyID == owner.Id);
 
             // remove it
             ctx.Buddies.Remove(relation2);
@@ -103,16 +103,16 @@ namespace sodoff.Services
         public bool AcceptBuddyRequest(Viking owner, Viking receiver)
         {
             // get buddy relation 1
-            Model.Buddy relation = ctx.Buddies.Where(e => e.OwnerID == owner.Uid)
-                .FirstOrDefault(e => e.BuddyID == receiver.Uid);
+            Model.Buddy relation = ctx.Buddies.Where(e => e.OwnerID == owner.Id)
+                .FirstOrDefault(e => e.BuddyID == receiver.Id);
 
             // change status to approved
             relation.Status = BuddyStatus.Approved;
 
             // get buddy relation 2
 
-            Model.Buddy relation2 = ctx.Buddies.Where(e => e.OwnerID == receiver.Uid)
-                .FirstOrDefault(e => e.BuddyID == owner.Uid);
+            Model.Buddy relation2 = ctx.Buddies.Where(e => e.OwnerID == receiver.Id)
+                .FirstOrDefault(e => e.BuddyID == owner.Id);
 
             // change status to approved
             relation2.Status = BuddyStatus.Approved;
@@ -124,8 +124,8 @@ namespace sodoff.Services
 
         public BuddyActionResult SetBuddyAsBest(Viking viking, Viking vikingToSet, bool best)
         {
-            Model.Buddy buddyToSet = ctx.Buddies.Where(e => e.OwnerID == viking.Uid)
-                .FirstOrDefault(e => e.BuddyID == vikingToSet.Uid);
+            Model.Buddy buddyToSet = ctx.Buddies.Where(e => e.OwnerID == viking.Id)
+                .FirstOrDefault(e => e.BuddyID == vikingToSet.Id);
 
             if (buddyToSet == null) return new BuddyActionResult { Result = BuddyActionResultType.Unknown };
 
@@ -137,7 +137,7 @@ namespace sodoff.Services
 
         public BuddyLocation GetBuddyLocation(Viking viking)
         {
-            Model.Buddy buddy = ctx.Buddies.FirstOrDefault(e => e.BuddyID == viking.Uid);
+            Model.Buddy buddy = ctx.Buddies.FirstOrDefault(e => e.BuddyID == viking.Id);
 
             if (viking.CurrentRoom != null) return new BuddyLocation
             {

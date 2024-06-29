@@ -127,6 +127,27 @@ namespace sodoff.Services
                             break;
                     }
                 }
+
+                // assume messageinfo with membermessage and nonmembermessage if type is not recognized
+
+                CombinedListMessage msgResAssumed = new CombinedListMessage
+                {
+                    MessageType = (int)message.MessageType,
+                    MessageBody = XmlUtil.SerializeXml(new MessageInfo
+                    {
+                        UserMessageQueueID = message.QueueID,
+                        MessageID = message.Id,
+                        MessageTypeID = (int)message.MessageTypeID,
+                        FromUserID = ctx.Vikings.FirstOrDefault(e => e.Id == message.FromVikingId).Uid.ToString() ?? "NotFound",
+                        MemberMessage = message.MemberMessage,
+                        NonMemberMessage = message.NonMemberMessage,
+                        Data = message.Data,
+                        CreateDate = message.CreatedAt
+                    }),
+                    MessageDate = message.CreatedAt
+                };
+
+                messagesResponse.Add(msgResAssumed);
             }
 
             // always add announcements
@@ -177,6 +198,7 @@ namespace sodoff.Services
                 if (!showOldMessages && message.CreatedAt > DateTime.UtcNow.AddMinutes(30) || message.IsDeleted) continue;
                 if (!message.IsNew && !showOldMessages) continue;
                 if (message.MessageType == MessageType.Announcement) continue; // do not add announcements due to missing from viking
+                if (message.MessageTypeID == MessageTypeID.Achievement) continue; // do not add achievement type due to softlock
                 messagesResponse.Add(new MessageInfo
                 {
                     MessageID = message.Id,
