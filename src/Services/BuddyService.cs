@@ -25,20 +25,19 @@ namespace sodoff.Services
         public BuddyList GetBuddyList(Viking viking)
         {
             List<Schema.Buddy> buddies = new List<Schema.Buddy>();
-            foreach(Model.Buddy buddy in viking.Buddies)
+
+            List<Model.Buddy> vikingBuddies = ctx.Buddies.Where(e => e.OwnerID == viking.Id).ToList(); // relations aren't right, getting around it
+
+            foreach(Model.Buddy buddy in vikingBuddies)
             {
-                Model.Buddy otherBuddy = ctx.Buddies.FirstOrDefault(e => e.OwnerID == buddy.BuddyID);
-
-                if (otherBuddy == null) continue;
-
                 buddies.Add(new Schema.Buddy
                 {
-                    BestBuddy = otherBuddy.BestBuddy,
-                    DisplayName = XmlUtil.DeserializeXml<AvatarData>(otherBuddy.Viking.AvatarSerialized).DisplayName,
-                    Online = otherBuddy.Viking.Online ?? false,
-                    Status = otherBuddy.Status,
+                    BestBuddy = buddy.BestBuddy,
+                    DisplayName = XmlUtil.DeserializeXml<AvatarData>(buddy.Viking.AvatarSerialized).DisplayName,
+                    Online = buddy.Viking.Online ?? false,
+                    Status = buddy.Status,
                     OnMobile = false,
-                    UserID = otherBuddy.Viking.Uid.ToString()
+                    UserID = buddy.Viking.Uid.ToString()
                 });
             }
 
