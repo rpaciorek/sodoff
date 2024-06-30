@@ -10,7 +10,7 @@ namespace sodoff.Model
         public virtual Viking? Viking { get; set; }
 
         [Key]
-        public string Id { get; set; } = null!;
+        public int Id { get; set; }
 
         [Required]
         public int OwnerID { get; set; }

@@ -1124,9 +1124,9 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/ApproveBuddy")]
     [VikingSession]
-    public IActionResult ApproveBuddy(Viking viking, [FromForm] Guid buddyUserId)
+    public IActionResult ApproveBuddy(Viking viking, [FromForm] Guid buddyUserID)
     {
-        Viking buddyViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserId);
+        Viking buddyViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
         if (buddyViking != null)
         {
@@ -1162,7 +1162,7 @@ public class ContentController : Controller {
         {
             return Ok(buddyService.SetBuddyAsBest(viking, receivingViking, bestBuddy));
         }
-        else return Ok(new BuddyActionResult { Result = BuddyActionResultType.Unknown });
+        else return Ok(false);
     }
 
     [HttpPost]
