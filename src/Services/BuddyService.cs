@@ -12,7 +12,7 @@ namespace sodoff.Services
         private readonly DBContext ctx;
         private readonly IOptions<ApiServerConfig> config;
         private readonly MessageService messageService;
-        private char[] BuddyCodeCharList = {
+        private static readonly char[] BuddyCodeCharList = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
         };
         public BuddyService(DBContext ctx, IOptions<ApiServerConfig> config, MessageService messageService)
@@ -160,14 +160,13 @@ namespace sodoff.Services
             if (viking.BuddyCode == null)
             {
                 string generatedCode = "";
-                while ( true ) // keep generating codes until a unique one is generated
+                do // keep generating codes until a unique one is generated
                 {
                     for (var i = 0; i < 5; i++)
                     {
                         generatedCode = generatedCode + BuddyCodeCharList[rnd.Next(0, BuddyCodeCharList.Length)];
                     }
-                    if (ctx.Vikings.FirstOrDefault(e => e.BuddyCode == generatedCode) == null) break;
-                }
+                } while (ctx.Vikings.FirstOrDefault(e => e.BuddyCode == generatedCode) != null);
                 viking.BuddyCode = generatedCode;
             }
 
