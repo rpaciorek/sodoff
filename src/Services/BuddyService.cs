@@ -33,7 +33,7 @@ namespace sodoff.Services
 
                 buddies.Add(new Schema.Buddy
                 {
-                    BestBuddy = buddy.BestBuddy,
+                    BestBuddy = otherBuddy.BestBuddy,
                     DisplayName = XmlUtil.DeserializeXml<AvatarData>(otherBuddy.Viking.AvatarSerialized).DisplayName,
                     Online = otherBuddy.Viking.Online ?? false,
                     Status = otherBuddy.Status,
