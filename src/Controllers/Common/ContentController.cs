@@ -23,10 +23,11 @@ public class ContentController : Controller {
     private InventoryService inventoryService;
     private GameDataService gameDataService;
     private DisplayNamesService displayNamesService;
+    private BuddyService buddyService;
     private Random random = new Random();
     private readonly IOptions<ApiServerConfig> config;
     
-    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, GameDataService gameDataService, DisplayNamesService displayNamesService, IOptions<ApiServerConfig> config) {
+    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, GameDataService gameDataService, DisplayNamesService displayNamesService, BuddyService buddyService, IOptions<ApiServerConfig> config) {
         this.ctx = ctx;
         this.keyValueService = keyValueService;
         this.itemService = itemService;
@@ -36,6 +37,7 @@ public class ContentController : Controller {
         this.inventoryService = inventoryService;
         this.gameDataService = gameDataService;
         this.displayNamesService = displayNamesService;
+        this.buddyService = buddyService;
         this.config = config;
     }
 
@@ -1086,9 +1088,107 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetBuddyList")]
-    public IActionResult GetBuddyList() {
-        // TODO: this is a placeholder
-        return Ok(new BuddyList { Buddy = new Buddy[0] });
+    [VikingSession]
+    public IActionResult GetBuddyList(Viking viking) {
+        return Ok(buddyService.GetBuddyList(viking));
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/AddBuddy")]
+    [VikingSession]
+    public IActionResult AddBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] string apiKey) {
+        Viking? receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
+
+        if (receivingViking != null)
+            return Ok(buddyService.AddBuddy(viking, receivingViking, ClientVersion.GetVersion(apiKey)));
+        else 
+            return Ok(new BuddyActionResult { Result = BuddyActionResultType.InvalidFriendCode });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/AddBuddyByFriendCode")]
+    [VikingSession]
+    public IActionResult AddBuddyByFriendCode(Viking viking, [FromForm] string friendCode, [FromForm] string apiKey)
+    {
+        Viking? receivingViking = ctx.Vikings.FirstOrDefault(e => e.BuddyCode == friendCode);
+
+        if (receivingViking != null)
+            return Ok(buddyService.AddBuddy(viking, receivingViking, ClientVersion.GetVersion(apiKey)));
+        else
+            return Ok(new BuddyActionResult { Result = BuddyActionResultType.InvalidFriendCode });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/ApproveBuddy")]
+    [VikingSession]
+    public IActionResult ApproveBuddy(Viking viking, [FromForm] Guid buddyUserID)
+    {
+        Viking buddyViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
+
+        if (buddyViking != null)
+        {
+            return Ok(buddyService.AcceptBuddyRequest(viking, buddyViking));
+        }
+        else return Ok(new BuddyActionResult { Result = BuddyActionResultType.Unknown });
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/RemoveBuddy")]
+    [VikingSession]
+    public IActionResult RemoveBuddy(Viking viking, [FromForm] Guid buddyUserId)
+    {
+        Viking receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserId);
+
+        if (receivingViking != null)
+        {
+            return Ok(buddyService.RemoveBuddy(viking, receivingViking));
+        }
+        else return Ok(false);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/UpdateBestBuddy")]
+    [VikingSession]
+    public IActionResult UpdateBestBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] bool bestBuddy)
+    {
+        Viking receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
+
+        if (receivingViking != null)
+        {
+            return Ok(buddyService.SetBuddyAsBest(viking, receivingViking, bestBuddy));
+        }
+        else return Ok(false);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetBuddyLocation")]
+    public IActionResult GetBuddyLocation([FromForm] Guid buddyUserID)
+    {
+        //Viking viking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
+
+        //if (viking != null)
+        //{
+        //    return Ok(buddyService.GetBuddyLocation(viking));
+        //}
+        //else return Ok(new BuddyLocation());
+
+        return NotFound(); // GetBuddyLocation at the moment is causing softlocks, prevent usage for now
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetFriendCode")]
+    public IActionResult GetFriendCode([FromForm] Guid userId) {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+
+        if (viking == null) return Ok("?????");
+        else return Ok(buddyService.GetOrSetBuddyCode(viking));
     }
 
     [HttpPost]

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Security.Cryptography.Xml;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace sodoff.Schema;
 

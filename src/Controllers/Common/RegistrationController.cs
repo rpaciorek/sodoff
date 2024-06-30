@@ -15,13 +15,16 @@ public class RegistrationController : Controller {
     private MissionService missionService;
     private RoomService roomService;
     private KeyValueService keyValueService;
+    private MessageService messageService;
 
-    public RegistrationController(DBContext ctx, ItemService itemService, MissionService missionService, RoomService roomService, KeyValueService keyValueService) {
+    public RegistrationController(DBContext ctx, ItemService itemService, MissionService missionService, RoomService roomService, KeyValueService keyValueService, MessageService messageService = null)
+    {
         this.ctx = ctx;
         this.itemService = itemService;
         this.missionService = missionService;
         this.roomService = roomService;
         this.keyValueService = keyValueService;
+        this.messageService = messageService;
     }
 
     [HttpPost]
@@ -144,8 +147,10 @@ public class RegistrationController : Controller {
             InventoryItems = items,
             AchievementPoints = new List<AchievementPoints>(),
             Rooms = new List<Room>(),
+            Messages = new List<Model.Message>(),
             CreationDate = DateTime.UtcNow,
-            BirthDate = data.BirthDate
+            BirthDate = data.BirthDate,
+            GameVersion = gameVersion,
         };
 
         missionService.SetUpMissions(v, gameVersion);
@@ -166,6 +171,14 @@ public class RegistrationController : Controller {
                     },
                 }
             });
+        }
+
+        // post message notifying user of coins
+        if (gameVersion == ClientVersion.WoJS) {
+            messageService.PostDataMessage(v, v, "", MessageType.Data, MessageLevel.WhiteList, MessageTypeID.Achievement, 
+                "[[Line1]]=[[Welcome To ReStarted! Here's 300 Coins To Get You Started. Remember To Also Play The Missions To Earn JumpStars!]][[SubType]]=[[Coin]]",
+                "[[Line1]]=[[Welcome To ReStarted! Here's 300 Coins To Get You Started. Remember To Also Play The Missions To Earn JumpStars!]][[SubType]]=[[Coin]]"
+            );
         }
 
         roomService.CreateRoom(v, "MyRoomINT");

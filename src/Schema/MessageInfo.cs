@@ -4,7 +4,8 @@ namespace sodoff.Schema;
 
 [XmlRoot(ElementName = "MessageInfo", Namespace = "http://api.jumpstart.com/", IsNullable = true)]
 [Serializable]
-public class MessageInfo {
+public class MessageInfo
+{
     [XmlElement(ElementName = "UserMessageQueueID", IsNullable = true)]
     public int? UserMessageQueueID;
 
@@ -47,4 +48,6 @@ public class MessageInfo {
     [XmlElement(ElementName = "Data")]
     public string Data;
 
+    [XmlIgnore]
+    public DateTime CreateDate;
 }
