@@ -430,6 +430,20 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetAvatarByUserID")] // used by World Of Jumpstart, only for public information
+    public IActionResult GetAvatarByUserId([FromForm] Guid userId)
+    {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+        AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+
+        avatarData.Id = viking.Id;
+
+        if (viking != null && avatarData != null) return Ok(avatarData);
+        else return Ok(new AvatarData());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetAvatar")] // used by World Of Jumpstart
     [VikingSession]
     public IActionResult SetAvatarV1(Viking viking, [FromForm] string contentXML) {
