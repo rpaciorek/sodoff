@@ -205,7 +205,7 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("/V2/ContentWebService.asmx/SetDisplayName")]
     [VikingSession]
-    public IActionResult SetDisplayName(Viking viking, [FromForm] string request) {
+    public IActionResult SetDisplayName(Viking viking, [FromForm] string request, [FromForm] string apiKey) {
         string newName = XmlUtil.DeserializeXml<SetDisplayNameRequest>(request).DisplayName;
 
         if (String.IsNullOrWhiteSpace(newName) || ctx.Vikings.Count(e => e.Name == newName) > 0) {
@@ -214,6 +214,8 @@ public class ContentController : Controller {
                 StatusCode = AvatarValidationResult.AvatarDisplayNameInvalid
             });
         }
+
+        if (ClientVersion.GetVersion(apiKey) <= ClientVersion.WoJS && newName == "Frankie") return Ok(new SetAvatarResult { Success = false, StatusCode = AvatarValidationResult.AvatarDisplayNameInvalid }); // do not change displayname if wojs command 'cast 1' is used
 
         viking.Name = newName;
         AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
@@ -426,6 +428,20 @@ public class ContentController : Controller {
         AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
         avatarData.Id = viking.Id;
         return Ok(avatarData);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetAvatarByUserID")] // used by World Of Jumpstart, only for public information
+    public IActionResult GetAvatarByUserId([FromForm] Guid userId)
+    {
+        Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
+        AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
+
+        avatarData.Id = viking.Id;
+
+        if (viking != null && avatarData != null) return Ok(avatarData);
+        else return Ok(new AvatarData());
     }
 
     [HttpPost]
@@ -2204,7 +2220,7 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("MissionWebService.asmx/GetWorldId")] // used by Math Blaster
+    [Route("MissionWebService.asmx/GetWorldId")] // used by Math Blaster and WoJS Adventureland
     public IActionResult GetWorldId() {
         // TODO: This is a placeholder
         return Ok(0);
