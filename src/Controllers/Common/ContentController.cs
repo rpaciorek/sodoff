@@ -2176,8 +2176,8 @@ public class ContentController : Controller {
     public IActionResult GetGameDataByGame(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, bool buddyFilter, string apiKey) {
         return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter, apiKey));
     }
-	
-	[HttpPost]
+        
+    [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetGameDataByUser")] // used in My Scores
     [VikingSession(UseLock = true)]
