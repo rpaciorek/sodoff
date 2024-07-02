@@ -14,8 +14,11 @@ public class GameDataService {
     }
 
     public bool SaveGameData(Viking viking, int gameId, bool isMultiplayer, int difficulty, int gameLevel, string xmlDocumentData, bool win, bool loss) {
+		//TODO: save only unique scores; scores that the player hasn't hit yet, probably keep old date for existing scores
+		//or don't if you want ultra-unique scores (overwriting even the old score)
         Model.GameData? gameData = viking.GameData.FirstOrDefault(x => x.GameId == gameId && x.IsMultiplayer == isMultiplayer && x.Difficulty == difficulty && x.GameLevel == gameLevel && x.Win == win && x.Loss == loss);
-        if (gameData == null) {
+		
+        if (gameData == null) { //comment this check to turn off ultra-unique scores (for now)
             gameData = new Model.GameData {
                 GameId = gameId,
                 IsMultiplayer = isMultiplayer,
@@ -33,39 +36,61 @@ public class GameDataService {
         ctx.SaveChanges();
         return true;
     }
-
-    public GameDataSummary GetGameData(Viking viking, int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, bool buddyFilter, string apiKey, DateTime? startDate = null, DateTime? endDate = null) {
-        // TODO: Buddy filter
-        List<GameDataResponse> selectedData;
-        IQueryable<Model.GameData> query = ctx.GameData.Where(x => x.GameId == gameId && x.IsMultiplayer == false && x.Difficulty == difficulty && x.GameLevel == gameLevel);
-
-        if (startDate != null && endDate != null)
-            query = query.Where(x => x.DatePlayed >= startDate.Value.ToUniversalTime() && x.DatePlayed <= endDate.Value.AddMinutes(2).ToUniversalTime());
-
-        var query2 = query.SelectMany(e => e.GameDataPairs)
+	
+	List<GameDataResponse> GameDataResponseToList(IQueryable<Model.GameData> query, string key, int count, bool AscendingOrder, string apiKey) {
+		var query2 = query.SelectMany(e => e.GameDataPairs)
             .Where(x => x.Name == key);
+			
+		if (AscendingOrder)
+			query2 = query2.OrderBy(e => e.Value);
+		else
+			query2 = query2.OrderByDescending(e => e.Value);
 
         uint gameVersion = ClientVersion.GetVersion(apiKey);
         if (gameVersion <= ClientVersion.Max_OldJS) {
             // use DisplayName instead of Name
             if (AscendingOrder)
-                selectedData = query2.OrderBy(e => e.Value).Select(e => new GameDataResponse(
+                return query2.Select(e => new GameDataResponse(
                     XmlUtil.DeserializeXml<AvatarData>(e.GameData.Viking.AvatarSerialized).DisplayName, e.GameData.Viking.Uid, e.GameData.DatePlayed, e.GameData.Win, e.GameData.Loss, e.Value)
                 ).Take(count).ToList();
             else
-                selectedData = query2.OrderByDescending(e => e.Value).Select(e => new GameDataResponse(
+                return query2.Select(e => new GameDataResponse(
                     XmlUtil.DeserializeXml<AvatarData>(e.GameData.Viking.AvatarSerialized).DisplayName, e.GameData.Viking.Uid, e.GameData.DatePlayed, e.GameData.Win, e.GameData.Loss, e.Value)
                 ).Take(count).ToList();
         } else {
             if (AscendingOrder)
-                selectedData = query2.OrderBy(e => e.Value).Select(e => new GameDataResponse(
+                return query2.Select(e => new GameDataResponse(
                     e.GameData.Viking.Name, e.GameData.Viking.Uid, e.GameData.DatePlayed, e.GameData.Win, e.GameData.Loss, e.Value)
                 ).Take(count).ToList();
             else
-                selectedData = query2.OrderByDescending(e => e.Value).Select(e => new GameDataResponse(
+                return query2.Select(e => new GameDataResponse(
                     e.GameData.Viking.Name, e.GameData.Viking.Uid, e.GameData.DatePlayed, e.GameData.Win, e.GameData.Loss, e.Value)
                 ).Take(count).ToList();
         }
+	}
+
+    public GameDataSummary GetGameData(Viking viking, int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, bool buddyFilter, string apiKey, DateTime? startDate = null, DateTime? endDate = null) {
+        // TODO: Buddy filter
+		
+		IQueryable<Model.GameData> query = ctx.GameData.Where(x => x.GameId == gameId && x.IsMultiplayer == false && x.Difficulty == difficulty && x.GameLevel == gameLevel);
+		
+		// for now if buddy filter is on, it will return no vikings, as a placeholder
+		if (buddyFilter)
+			query = query.Where(x => x.GameId == -1);
+
+        if (startDate != null && endDate != null)
+            query = query.Where(x => x.DatePlayed >= startDate.Value.ToUniversalTime() && x.DatePlayed <= endDate.Value.AddMinutes(2).ToUniversalTime());
+
+        List<GameDataResponse> selectedData = GameDataResponseToList(query, key, count, AscendingOrder, apiKey);
+
+        return GetSummaryFromResponse(viking, isMultiplayer, difficulty, gameLevel, key, selectedData);
+    }
+	
+	// ByUser for JumpStart's My Scores
+	public GameDataSummary GetGameDataByUser(Viking viking, int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, string apiKey) {
+        IQueryable<Model.GameData> query = ctx.GameData.Where(x => x.GameId == gameId && x.IsMultiplayer == false && x.Difficulty == difficulty && x.GameLevel == gameLevel && x.VikingId == viking.Id);
+
+        List<GameDataResponse> selectedData = GameDataResponseToList(query, key, count, AscendingOrder, apiKey);
 
         return GetSummaryFromResponse(viking, isMultiplayer, difficulty, gameLevel, key, selectedData);
     }
