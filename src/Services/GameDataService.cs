@@ -59,13 +59,11 @@ public class GameDataService {
     }
 
     public GameDataSummary GetGameData(Viking viking, int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, bool buddyFilter, string apiKey, DateTime? startDate = null, DateTime? endDate = null) {
-        // TODO: Buddy filter
-        
         IQueryable<Model.GameData> query = ctx.GameData.Where(x => x.GameId == gameId && x.IsMultiplayer == false && x.Difficulty == difficulty && x.GameLevel == gameLevel);
+        IQueryable<Model.Buddy> buddyQuery = ctx.Buddies.Where(x => x.OwnerID == viking.Id);
         
-        // for now if buddy filter is on, it will return no vikings, as a placeholder
         if (buddyFilter)
-            query = query.Where(x => x.GameId == -1);
+            query = query.Join(buddyQuery, x => x.VikingId, y => y.BuddyID, (x, y) => x);
 
         if (startDate != null && endDate != null)
             query = query.Where(x => x.DatePlayed >= startDate.Value.ToUniversalTime() && x.DatePlayed <= endDate.Value.AddMinutes(2).ToUniversalTime());
