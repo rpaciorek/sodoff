@@ -137,13 +137,13 @@ namespace sodoff.Services
             Model.Buddy? buddy = ctx.Buddies.FirstOrDefault(e => e.BuddyID == viking.Id);
             var location = new BuddyLocation();
 
-            if (viking.CurrentRoom != null && buddy != null) location = new BuddyLocation
+            if (viking.CurrentRoomId != null && buddy != null) location = new BuddyLocation
             {
                 Server = config.Value.MMOAdress,
                 ServerPort = config.Value.MMOPort,
                 ServerVersion = "S2X", // always use SmartFox 2X Protocol
-                Zone = "MainStreet", // TODO - put this in config
-                Room = viking.CurrentRoom,
+                Zone = viking.CurrentRoomName ?? "RoomNotSet", // TODO - put this in config
+                Room = viking.CurrentRoomId.ToString() ?? "0",
                 UserID = viking.Uid.ToString()
             };
             else return new BuddyLocation();
