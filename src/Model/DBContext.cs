@@ -25,6 +25,7 @@ public class DBContext : DbContext {
     public DbSet<Party> Parties { get; set; } = null!;
     public DbSet<Buddy> Buddies { get; set; } = null!;
     public DbSet<Message> Messages { get; set; } = null!;
+    public DbSet<UserMissionData> UserMissionData { get; set; }
 
     private readonly IOptions<ApiServerConfig> config;
 
@@ -137,6 +138,9 @@ public class DBContext : DbContext {
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasMany(v => v.Buddies)
+            .WithOne(e => e.Viking);
+
+        builder.Entity<Viking>().HasMany(v => v.UserMissions)
             .WithOne(e => e.Viking);
 
         // Dragons
@@ -261,5 +265,10 @@ public class DBContext : DbContext {
             .WithMany(e => e.Buddies)
             .HasForeignKey(e => e.OwnerID)
             .HasForeignKey(e => e.BuddyID);
+
+        // User Mission Data (for older games and WoJS lands)
+        builder.Entity<UserMissionData>().HasOne(r => r.Viking)
+            .WithMany(e => e.UserMissions)
+            .HasForeignKey(e => e.VikingId);
     }
 }

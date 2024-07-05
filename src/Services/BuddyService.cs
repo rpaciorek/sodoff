@@ -132,23 +132,48 @@ namespace sodoff.Services
             return true;
         }
 
-        //public BuddyLocation GetBuddyLocation(Viking viking)
-        //{
-        //    Model.Buddy buddy = ctx.Buddies.FirstOrDefault(e => e.BuddyID == viking.Id);
+        public BuddyLocation GetBuddyLocation(Viking viking, uint gameVersion)
+        {
+            Model.Buddy? buddy = ctx.Buddies.FirstOrDefault(e => e.BuddyID == viking.Id);
+            var location = new BuddyLocation();
 
-        //    if (viking.CurrentRoom != null) return new BuddyLocation
-        //    {
-        //        Server = config.Value.MMOAdress,
-        //        ServerPort = config.Value.MMOPort,
-        //        ServerVersion = "S2X", // always use SmartFox 2X Protocol
-        //        Zone = "JumpStart", // TODO - put this in config
-        //        Room = viking.CurrentRoom,
-        //        UserID = buddy.BuddyID.ToString(),
-        //        MultiplayerID = 1, // TODO - what the fuck is this
-        //        AppName = "JSMain" // TODO - figure out how to detect this
-        //    };
-        //    else return new BuddyLocation();
-        //}
+            if (viking.CurrentRoom != null && buddy != null) location = new BuddyLocation
+            {
+                Server = config.Value.MMOAdress,
+                ServerPort = config.Value.MMOPort,
+                ServerVersion = "S2X", // always use SmartFox 2X Protocol
+                Zone = "MainStreet", // TODO - put this in config
+                Room = viking.CurrentRoom,
+                UserID = viking.Uid.ToString()
+            };
+            else return new BuddyLocation();
+
+            switch(gameVersion)
+            {
+                case ClientVersion.WoJS:
+                    {
+                        location.AppName = "JSMain";
+                        break;
+                    }
+                case ClientVersion.WoJS_NewAvatar:
+                    {
+                        location.AppName = "JSMain";
+                        break;
+                    }
+                case ClientVersion.WoJS_AdvLand:
+                    {
+                        location.AppName = "JSAdventureland";
+                        break;
+                    }
+                case ClientVersion.MB:
+                    {
+                        location.AppName = "MBMain";
+                        break;
+                    }
+            }
+
+            return location;
+        }
 
         public string GetOrSetBuddyCode(Viking viking, string codeOverride = "")
         {

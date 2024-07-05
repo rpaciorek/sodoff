@@ -19,7 +19,9 @@ public class MessagingController : Controller {
     [Produces("application/xml")]
     [Route("MessagingWebService.asmx/GetUserMessageQueue")]
     [VikingSession]
-    public ArrayOfMessageInfo? GetUserMessageQueue(Viking viking, [FromForm] bool showOldMessages, [FromForm] bool showDeletedMessages) {
+    public ArrayOfMessageInfo? GetUserMessageQueue(Viking viking, [FromForm] bool showOldMessages, [FromForm] bool showDeletedMessages, [FromForm] string apiKey) {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return new ArrayOfMessageInfo(); // disable social features in SuperSecret
+
         return new ArrayOfMessageInfo { MessageInfo = messageService.GetUserMessageInfoArray(viking, showOldMessages, showDeletedMessages) };
     }
 
@@ -27,7 +29,9 @@ public class MessagingController : Controller {
     [Produces("application/xml")]
     [Route("MessagingWebService.asmx/SendMessage")]
     [VikingSession]
-    public IActionResult SendMessage(Viking viking, [FromForm] Guid toUser, [FromForm] int messageID, [FromForm] string data) {
+    public IActionResult SendMessage(Viking viking, [FromForm] Guid toUser, [FromForm] int messageID, [FromForm] string data, [FromForm] string apiKey) {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Viking? toViking = ctx.Vikings.FirstOrDefault(e => e.Uid == toUser);
         ArrayOfKeyValuePairOfStringString arrayOfKVP = XmlUtil.DeserializeXml<ArrayOfKeyValuePairOfStringString>(data);
         List<KeyValuePairOfStringString> pairList = new List<KeyValuePairOfStringString>();
@@ -55,8 +59,8 @@ public class MessagingController : Controller {
         if (toViking == null) return Ok(false);
         else
         {
-            Model.Message msg = messageService.PostDataMessage(viking, toViking, data, MessageType.Data, MessageLevel.WhiteList, typeId, "[[Line1]]=[[{{BuddyUserName}} Sent You A " + typeText + "]]",
-                "[[Line1]]=[[{{BuddyUserName}} Sent You A " + typeText + "]]"); // hardcoding level for now
+            Model.Message msg = messageService.PostDataMessage(viking, toViking, data, MessageType.Data, MessageLevel.WhiteList, typeId, "[[Line1]]=[[{{BuddyUserName}} has sent you a " + typeText + "]]",
+                "[[Line1]]=[[{{BuddyUserName}} has sent you a " + typeText + "]]"); // hardcoding level for now
             if (msg != null) return Ok(true);
             else return Ok(false);
         }
@@ -65,7 +69,9 @@ public class MessagingController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("MessagingWebService.asmx/SaveMessage")]
-    public IActionResult SaveMessage([FromForm]int userMessageQueueId, [FromForm] bool isNew, [FromForm] bool isDeleted) {
+    public IActionResult SaveMessage([FromForm]int userMessageQueueId, [FromForm] bool isNew, [FromForm] bool isDeleted, [FromForm] string apiKey) {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Model.Message? messageFromQueueId = ctx.Messages.FirstOrDefault(e => e.QueueID == userMessageQueueId);
 
         if (messageFromQueueId != null)
@@ -83,8 +89,10 @@ public class MessagingController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("MessageWebService.asmx/GetCombinedListMessage")]
-    public ArrayOfCombinedListMessage? GetCombinedListMessage([FromForm] Guid userId)
+    public ArrayOfCombinedListMessage? GetCombinedListMessage([FromForm] Guid userId, [FromForm] string apiKey)
     {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return new ArrayOfCombinedListMessage(); // disable social features in SuperSecret
+
         Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
 
         if (viking == null) return new ArrayOfCombinedListMessage();
@@ -95,8 +103,10 @@ public class MessagingController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("MessageWebService.asmx/RemoveMessageFromBoard")]
-    public IActionResult RemoveMessageFromBoard([FromForm] int messageID)
+    public IActionResult RemoveMessageFromBoard([FromForm] int messageID, [FromForm] string apiKey)
     {
+        if(ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         return Ok(messageService.RemoveMessage(messageID));
     }
 }

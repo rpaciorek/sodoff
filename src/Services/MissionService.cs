@@ -54,6 +54,116 @@ public class MissionService {
         return mission;
     }
 
+    public MissionData GetMissionDataFromResource(uint gameVersion, int id)
+    {
+        if(gameVersion <= ClientVersion.WoJS_AdvLand)
+        {
+            return XmlUtil.DeserializeXml<MissionData>(XmlUtil.ReadResourceXmlString(id.ToString()));
+        }
+
+        return new MissionData();
+    }
+
+    public Step GetMissionStepFromFile(uint gameVersion, int id)
+    {
+        if (gameVersion <= ClientVersion.WoJS_AdvLand)
+        {
+            return XmlUtil.DeserializeXml<Step>(File.ReadAllText($"./Resources/wojs_adventureland_data/steps/{id}.xml"));
+        }
+
+        return new Step();
+    }
+
+    public Schema.UserMissionData GetUserMissionData(Viking viking, int worldId)
+    {
+        Schema.UserMissionData umdRes = new Schema.UserMissionData();
+
+        // instantiate schema lists and int lists
+        List<int> userMissionsCompletedIds = new List<int>();
+        List<UserMissionDataMission> missions = new List<UserMissionDataMission>();
+        List<UserMissionDataMissionStep> steps = new List<UserMissionDataMissionStep>();
+        List<int> tasks = new List<int>();
+
+        // get all initiated missions
+        List<Model.UserMissionData> vikingUmds = ctx.UserMissionData.Where(e => e.VikingId == viking.Id)
+            .Where(e => e.WorldId == worldId)
+            .ToList();
+
+        foreach(Model.UserMissionData mission in vikingUmds)
+        {
+            tasks.Add(mission.TaskId);
+            steps.Add(new UserMissionDataMissionStep { StepId = mission.StepId, TaskId = tasks.ToArray() });
+            missions.Add(new UserMissionDataMission { MissionId = mission.MissionId, Step = steps.ToArray() });
+        }
+
+        // add completed mission id's to usermissionscompletedids
+        List<Model.UserMissionData> vikingCompletedUmds = vikingUmds.Where(e => e.IsCompleted == true).ToList();
+
+        foreach(Model.UserMissionData mission in vikingCompletedUmds)
+        {
+            userMissionsCompletedIds.Add(mission.MissionId);
+        }
+
+        // construct response
+        umdRes.Mission = missions.ToArray();
+        umdRes.MissionComplete = userMissionsCompletedIds.ToArray();
+
+        // return
+        return umdRes;
+    }
+
+    public Model.UserMissionData SetOrUpdateUserMissionData(Viking viking, int worldId, int missionId, int stepId, int taskId)
+    {
+        // find any existing records of this mission
+        Model.UserMissionData? existingMission = ctx.UserMissionData.Where(e => e.VikingId == viking.Id)
+            .Where(e => e.WorldId == worldId)
+            .Where(e => e.MissionId == missionId)
+            .FirstOrDefault();
+
+        if (existingMission != null)
+        {
+            // update taskid and stepid
+            existingMission.StepId = stepId;
+            existingMission.TaskId = taskId;
+            ctx.SaveChanges();
+
+            return existingMission;
+        }
+
+        // add mission data to db
+
+        Model.UserMissionData missionData = new Model.UserMissionData()
+        {
+            WorldId = worldId,
+            MissionId = missionId,
+            StepId = stepId,
+            TaskId = taskId
+        };
+
+        viking.UserMissions.Add(missionData);
+        ctx.SaveChanges();
+
+        return missionData;
+    }
+
+    public bool SetUserMissionCompleted(Viking viking, int worldId, int missionId, bool isCompleted)
+    {
+        Model.UserMissionData mission = ctx.UserMissionData.Where(e => e.VikingId == viking.Id)
+            .Where(e => e.WorldId == worldId)
+            .Where(e => e.MissionId == missionId)
+            .FirstOrDefault();
+
+        if (mission != null)
+        {
+            // set mission complete
+            mission.IsCompleted = isCompleted;
+            ctx.SaveChanges();
+            return true;
+        }
+
+        return false;
+    }
+
     public List<MissionCompletedResult> UpdateTaskProgress(int missionId, int taskId, int userId, bool completed, string xmlPayload, uint gameVersion) {
         SetTaskProgressDB(missionId, taskId, userId, completed, xmlPayload);
 
