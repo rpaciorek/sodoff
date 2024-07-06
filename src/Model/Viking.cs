@@ -39,7 +39,11 @@ public class Viking {
     public virtual ICollection<MMORole> MMORoles { get; set; } = null!;
     public virtual ICollection<Message> Messages { get; set; } = null!;
     public virtual ICollection<Buddy> Buddies { get; set; } = null!;
+
     public virtual Neighborhood? Neighborhood { get; set; } = null!;
+=======
+    public virtual ICollection<UserMissionData> UserMissions { get; set; } = null!;
+
     public virtual Dragon? SelectedDragon { get; set; }
 
     public DateTime? CreationDate { get; set; }
@@ -47,6 +51,7 @@ public class Viking {
     public Gender? Gender { get; set; }
     public string? BuddyCode { get; set; }
     public bool? Online {  get; set; }
-    public string? CurrentRoom {  get; set; }
+    public int? CurrentRoomId {  get; set; }
+    public string? CurrentRoomName { get; set; }
     public uint? GameVersion { get; set; }
 }

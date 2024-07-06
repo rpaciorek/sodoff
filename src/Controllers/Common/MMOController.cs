@@ -39,7 +39,7 @@ namespace sodoff.Controllers.Common
         [HttpPost]
         [Produces("application/xml")]
         [Route("MMO/SetBuddyLocation")]
-        public IActionResult SetBuddyLocation([FromForm] Guid token, [FromForm] string location)
+        public IActionResult SetBuddyLocation([FromForm] Guid token, [FromForm] string roomId, [FromForm] string roomName)
         {
             Session session = ctx.Sessions.FirstOrDefault(e => e.ApiToken == token);
             Viking vikingToSet = null;
@@ -48,7 +48,9 @@ namespace sodoff.Controllers.Common
 
             if (vikingToSet != null)
             {
-                vikingToSet.CurrentRoom = location;
+                if (!string.IsNullOrEmpty(roomId)) vikingToSet.CurrentRoomId = int.Parse(roomId);
+                else vikingToSet.CurrentRoomId = 0;
+                vikingToSet.CurrentRoomName = roomName;
                 ctx.SaveChanges();
                 return Ok(true);
             } else return Ok(false);

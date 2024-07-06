@@ -10,6 +10,7 @@ using sodoff.Util;
 using sodoff.Configuration;
 using System;
 using System.Globalization;
+using System.IO;
 
 namespace sodoff.Controllers.Common;
 public class ContentController : Controller {
@@ -220,7 +221,7 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("/V2/ContentWebService.asmx/SetDisplayName")]
     [VikingSession]
-    public IActionResult SetDisplayName(Viking viking, [FromForm] string request) {
+    public IActionResult SetDisplayName(Viking viking, [FromForm] string request, [FromForm] string apiKey) {
         string newName = XmlUtil.DeserializeXml<SetDisplayNameRequest>(request).DisplayName;
 
         if (String.IsNullOrWhiteSpace(newName) || ctx.Vikings.Count(e => e.Name == newName) > 0) {
@@ -229,6 +230,8 @@ public class ContentController : Controller {
                 StatusCode = AvatarValidationResult.AvatarDisplayNameInvalid
             });
         }
+
+        if (ClientVersion.GetVersion(apiKey) <= ClientVersion.WoJS && newName == "Frankie") return Ok(new SetAvatarResult { Success = false, StatusCode = AvatarValidationResult.AvatarDisplayNameInvalid }); // do not change displayname if wojs command 'cast 1' is used
 
         viking.Name = newName;
         AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
@@ -1118,7 +1121,8 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetBuddyList")]
     [VikingSession]
-    public IActionResult GetBuddyList(Viking viking) {
+    public IActionResult GetBuddyList(Viking viking, [FromForm] string apiKey) {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
         return Ok(buddyService.GetBuddyList(viking));
     }
 
@@ -1127,6 +1131,8 @@ public class ContentController : Controller {
     [Route("ContentWebService.asmx/AddBuddy")]
     [VikingSession]
     public IActionResult AddBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] string apiKey) {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Viking? receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
         if (receivingViking != null)
@@ -1141,6 +1147,8 @@ public class ContentController : Controller {
     [VikingSession]
     public IActionResult AddBuddyByFriendCode(Viking viking, [FromForm] string friendCode, [FromForm] string apiKey)
     {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Viking? receivingViking = ctx.Vikings.FirstOrDefault(e => e.BuddyCode == friendCode);
 
         if (receivingViking != null)
@@ -1153,8 +1161,10 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/ApproveBuddy")]
     [VikingSession]
-    public IActionResult ApproveBuddy(Viking viking, [FromForm] Guid buddyUserID)
+    public IActionResult ApproveBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] string apiKey)
     {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Viking buddyViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
         if (buddyViking != null)
@@ -1168,8 +1178,10 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/RemoveBuddy")]
     [VikingSession]
-    public IActionResult RemoveBuddy(Viking viking, [FromForm] Guid buddyUserId)
+    public IActionResult RemoveBuddy(Viking viking, [FromForm] Guid buddyUserId, [FromForm] string apiKey)
     {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Viking receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserId);
 
         if (receivingViking != null)
@@ -1183,8 +1195,10 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/UpdateBestBuddy")]
     [VikingSession]
-    public IActionResult UpdateBestBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] bool bestBuddy)
+    public IActionResult UpdateBestBuddy(Viking viking, [FromForm] Guid buddyUserID, [FromForm] bool bestBuddy, [FromForm] string apiKey)
     {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Viking receivingViking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
         if (receivingViking != null)
@@ -1197,23 +1211,23 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetBuddyLocation")]
-    public IActionResult GetBuddyLocation([FromForm] Guid buddyUserID)
+    public IActionResult GetBuddyLocation([FromForm] Guid buddyUserID, [FromForm] string apiKey)
     {
-        //Viking viking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
+        Viking viking = ctx.Vikings.FirstOrDefault(e => e.Uid == buddyUserID);
 
-        //if (viking != null)
-        //{
-        //    return Ok(buddyService.GetBuddyLocation(viking));
-        //}
-        //else return Ok(new BuddyLocation());
-
-        return NotFound(); // GetBuddyLocation at the moment is causing softlocks, prevent usage for now
+        if (viking != null)
+        {
+            return Ok(buddyService.GetBuddyLocation(viking, ClientVersion.GetVersion(apiKey)));
+        }
+        else return Ok(new BuddyLocation());
     }
 
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetFriendCode")]
-    public IActionResult GetFriendCode([FromForm] Guid userId) {
+    public IActionResult GetFriendCode([FromForm] Guid userId, [FromForm] string apiKey) {
+        if (ClientVersion.SS <= ClientVersion.GetVersion(apiKey)) return NotFound(); // disable social features in SuperSecret
+
         Viking? viking = ctx.Vikings.FirstOrDefault(e => e.Uid == userId);
 
         if (viking == null) return Ok("?????");
@@ -2257,10 +2271,140 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("MissionWebService.asmx/GetWorldId")] // used by Math Blaster
-    public IActionResult GetWorldId() {
-        // TODO: This is a placeholder
+    [Route("MissionWebService.asmx/GetWorldId")] // used by Math Blaster and WoJS Adventureland
+    public IActionResult GetWorldId([FromForm] int gameId, [FromForm] string sceneName, [FromForm] string apiKey) {
+        
+        if(ClientVersion.GetVersion(apiKey) <= ClientVersion.WoJS_AdvLand)
+        {
+            int result = 0;
+            if (sceneName == "TrekAncient01" || sceneName == "TrekAncient01Nav" || sceneName == "TrekAncient01Roller" || sceneName == "Ancient01Zone01")
+            {
+                result = 1;
+            }
+            else if (sceneName == "TrekIndustrial01" || sceneName == "TrekIndustrial01Nav" || sceneName == "TrekIndustrial01Roller" || sceneName == "Industrial01Zone01")
+            {
+                result = 2;
+            }
+            else if (sceneName == "SeaLab" || sceneName == "Aquarium" || sceneName == "LrLetItRide")
+            {
+                result = 3;
+            }
+            else if (sceneName == "TrainingIsland" || sceneName == "HomeBase" || sceneName == "TownCenter" || sceneName == "MountainJetpack" || sceneName == "EnemyValley" || sceneName == "DanceScene" || sceneName == "ArtHouseAL" || sceneName == "AvatarCreatorAL" || sceneName == "KnCalendar")
+            {
+                result = 4;
+            }
+            else if (sceneName == "Ancient01Zone02")
+            {
+                result = 5;
+            }
+            else if (sceneName == "Ancient01Zone03")
+            {
+                result = 6;
+            }
+            else if (sceneName == "Ancient01Zone04")
+            {
+                result = 7;
+            }
+            else if (sceneName == "Ancient01Zone05")
+            {
+                result = 8;
+            }
+            else if (sceneName == "Industrial01Zone02")
+            {
+                result = 9;
+            }
+            else if (sceneName == "Industrial01Zone03")
+            {
+                result = 10;
+            }
+            else if (sceneName == "Industrial01Zone04")
+            {
+                result = 11;
+            }
+            else if (sceneName == "Industrial01Zone05")
+            {
+                result = 12;
+            }
+            else if (sceneName == "MerWreck" || sceneName == "MerRuins" || sceneName == "MerKelp")
+            {
+                result = 14;
+            }
+            else if (sceneName == "MerCaverns")
+            {
+                result = 15;
+            }
+            else if (sceneName == "MerTown")
+            {
+                result = 16;
+            }
+            else if (sceneName == "BubbleTrouble")
+            {
+                result = 17;
+            }
+            else if (sceneName == "PearlPush")
+            {
+                result = 18;
+            }
+
+            return Ok(result);
+        }
+
         return Ok(0);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("MissionWebService.asmx/GetBadge")]
+    public IActionResult GetBadge([FromForm] int gameId, [FromForm] string apiKey)
+    {
+        if (ClientVersion.GetVersion(apiKey) <= ClientVersion.WoJS_AdvLand && gameId == 1) return Ok(XmlUtil.DeserializeXml<BadgeData>(System.IO.File.ReadAllText("./Resources/wojs_adventureland_data/Badge.xml")));
+        return Ok(new BadgeData());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("MissionWebService.asmx/GetMission")]
+    public IActionResult GetMission([FromForm] int gameId, [FromForm] int type, [FromForm] string name, [FromForm] string apiKey)
+    {
+        if (gameId == 1 && name == "TrainingIsland") return Ok(missionService.GetMissionDataFromResource(ClientVersion.GetVersion(apiKey), 4));
+        return Ok(new MissionData());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetUserMission")]
+    [VikingSession]
+    public IActionResult GetUserMission(Viking viking, [FromForm] int worldId, [FromForm] string apiKey)
+    {
+        if (ClientVersion.GetVersion(apiKey) <= ClientVersion.WoJS_AdvLand)
+        {
+            return Ok(missionService.GetUserMissionData(viking, worldId));
+        }
+
+        return Ok(new Schema.UserMissionData());
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetUserMission")]
+    [VikingSession]
+    public IActionResult SetUserMission(Viking viking, [FromForm] int worldId, [FromForm] int missionId, [FromForm] int stepId, [FromForm] int taskId, [FromForm] string apiKey)
+    {
+        if (ClientVersion.GetVersion(apiKey) <= ClientVersion.WoJS_AdvLand)
+        {
+            missionService.SetOrUpdateUserMissionData(viking, worldId, missionId, stepId, taskId);
+            return Ok(true); // assuming true or false response here
+        }
+
+        return Ok(false);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("MissionWebService.asmx/GetStep")]
+    public IActionResult GetMissionStep([FromForm] int stepId, [FromForm] string apiKey)
+    {
+        return Ok(missionService.GetMissionStepFromFile(ClientVersion.GetVersion(apiKey), stepId));
     }
 
     [HttpPost]
