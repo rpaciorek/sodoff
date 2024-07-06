@@ -25,10 +25,24 @@ public class ContentController : Controller {
     private GameDataService gameDataService;
     private DisplayNamesService displayNamesService;
     private BuddyService buddyService;
+    private NeighborhoodService neighborhoodService;
     private Random random = new Random();
     private readonly IOptions<ApiServerConfig> config;
     
-    public ContentController(DBContext ctx, KeyValueService keyValueService, ItemService itemService, MissionService missionService, RoomService roomService, AchievementService achievementService, InventoryService inventoryService, GameDataService gameDataService, DisplayNamesService displayNamesService, BuddyService buddyService, IOptions<ApiServerConfig> config) {
+    public ContentController(
+        DBContext ctx,
+        KeyValueService keyValueService,
+        ItemService itemService,
+        MissionService missionService,
+        RoomService roomService,
+        AchievementService achievementService,
+        InventoryService inventoryService,
+        GameDataService gameDataService,
+        DisplayNamesService displayNamesService,
+        BuddyService buddyService,
+        NeighborhoodService neighborhoodService,
+        IOptions<ApiServerConfig> config
+    ) {
         this.ctx = ctx;
         this.keyValueService = keyValueService;
         this.itemService = itemService;
@@ -39,6 +53,7 @@ public class ContentController : Controller {
         this.gameDataService = gameDataService;
         this.displayNamesService = displayNamesService;
         this.buddyService = buddyService;
+        this.neighborhoodService = neighborhoodService;
         this.config = config;
     }
 
@@ -1726,7 +1741,7 @@ public class ContentController : Controller {
         );
         if (ret != null)
             return Ok(ret);
-        return Ok("");
+        return Ok(XmlUtil.ReadResourceXmlString("defaulthouse"));
     }
 
     [HttpPost]
@@ -1784,6 +1799,22 @@ public class ContentController : Controller {
         );
         ctx.SaveChanges();
         return Ok(true);
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/SetNeighbor")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult SetNeighbor(Viking viking, string neighboruserid, int slot) {
+        return Ok(neighborhoodService.SaveNeighbors(viking, neighboruserid, slot));
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetNeighborsByUserID")] // used by World Of Jumpstart
+    [VikingSession]
+    public IActionResult GetNeighborsByUserID(string userId) {
+        return Ok(neighborhoodService.GetNeighbors(userId));
     }
 
     [HttpPost]
