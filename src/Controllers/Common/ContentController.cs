@@ -1804,7 +1804,7 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/SetNeighbor")] // used by World Of Jumpstart
-    [VikingSession]
+    [VikingSession(UseLock=true)]
     public IActionResult SetNeighbor(Viking viking, string neighboruserid, int slot) {
         return Ok(neighborhoodService.SaveNeighbors(viking, neighboruserid, slot));
     }
@@ -1812,7 +1812,6 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetNeighborsByUserID")] // used by World Of Jumpstart
-    [VikingSession]
     public IActionResult GetNeighborsByUserID(string userId) {
         return Ok(neighborhoodService.GetNeighbors(userId));
     }
