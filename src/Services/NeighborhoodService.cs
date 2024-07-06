@@ -22,18 +22,26 @@ namespace sodoff.Services
             this.ctx = ctx;
         }
 
+        public Neighborhood SaveDefaultNeighbors(Viking viking)
+        {
+            Neighborhood newNeighborhood = new Neighborhood
+            {
+                VikingId = viking.Id,
+                Slot0 = this.slot0,
+                Slot1 = this.slot1,
+                Slot2 = this.slot2,
+                Slot3 = this.slot3,
+                Slot4 = this.slot4
+            };
+            viking.Neighborhood = newNeighborhood;
+            ctx.SaveChanges();
+            return newNeighborhood;
+        }
+
         public bool SaveNeighbors(Viking viking, string neighborUid, int slot) {
-            Model.Neighborhood? neighborhood = viking.Neighborhood;
-        
-            if (neighborhood == null) // if viking has no neighborhood yet, create a default one
-                viking.Neighborhood = new Model.Neighborhood {
-                    VikingId = viking.Id,
-                    Slot0 = this.slot0,
-                    Slot1 = this.slot1,
-                    Slot2 = this.slot2,
-                    Slot3 = this.slot3,
-                    Slot4 = this.slot4
-                };
+            Neighborhood? neighborhood = viking.Neighborhood;
+
+            if (neighborhood == null) SaveDefaultNeighbors(viking);
 
             // couldn't find a better way to do this
             switch (slot) {

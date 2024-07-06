@@ -61,7 +61,6 @@
     <None Remove="Resources\profiletags.xml" />
 
     <None Remove="Resources\defaulthouse.xml" />
-=======
 	<None Remove="Resources\wojs_adventureland_data\missions\4.xml" />
 
   </ItemGroup>
@@ -165,7 +164,6 @@
 	<EmbeddedResource Include="Resources\defaulthouse.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-=======
 	<EmbeddedResource Include="Resources\wojs_adventureland_data\missions\4.xml">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</EmbeddedResource>

@@ -28,7 +28,6 @@ public class DBContext : DbContext {
 
     public DbSet<Neighborhood> Neighborhoods { get; set; } = null!;
     // we had a brief debate on whether it's neighborhoods or neighborheed
-=======
     public DbSet<UserMissionData> UserMissionData { get; set; }
 
 
@@ -145,11 +144,10 @@ public class DBContext : DbContext {
         builder.Entity<Viking>().HasMany(v => v.Buddies)
             .WithOne(e => e.Viking);
 
-
         builder.Entity<Viking>().HasOne(v => v.Neighborhood)
-=======
-        builder.Entity<Viking>().HasMany(v => v.UserMissions)
+            .WithOne(e => e.Viking);
 
+        builder.Entity<Viking>().HasMany(v => v.UserMissions)
             .WithOne(e => e.Viking);
 
         // Dragons
@@ -249,7 +247,8 @@ public class DBContext : DbContext {
             .HasForeignKey(e => e.VikingId);
 
         builder.Entity<Party>().HasOne(i => i.Viking)
-            .WithMany(i => i.Parties);
+            .WithMany(i => i.Parties)
+            .HasForeignKey(i => i.VikingId);
 
         builder.Entity<ProfileAnswer>().HasOne(i => i.Viking)
             .WithMany(i => i.ProfileAnswers)
@@ -277,14 +276,13 @@ public class DBContext : DbContext {
 
 
         // Neighborhoods
-        builder.Entity<Neighborhood>().HasOne(r => r.Viking)
+        builder.Entity<Neighborhood>().HasOne(e => e.Viking)
             .WithOne(e => e.Neighborhood)
             .HasForeignKey<Neighborhood>(e => e.VikingId);
-=======
+
         // User Mission Data (for older games and WoJS lands)
         builder.Entity<UserMissionData>().HasOne(r => r.Viking)
             .WithMany(e => e.UserMissions)
             .HasForeignKey(e => e.VikingId);
-
     }
 }

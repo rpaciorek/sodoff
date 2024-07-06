@@ -16,8 +16,9 @@ public class RegistrationController : Controller {
     private RoomService roomService;
     private KeyValueService keyValueService;
     private MessageService messageService;
+    private NeighborhoodService neighborhoodService;
 
-    public RegistrationController(DBContext ctx, ItemService itemService, MissionService missionService, RoomService roomService, KeyValueService keyValueService, MessageService messageService = null)
+    public RegistrationController(DBContext ctx, ItemService itemService, MissionService missionService, RoomService roomService, KeyValueService keyValueService, MessageService messageService = null, NeighborhoodService neighborhoodService = null)
     {
         this.ctx = ctx;
         this.itemService = itemService;
@@ -25,6 +26,7 @@ public class RegistrationController : Controller {
         this.roomService = roomService;
         this.keyValueService = keyValueService;
         this.messageService = messageService;
+        this.neighborhoodService = neighborhoodService;
     }
 
     [HttpPost]
@@ -150,7 +152,7 @@ public class RegistrationController : Controller {
             Messages = new List<Model.Message>(),
             CreationDate = DateTime.UtcNow,
             BirthDate = data.BirthDate,
-            GameVersion = gameVersion,
+            GameVersion = gameVersion
         };
 
         missionService.SetUpMissions(v, gameVersion);
@@ -160,6 +162,8 @@ public class RegistrationController : Controller {
 
         ctx.Vikings.Add(v);
         ctx.SaveChanges();
+
+        neighborhoodService.SaveDefaultNeighbors(v);
 
         if (gameVersion >= ClientVersion.MaM && gameVersion < 0xa2a09a0a) {
             keyValueService.SetPairData(null, v, null, 2017, new Schema.PairData {

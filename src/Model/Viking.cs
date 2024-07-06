@@ -39,12 +39,10 @@ public class Viking {
     public virtual ICollection<MMORole> MMORoles { get; set; } = null!;
     public virtual ICollection<Message> Messages { get; set; } = null!;
     public virtual ICollection<Buddy> Buddies { get; set; } = null!;
-
-    public virtual Neighborhood? Neighborhood { get; set; } = null!;
-=======
     public virtual ICollection<UserMissionData> UserMissions { get; set; } = null!;
 
     public virtual Dragon? SelectedDragon { get; set; }
+    public virtual Neighborhood? Neighborhood { get; set; }
 
     public DateTime? CreationDate { get; set; }
     public DateTime? BirthDate { get; set; }
