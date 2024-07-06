@@ -23,7 +23,7 @@ namespace sodoff.Services
 
             foreach (Model.Message message in messages)
             {
-                if(message.IsDeleted || DateTime.UtcNow >= message.CreatedAt.AddDays(7))
+                if(message.IsDeleted)
                 {
                     ctx.Messages.Remove(message);
                     ctx.SaveChanges();
@@ -158,7 +158,7 @@ namespace sodoff.Services
 
             foreach(Model.Message annMsg in annMsgs)
             {
-                if(DateTime.UtcNow > annMsg.CreatedAt.AddDays(1)) // only keep announcements for one day
+                if(annMsg.CreatedAt > DateTime.UtcNow.AddDays(1)) // only keep announcements for one day
                 {
                     ctx.Messages.Remove(annMsg);
                     ctx.SaveChanges();
@@ -197,10 +197,9 @@ namespace sodoff.Services
 
             foreach(Model.Message message in recentMessages)
             {
-                if (!showOldMessages && message.IsDeleted) continue;
-                if (!message.IsNew) continue;
+                if (!showOldMessages && message.CreatedAt > DateTime.UtcNow.AddMinutes(30) || message.IsDeleted) continue;
+                if (!message.IsNew && !showOldMessages) continue;
                 if (message.MessageType == MessageType.Announcement) continue; // do not add announcements due to missing from viking
-                if (DateTime.UtcNow >= message.CreatedAt.AddMinutes(30) && message.IsNew) continue;
                 messagesResponse.Add(new MessageInfo
                 {
                     MessageID = message.Id,
