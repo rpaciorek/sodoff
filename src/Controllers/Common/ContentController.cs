@@ -2240,10 +2240,18 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.asmx/GetPeriodicGameDataByGame")] // used by Math Blaster
-    public IActionResult GetPeriodicGameDataByGame() {
-        // TODO: This is a placeholder
-        return Ok(new GameDataSummary());
+    [Route("ContentWebService.asmx/GetPeriodicGameDataByGame")] // used by Math Blaster and WoJS (probably from 24 hours ago to now)
+    [VikingSession(UseLock = true)]
+    public IActionResult GetPeriodicGameDataByGame(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, bool buddyFilter, string apiKey) {
+        return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter, apiKey, DateTime.Now.AddHours(-24), DateTime.Now));
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetGamePlayDataForDateRange")] // used by WoJS
+    public IActionResult GetGamePlayDataForDateRange(Viking viking, string startDate, string endDate) {
+        // stub, didn't work for some reason, even with the correct response
+        return Ok(new ArrayOfGamePlayData());
     }
 
     [HttpPost]
