@@ -25,6 +25,8 @@ public class DBContext : DbContext {
     public DbSet<Party> Parties { get; set; } = null!;
     public DbSet<Buddy> Buddies { get; set; } = null!;
     public DbSet<Message> Messages { get; set; } = null!;
+    public DbSet<Neighborhood> Neighborhoods { get; set; } = null!;
+    // we had a brief debate on whether it's neighborhoods or neighborheed
 
     private readonly IOptions<ApiServerConfig> config;
 
@@ -137,6 +139,9 @@ public class DBContext : DbContext {
             .WithOne(e => e.Viking);
 
         builder.Entity<Viking>().HasMany(v => v.Buddies)
+            .WithOne(e => e.Viking);
+
+        builder.Entity<Viking>().HasOne(v => v.Neighborhood)
             .WithOne(e => e.Viking);
 
         // Dragons
@@ -261,5 +266,10 @@ public class DBContext : DbContext {
             .WithMany(e => e.Buddies)
             .HasForeignKey(e => e.OwnerID)
             .HasForeignKey(e => e.BuddyID);
+
+        // Neighborhoods
+        builder.Entity<Neighborhood>().HasOne(r => r.Viking)
+            .WithOne(e => e.Neighborhood)
+            .HasForeignKey<Neighborhood>(e => e.VikingId);
     }
 }
