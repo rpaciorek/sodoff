@@ -628,7 +628,7 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.asmx/SetRaisedPet")] // used by World Of Jumpstart
+    [Route("ContentWebService.asmx/SetRaisedPet")] // used by World Of Jumpstart and Math Blaster
     [VikingSession]
     public IActionResult SetRaisedPetv1(Viking viking, [FromForm] string raisedPetData) {
         RaisedPetData petData = XmlUtil.DeserializeXml<RaisedPetData>(raisedPetData);
@@ -637,6 +637,17 @@ public class ContentController : Controller {
         Dragon? dragon = viking.Dragons.FirstOrDefault(e => e.Id == petData.RaisedPetID);
         if (dragon is null) {
             return Ok(false);
+        }
+
+        if (petData.Texture.StartsWith("RS_SHARED/Larva.unity3d/LarvaTex") && petData.GrowthState.GrowthStateID>4) {
+            petData.Texture = "RS_SHARED/" + petData.PetTypeID switch {
+                 5 => "EyeClops.unity3d/EyeClopsBrainRedTex",           // EyeClops
+                 6 => "RodeoLizard.unity3d/BlueLizardTex",              // RodeoLizard
+                 7 => "MonsterAlien01.unity3d/BlasterMythieGreenTex",   // MonsterAlien01
+                11 => "SpaceGriffin.unity3d/SpaceGriffinNormalBlueTex", // SpaceGriffin
+                10 => "Tweeter.unity3d/TweeterMuttNormalPurple",        // Tweeter
+                 _ => "null" // Anything with any other ID shouldn't exist.
+            };
         }
 
         dragon.RaisedPetData = XmlUtil.SerializeXml(UpdateDragon(dragon, petData));
@@ -2254,10 +2265,18 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.asmx/GetPeriodicGameDataByGame")] // used by Math Blaster
-    public IActionResult GetPeriodicGameDataByGame() {
-        // TODO: This is a placeholder
-        return Ok(new GameDataSummary());
+    [Route("ContentWebService.asmx/GetPeriodicGameDataByGame")] // used by Math Blaster and WoJS (probably from 24 hours ago to now)
+    [VikingSession(UseLock = true)]
+    public IActionResult GetPeriodicGameDataByGame(Viking viking, [FromForm] int gameId, bool isMultiplayer, int difficulty, int gameLevel, string key, int count, bool AscendingOrder, int score, bool buddyFilter, string apiKey) {
+        return Ok(gameDataService.GetGameData(viking, gameId, isMultiplayer, difficulty, gameLevel, key, count, AscendingOrder, buddyFilter, apiKey, DateTime.Now.AddHours(-24), DateTime.Now));
+    }
+
+    [HttpPost]
+    [Produces("application/xml")]
+    [Route("ContentWebService.asmx/GetGamePlayDataForDateRange")] // used by WoJS
+    public IActionResult GetGamePlayDataForDateRange(Viking viking, string startDate, string endDate) {
+        // stub, didn't work for some reason, even with the correct response
+        return Ok(new ArrayOfGamePlayData());
     }
 
     [HttpPost]

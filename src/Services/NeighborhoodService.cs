@@ -21,7 +21,7 @@ namespace sodoff.Services
         public NeighborhoodService(DBContext ctx) {
             this.ctx = ctx;
         }
-
+      
         public Neighborhood SaveDefaultNeighbors(Viking viking)
         {
             Neighborhood newNeighborhood = new Neighborhood
