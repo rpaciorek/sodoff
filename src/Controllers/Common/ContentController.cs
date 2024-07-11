@@ -778,16 +778,14 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.asmx/GetUnselectedPetByTypes")] // used by old SoD (e.g. 1.13) and Math Blaster
+    [Route("ContentWebService.asmx/GetUnselectedPetByTypes")] // used by old SoD (e.g. 1.13)
     [VikingSession(UseLock=false)]
-    public RaisedPetData[]? GetUnselectedPetByTypes(Viking viking, [FromForm] string? apiKey, [FromForm] string? userId, [FromForm] string petTypeIDs, [FromForm] bool active) {
-        if (apiKey != null
-            && (ClientVersion.GetVersion(apiKey) & ClientVersion.MB) != 0
-        ) {
-            Guid? userIdGuid = userId!=null ? new Guid(userId) : null;
-            Viking? ownerViking = userIdGuid!=null ? ctx.Vikings.FirstOrDefault(e => e.Uid == userIdGuid) : null;
-            if (ownerViking is not null) viking = ownerViking;
-        }
+    public RaisedPetData[]? GetUnselectedPetByTypes(Viking viking, [FromForm] string? userId, [FromForm] string petTypeIDs, [FromForm] bool active, [FromForm] string apiKey) {
+        // Get viking based on userId, or use request player's viking as a fallback.
+        Guid? userIdGuid = userId!=null ? new Guid(userId) : null;
+        Viking? ownerViking = userIdGuid!=null ? ctx.Vikings.FirstOrDefault(e => e.Uid == userIdGuid) : null;
+        if (ownerViking is not null) viking = ownerViking;
+        
         RaisedPetData[] dragons = viking.Dragons
             .Where(d => d.RaisedPetData is not null)
             .Select(d => GetRaisedPetDataFromDragon(d, viking.SelectedDragonId))
@@ -800,14 +798,10 @@ public class ContentController : Controller {
         List<RaisedPetData> filteredDragons = new List<RaisedPetData>();
         int[] petTypeIDsInt = Array.ConvertAll(petTypeIDs.Split(','), s => int.Parse(s));
         foreach (RaisedPetData dragon in dragons) {
-            if (petTypeIDsInt.Contains(dragon.PetTypeID) && (
-                // If api key is not sent,
-                apiKey == null 
-                // or client is not Math Blaster (but api key present),
-                || (ClientVersion.GetVersion(apiKey) & ClientVersion.MB) == 0
-                // or if the dragon is not selected (but is Math Blaster)
-                || viking.SelectedDragonId != dragon.RaisedPetID
-            )) {// Then let it through.
+            if (petTypeIDsInt.Contains(dragon.PetTypeID) && 
+                // Don't send the selected dragon.
+                viking.SelectedDragonId != dragon.RaisedPetID
+            ) {
                 filteredDragons.Add(dragon);
             }
         }
