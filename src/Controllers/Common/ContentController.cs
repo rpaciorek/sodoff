@@ -778,9 +778,16 @@ public class ContentController : Controller {
 
     [HttpPost]
     [Produces("application/xml")]
-    [Route("ContentWebService.asmx/GetUnselectedPetByTypes")] // used by old SoD (e.g. 1.13)
+    [Route("ContentWebService.asmx/GetUnselectedPetByTypes")] // used by old SoD (e.g. 1.13) and Math Blaster
     [VikingSession(UseLock=false)]
-    public RaisedPetData[]? GetUnselectedPetByTypes(Viking viking, [FromForm] string petTypeIDs, [FromForm] bool active) {
+    public RaisedPetData[]? GetUnselectedPetByTypes(Viking viking, [FromForm] string? apiKey, [FromForm] string? userId, [FromForm] string petTypeIDs, [FromForm] bool active) {
+        if (apiKey != null
+            && (ClientVersion.GetVersion(apiKey) & ClientVersion.MB) != 0
+        ) {
+            Guid? userIdGuid = userId!=null ? new Guid(userId) : null;
+            Viking? ownerViking = userIdGuid!=null ? ctx.Vikings.FirstOrDefault(e => e.Uid == userIdGuid) : null;
+            if (ownerViking is not null) viking = ownerViking;
+        }
         RaisedPetData[] dragons = viking.Dragons
             .Where(d => d.RaisedPetData is not null)
             .Select(d => GetRaisedPetDataFromDragon(d, viking.SelectedDragonId))
@@ -793,7 +800,14 @@ public class ContentController : Controller {
         List<RaisedPetData> filteredDragons = new List<RaisedPetData>();
         int[] petTypeIDsInt = Array.ConvertAll(petTypeIDs.Split(','), s => int.Parse(s));
         foreach (RaisedPetData dragon in dragons) {
-            if (petTypeIDsInt.Contains(dragon.PetTypeID)) {
+            if (petTypeIDsInt.Contains(dragon.PetTypeID) && (
+                // If api key is not sent,
+                apiKey == null 
+                // or client is not Math Blaster (but api key present),
+                || (ClientVersion.GetVersion(apiKey) & ClientVersion.MB) == 0
+                // or if the dragon is not selected (but is Math Blaster)
+                || viking.SelectedDragonId != dragon.RaisedPetID
+            )) {// Then let it through.
                 filteredDragons.Add(dragon);
             }
         }
@@ -809,10 +823,10 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetActiveRaisedPet")] // used by World Of Jumpstart
     [VikingSession(UseLock=false)]
-    public RaisedPetData[] GetActiveRaisedPet(Viking viking, [FromForm] string userId, [FromForm] int petTypeID) {
+    public RaisedPetData[] GetActiveRaisedPet(Viking viking, [FromForm] string? apiKey, [FromForm] string userId, [FromForm] int petTypeID) {
         if (petTypeID == 2) {
             // player can have multiple Minisaurs at the same time ... Minisaurs should never have been selected also ... so use GetUnselectedPetByTypes in this case
-            return GetUnselectedPetByTypes(viking, "2", false);
+            return GetUnselectedPetByTypes(viking, apiKey, userId, "2", false);
         }
 
         Dragon? dragon = viking.SelectedDragon;
