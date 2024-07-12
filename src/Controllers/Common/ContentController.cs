@@ -780,11 +780,13 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetUnselectedPetByTypes")] // used by old SoD (e.g. 1.13)
     [VikingSession(UseLock=false)]
-    public RaisedPetData[]? GetUnselectedPetByTypes(Viking viking, [FromForm] string? userId, [FromForm] string petTypeIDs, [FromForm] bool active, [FromForm] string apiKey) {
+    public RaisedPetData[]? GetUnselectedPetByTypes(Viking viking, [FromForm] string? userId, [FromForm] string petTypeIDs, [FromForm] bool active) {
         // Get viking based on userId, or use request player's viking as a fallback.
-        Guid? userIdGuid = userId!=null ? new Guid(userId) : null;
-        Viking? ownerViking = userIdGuid!=null ? ctx.Vikings.FirstOrDefault(e => e.Uid == userIdGuid) : null;
-        if (ownerViking is not null) viking = ownerViking;
+        if (userId != null) {
+            Guid userIdGuid = new Guid(userId);
+            Viking? ownerViking = ctx.Vikings.FirstOrDefault(e => e.Uid == userIdGuid);
+            if (ownerViking != null) viking = ownerViking;
+        }
         
         RaisedPetData[] dragons = viking.Dragons
             .Where(d => d.RaisedPetData is not null)
