@@ -819,7 +819,7 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetActiveRaisedPet")] // used by World Of Jumpstart
     [VikingSession(UseLock=false)]
-    public RaisedPetData[] GetActiveRaisedPet(Viking viking, [FromForm] string? apiKey, [FromForm] string userId, [FromForm] int petTypeID) {
+    public RaisedPetData[] GetActiveRaisedPet(Viking viking, [FromForm] string userId, [FromForm] int petTypeID) {
         if (petTypeID == 2) {
             // player can have multiple Minisaurs at the same time ... Minisaurs should never have been selected also ... so use GetUnselectedPetByTypes in this case
             return GetUnselectedPetByTypes(viking, userId, "2", false);
