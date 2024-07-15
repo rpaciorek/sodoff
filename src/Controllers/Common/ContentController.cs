@@ -1539,7 +1539,7 @@ public class ContentController : Controller {
     [HttpPost]
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/GetActiveParties")] // used by World Of Jumpstart
-    public IActionResult GetActiveParties()
+    public IActionResult GetActiveParties([FromForm] string apiKey)
     {
         List<Party> allParties = ctx.Parties.ToList();
         List<UserParty> userParties = new List<UserParty>();
@@ -1553,6 +1553,7 @@ public class ContentController : Controller {
 
                 continue;
             }
+
 
             Viking viking = ctx.Vikings.FirstOrDefault(e => e.Id == party.VikingId);
             AvatarData avatarData = XmlUtil.DeserializeXml<AvatarData>(viking.AvatarSerialized);
@@ -1578,7 +1579,17 @@ public class ContentController : Controller {
                 }
             }
 
-            userParties.Add(userParty);
+            uint gameVersion = ClientVersion.GetVersion(apiKey);
+            // Send only JumpStart parties to JumpStart
+            if (gameVersion <= ClientVersion.Max_OldJS && (gameVersion & ClientVersion.WoJS) != 0
+                && (party.Location == "MyNeighborhood"
+                || party.Location == "MyVIPRoomInt")) {
+                userParties.Add(userParty);
+            // Send only Math Blaster parties to Math Blaster
+            } else if (gameVersion == ClientVersion.MB
+                && party.Location == "MyPodInt") {
+                userParties.Add(userParty);
+            }
         }
 
         return Ok(new UserPartyData { NonBuddyParties = userParties.ToArray() });
