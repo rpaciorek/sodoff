@@ -1569,6 +1569,14 @@ public class ContentController : Controller {
 
             if (party.Location == "MyNeighborhood") userParty.DisplayName = $"{userParty.UserName}'s Block Party";
             if (party.Location == "MyVIPRoomInt") userParty.DisplayName = $"{userParty.UserName}'s VIP Party";
+            if (party.Location == "MyPodInt") {
+                // Only way to do this without adding another column to the table.
+                if (party.AssetBundle == "RS_DATA/PfMyPodBirthdayParty.unity3d/PfMyPodBirthdayParty") {
+                    userParty.DisplayName = $"{userParty.UserName}'s Pod Birthday Party";
+                } else {
+                    userParty.DisplayName = $"{userParty.UserName}'s Pod Party";
+                }
+            }
 
             userParties.Add(userParty);
         }
@@ -1624,7 +1632,7 @@ public class ContentController : Controller {
     [Produces("application/xml")]
     [Route("ContentWebService.asmx/PurchaseParty")] // used by World Of Jumpstart
     [VikingSession]
-    public IActionResult PurchaseParty(Viking viking, [FromForm] int itemId)
+    public IActionResult PurchaseParty(Viking viking, [FromForm] int itemId, [FromForm] string apiKey)
     {
         ItemData itemData = itemService.GetItem(itemId);
 
@@ -1640,14 +1648,25 @@ public class ContentController : Controller {
             return Ok(null);
         }
 
+        uint gameVersion = ClientVersion.GetVersion(apiKey);
         if (partyType == "Default") {
-            party.Location = "MyNeighborhood";
-            party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
-            party.AssetBundle = "RS_DATA/PfMyNeighborhoodParty.unity3d/PfMyNeighborhoodParty";
+            if (gameVersion == ClientVersion.MB) {
+                party.Location = "MyPodInt";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesListMB.unity3d/IcoMbPartyDefault";
+                party.AssetBundle = "RS_DATA/PfMyPodParty.unity3d/PfMyPodParty";
+            } else {
+                party.Location = "MyNeighborhood";
+                party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyLocationMyNeighborhood";
+                party.AssetBundle = "RS_DATA/PfMyNeighborhoodParty.unity3d/PfMyNeighborhoodParty";
+            }
         } else if (partyType == "VIPRoom") {
             party.Location = "MyVIPRoomInt";
             party.LocationIconAsset = "RS_DATA/PfUiPartiesList.unity3d/IcoPartyDefault";
             party.AssetBundle = "RS_DATA/PfMyVIPRoomIntPartyGroup.unity3d/PfMyVIPRoomIntPartyGroup";
+        } else if (partyType == "Birthday") {
+            party.Location = "MyPodInt";
+            party.LocationIconAsset = "RS_DATA/PfUiPartiesListMB.unity3d/IcoMbPartyBirthday";
+            party.AssetBundle = "RS_DATA/PfMyPodBirthdayParty.unity3d/PfMyPodBirthdayParty";
         } else {
             Console.WriteLine($"Unsupported partyType = {partyType}");
             return Ok(null);
