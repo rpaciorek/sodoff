@@ -271,8 +271,18 @@
 		<Ordinal>1</Ordinal>
 	</DisplayName>
 	<DisplayName>
+		<ID>304</ID>
+		<Name>Doc</Name>
+		<Ordinal>1</Ordinal>
+	</DisplayName>
+	<DisplayName>
 		<ID>303</ID>
 		<Name>Doctor</Name>
+		<Ordinal>1</Ordinal>
+	</DisplayName>
+	<DisplayName>
+		<ID>305</ID>
+		<Name>Document</Name>
 		<Ordinal>1</Ordinal>
 	</DisplayName>
 	<DisplayName>
