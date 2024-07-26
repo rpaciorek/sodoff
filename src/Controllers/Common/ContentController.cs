@@ -639,7 +639,19 @@ public class ContentController : Controller {
             return Ok(false);
         }
 
-        dragon.RaisedPetData = XmlUtil.SerializeXml(UpdateDragon(dragon, petData));
+        petData = UpdateDragon(dragon, petData);
+        if (petData.Texture != null && petData.Texture.StartsWith("RS_SHARED/Larva.unity3d/LarvaTex") && data.GrowthState.GrowthStateID > 4) {
+            petData.Texture = "RS_SHARED/" + petData.PetTypeID switch {
+                5 => "EyeClops.unity3d/EyeClopsBrainRedTex",           // EyeClops
+                6 => "RodeoLizard.unity3d/BlueLizardTex",              // RodeoLizard
+                7 => "MonsterAlien01.unity3d/BlasterMythieGreenTex",   // MonsterAlien01
+                11 => "SpaceGriffin.unity3d/SpaceGriffinNormalBlueTex", // SpaceGriffin
+                10 => "Tweeter.unity3d/TweeterMuttNormalPurple",        // Tweeter
+                _ => "null" // Anything with any other ID shouldn't exist.
+            };
+        }
+        dragon.RaisedPetData = XmlUtil.SerializeXml(petData);
+
         ctx.Update(dragon);
         ctx.SaveChanges();
 
@@ -2329,18 +2341,6 @@ public class ContentController : Controller {
         data.RaisedPetID = dragon.Id;
         data.EntityID = dragon.EntityId;
         data.IsSelected = (selectedDragonId == dragon.Id);
-
-        if (data.Texture != null && data.Texture.StartsWith("RS_SHARED/Larva.unity3d/LarvaTex") && data.GrowthState.GrowthStateID > 4) {
-            data.Texture = "RS_SHARED/" + data.PetTypeID switch {
-                5 => "EyeClops.unity3d/EyeClopsBrainRedTex",           // EyeClops
-                6 => "RodeoLizard.unity3d/BlueLizardTex",              // RodeoLizard
-                7 => "MonsterAlien01.unity3d/BlasterMythieGreenTex",   // MonsterAlien01
-                11 => "SpaceGriffin.unity3d/SpaceGriffinNormalBlueTex", // SpaceGriffin
-                10 => "Tweeter.unity3d/TweeterMuttNormalPurple",        // Tweeter
-                _ => "null" // Anything with any other ID shouldn't exist.
-            };
-        }
-
         return data;
     }
 
