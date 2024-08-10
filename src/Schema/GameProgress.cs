@@ -2,7 +2,7 @@
 
 namespace sodoff.Schema;
 
-[XmlRoot(ElementName = "GameProgress", Namespace = "")]
+[XmlRoot(ElementName = "progress", Namespace = "")]
 [Serializable]
 public class GameProgress {
 	[XmlElement(ElementName = "name")]
