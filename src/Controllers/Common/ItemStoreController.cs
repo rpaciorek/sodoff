@@ -79,9 +79,9 @@ public class ItemStoreController : Controller {
 
         uint gameVersion = ClientVersion.GetVersion(apiKey);
         if (gameVersion <= ClientVersion.Max_OldJS && (gameVersion & ClientVersion.WoJS) != 0) {
-            return Ok(XmlUtil.ReadResourceXmlString("announcements_wojs"));
+            return Ok(XmlUtil.DeserializeXml<AnnouncementList>(XmlUtil.ReadResourceXmlString("announcements_wojs")));
         } else if (gameVersion == ClientVersion.SS && worldObjectID == 6) {
-            return Ok(XmlUtil.ReadResourceXmlString("announcements_ss"));
+            return Ok(XmlUtil.DeserializeXml<AnnouncementList>(XmlUtil.ReadResourceXmlString("announcements_ss")));
         }
         
         return Ok(new AnnouncementList());
